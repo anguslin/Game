@@ -32,7 +32,6 @@ end
 DFlipFlopEnable #(8) yInitReg(clk, xInitToUpdate, xInit, reset, xInitLoad);
 endmodule
 
-
 //The starting point of the ycoordinate
 
 module yInitReg (clk, reset, yInitSel, yInit, yInitLoad);
@@ -103,7 +102,7 @@ input [4:0] memorySel;
 output reg [2:0] color;
 
 always @(*) begin
-	casex({black,memorySel})
+	casex({black,memorySel}) //Does not rely on clk to update
 		6'b1xxxxx: color = 3'b000;
 		6'b000000: color = title1;
 		6'b000001: color = title2;
@@ -142,5 +141,24 @@ always @(*) begin
 end
 
 endmodule
+
+module currentPlayerPoints(clk, reset, winner1, winner2, player1, player2, playerLoad)
+input clk,reset,winner, playerLoad;
+output [1:0] player1, player2;
+wire [1:0] player1ToUpdate, player2ToUpdate;
+
+assign player1ToUpdate = winner1? player1+1: player1;
+assign player2ToUpdate = winner2? player2+1: player2;
+
+DFlipFlopEnable #(2) player1Reg(clk, player1ToUpdate, player1, reset, playerLoad);
+DFlipFlopEnable #(2) player2Reg(clk, player2ToUpdate, player2, reset, playerLoad);
+
+endmodule
+
+
+
+
+
+
 
 
