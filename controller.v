@@ -22,6 +22,8 @@ input cont1a, cont1b, cont1c, cont1d, cont1e, cont1f, cont1g, cont1h, cont1i, co
 'define s5a= 5'b01101
 'define s5b= 5'b01110
 
+'define blackScreen= 5'b01111
+
 //STATE ASSIGNMENTS
 //Update state on clock; if reset, goes to state with 5'b00000 which is the first state
 DFlipFlop #(5) (clk, nextState, currentState, reset);
@@ -130,7 +132,14 @@ always @(*) begin
 		's5b: begin 
 	
 	end
-		
+		'BLACK_RESET: begin
+		 controlReset = 1'b1;
+	end
+		'BLACK_LOOP: begin
+		paint = 1'b1;
+		countUp = 1'b1;
+	end
+		  
 	endcase
 end
 
