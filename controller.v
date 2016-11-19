@@ -90,7 +90,7 @@ always @(*) begin
 		's0: begin 
 
 	end
-		's1: begin 
+	x	's1: begin 
 	
 	end 
 		's2: begin 
@@ -144,7 +144,23 @@ always @(*) begin
 end
 
 
+//SIGNALS
+yStart //Updates init vals into y
+xStart 
+xCountUp //Count up
+yCountUp
 
+xLoad
+xSel
+
+yLoad
+ySel
+
+xInitLoad
+xInitSel
+
+yInitLoad
+yInitSel
 
 
 endmodule
