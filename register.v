@@ -1,8 +1,8 @@
 
 //The starting point of the xcoordinate
 
-module xInitReg (clk, reset, xInitSel, xInit, xInitLoad);
-input clk;
+module xInitReg (clk, xInitReset, xInitSel, xInit, xInitLoad);
+input clk, xInitReset, xInitLoad;
 input [3:0] xInitSel;
 output [7:0] xInit;
 wire reg [7:0] xInitToLUpdate;
@@ -29,13 +29,13 @@ always @ (*) begin
 		default: xInitToUpdate = 8'b0;
 	endcase
 end
-DFlipFlopEnable #(8) yInitReg(clk, xInitToUpdate, xInit, reset, xInitLoad);
+DFlipFlopEnable #(8) xInitReg(clk, xInitToUpdate, xInit, xInitReset, xInitLoad);
 endmodule
 
 //The starting point of the ycoordinate
 
-module yInitReg (clk, reset, yInitSel, yInit, yInitLoad);
-input clk;
+module yInitReg (clk, yInitReset, yInitSel, yInit, yInitLoad);
+input clk, yInitReset, yInitLoad;
 input [1:0] yInitSel;
 output [6:0] yInit;
 wire reg [6:0] yInitToLUpdate;
@@ -47,56 +47,53 @@ always @ (*) begin
 		default: yInitToUpdate = 7'b0;
 	endcase
 end
-DFlipFlopEnable #(7) yInitReg(clk, yInitToUpdate, yInit, reset, yInitLoad);
+DFlipFlopEnable #(7) yInitReg(clk, yInitToUpdate, yInit, yInitReset, yInitLoad);
 endmodule
 
 
-//The actual Xcoordinates
+//The actual x and y coordinates
 
-module xReg(clk, reset, xSel, x, xLoad, xStart, countUp, xInit);
-input clk, xCountUp;
-input [1:0] xSel;
-output [7:0] x;
-wire reg [7:0] countUpTo;
-wire reg [7:0] xToUpdate;
-
-always@(*) begin
-	case(xSel)
-		2'b00: countUpTo = xInit; //If do not want x to move -> moving y
-		2'b01: countUpTo = xInit + 40; //Counting for sprites -> xInit should be at the game location
-		2'b10: countUpTo = xInit + 160; //Counting for screens -> xInit should be 0 in this case
-		default: countUpTo = 0;
-	endcase
-end
-assign xToUpdate = xStart? xInit: ((x == countUpTo)? x : (xCountUp? x+1 : x)); 
-DFlipFlopEnable #(8) xReg(clk, xToUpdate, x, reset, xLoad);
-endmodule
-
-
-//The actual Ycoordinates
-
-module yReg(clk, reset, ySel, y, yLoad, yStart, countUp, yInit);
-input clk, yCountUp;
-input [1:0] ySel;
+module xyReg(clk, xReset, yReset, xySel, x, y, xLoad, yLoad xStart, yStart, xCountUp, yCountUp, xInit, yInit);
+input clk, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart, xySel;
+input [7:0] xInit;
+input [6:0] yInit;
+output [7:0] x; 
 output [6:0] y;
-wire reg [6:0] countUpTo;
+wire reg [7:0] xToUpdate;
 wire reg [6:0] yToUpdate;
 
 always@(*) begin
-	case(ySel)
-		2'b00: countUpTo = yInit; //If do not want y to move -> moving x
-		2'b01: countUpTo = yInit + 40; //Counting for sprites -> yInit should be at the game location
-		2'b10: countUpTo = yInit + 160; //Counting for screens -> yInit should be 0 in this case
-		default: countUpTo = 0;
+	case(xySel)
+		1'b0: begin //Whole Screen Reading
+			       if (x < 160 & y == 120 & xCountUp) begin
+					xToUpdate <= x + 1;
+					yToUpdate <= 0;
+				end if (y < 120 & yCountUp)
+					yToUpdate <= y + 1;
+			end
+
+			1'b1: begin
+	       if (x < init+ 40 & y == yInit+40 & xCountUp) begin
+					xToUpdate <= x + 1;
+					yToUpdate <= 0;
+				end if (y < yInit+40 & yCountUp)
+					yToUpdate <= y + 1;
+			
+			end		
 	endcase
 end
-assign yToUpdate = yStart? yInit: ((y == countUpTo)? y : (yCountUp? y+1 : y)); //If yStart=1 then start at yInit and then if countUp = 1, then count 
-DFlipFlopEnable #(7) yReg(clk, yToUpdate, y, reset, yLoad);
+assign xToUpdate = xStart? xInit: xToUpdate;
+assign yToUpdate = yStart? yInit: yToUpdate;
+
+DFlipFlopEnable #(8) xReg(clk, xToUpdate, x, xReset, xLoad);
+DFlipFlopEnable #(7) yReg(clk, yToUpdate, y, yReset, yLoad);
+
 endmodule
+
 
 //10 from title screens, 4 from chicken, 6 from dog, 12 from cat -> 10+4+6+12=32
 module colour (clk, black, memorySel, title1, title2, title3, choose1, choose2, choose3, p1Win1, p1Win2, p2Win1, p2Win2, chickenLeft1, chickenLeft2, chickenRight1, chickenRight2, dogLeft1, dogLeft2, dogLeft3, dogRight1, dogRight2, dogRight3, catLeft1, catLeft2, catLeft3, catLeft4, catLeft5, catLeft6, catRight1, catRight2, catRight3, catRight4, catRight5, catRight6,  color);
-input clk, black; //black is same as reset, except 000 corresponds to black
+input clk, black; //black is same as Reset, except 000 corresponds to black
 input [2:0] title1, title2, title3, choose1, choose2, choose3, p1Win1, p1Win2, p2Win1, p2Win2, chickenLeft1, chickenLeft2, chickenRight1, chickenRight2, dogLeft1, dogLeft2, dogLeft3, dogRight1, dogRight2, dogRight3, catLeft1, catLeft2, catLeft3, catLeft4, catLeft5, catLeft6, catRight1, catRight2, catRight3, catRight4, catRight5, catRight6;
 input [4:0] memorySel;
 output reg [2:0] color;
@@ -142,20 +139,18 @@ end
 
 endmodule
 
-module currentPlayerPoints(clk, reset, winner1, winner2, player1, player2, playerLoad)
-input clk,reset,winner, playerLoad;
+module currentPlayerPoints(clk, playerReset, winner1, winner2, player1, player2, playerLoad)
+input clk, playerReset,winner, playerLoad;
 output [1:0] player1, player2;
 wire [1:0] player1ToUpdate, player2ToUpdate;
 
 assign player1ToUpdate = winner1? player1+1: player1;
 assign player2ToUpdate = winner2? player2+1: player2;
 
-DFlipFlopEnable #(2) player1Reg(clk, player1ToUpdate, player1, reset, playerLoad);
-DFlipFlopEnable #(2) player2Reg(clk, player2ToUpdate, player2, reset, playerLoad);
+DFlipFlopEnable #(2) player1Reg(clk, player1ToUpdate, player1, playerReset, playerLoad);
+DFlipFlopEnable #(2) player2Reg(clk, player2ToUpdate, player2, playerReset, playerLoad);
 
 endmodule
-
-
 
 
 

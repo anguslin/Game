@@ -1,168 +1,211 @@
 module controller(userCont1, userCont2, cont1a, cont1b, cont1c, cont1d, cont1e, cont1f, cont1g, cont1h,  cont1i, cont2, cont3); 
 
 //Signals controled by user inputs
-input userCont1, userCont2; 
+input userCont; 
 //Signals controlled by internal datapath
 input cont1a, cont1b, cont1c, cont1d, cont1e, cont1f, cont1g, cont1h, cont1i, cont2, cont3; 
+//Signal to wait
+wire delaySgnal;
 
-//States
-`define s0 5'b00000
-`define s1 5'b00001
-`define s2 5'b00010
-`define s3a 5'b00011
-`define s3b 5'b00100
-`define s3c 5'b00101
-`define s3d 5'b00110
-`define s3e 5'b00111
-`define s3f 5'b01000
-`define s3g 5'b01001
-`define s3h 5'b01010
-`define s3i 5'b01011
-`define s4  5'b01100
-`define s5a 5'b01101
-`define s5b 5'b01110
+//Reset everything state
+`define s0 7'd0
+//Title Screen
+`define sTitle1Start1 7'd1
+`define sTitle1Start2 7'd2
+`define sTitle2Start1 7'd3
+`define sTitle2Start2 7'd4
+`define sTitle3Start1 7'd5
+`define sTitle3Start2 7'd6
+`define sTitle1 7'd7
+`define sTitle2 7'd8
+`define sTitle3 7'd9
+//Choose Screen
+`define sChoose1Start 7'd10 
+`define sChoose2Start 7'd11
+`define sChoose3Start 7'd12
+`define sChoose1 7'd13
+`define sChoose2 7'd14
+`define sChoose3 7'd15
+//Determine which of the 9 Scenarios was chosen
+`define sScenario 7'd16
 
-`define blackScreen 5'b01111
+`define s2 7 'd17  
+`define s3a 7'd18
+`define s3b 7'd19
+`define s3c 7'd20
+`define s3d 7'd21
+`define s3e 7'd22
+`define s3f 7'd23
+`define s3g 7'd24
+`define s3h 7'd25
+`define s3i 7'd26
+`define s4  7'd27
+`define s5a 7'd28
+`define s5b 7'd29
+
+//Delay Signal
+delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay)); //delays signal so it goes at 4Hz
 
 //STATE ASSIGNMENTS
 //Update state on clock; if reset, goes to state with 5'b00000 which is the first state
-DFlipFlop #(5) (clk, nextState, currentState, reset);
+	DFlipFlop #(5) (clk, nextState, currentState, stateReset);
 
-always @(*) begin
-	case(currentState)
-		//Start Screen of game
-		`s0: nextState = userCont1? `s1: currentState; //user controls next state
+	always @(*) begin
+		case(currentState)
+			//Start Screen of game
+			`s0: nextState = `sTitle1Start1; //reset everything to 0
 
-		//Wait for players to choose characters
-		`s1: nextState = userCont2? `s2: currentState; //user controls next state
+			//Title Screen moves to Choose screen when user presses KEY[1]
 
-		//Depending on which combination of inputs the players choose
-		`s2: begin //Internal signals decide next state
-			if(cont1a)
-				nextState = `s3a;
-			else if(cont1b) 
-				nextState = `s3b; 
-			else if(cont1c) 
-				nextState = `s3c;
-			else if(cont1d) 
-				nextState = `s3d;
-			else if(cont1e)
-				nextState = `s3e; 
-			else if(cont1f) 
-				nextState = `s3f;
-			else if(cont1g)
-				nextState = `s3g;
-			else if(cont1h)
-				nextState = `s3h;
-			else if(cont1i)
-				nextState = `s3i;
-			else
-				nextState = currentState; 
+			`sTitle1Start1: nextState = `sTitle1Start2; //Loading xInitial and yInitial Values 
+			`sTitle1Start2: nextState = `sTitle1; //Loading x Values and yValues
+			`sTitle1: nextState = userCont? `sChoose1Start : (delay? `sTitle2Start: `sTitle1); //Clock keeps updating
+
+			`sTitle2Start1: nextState = `sTitleStart2; 
+			`sTitle2Start2: nextState = `sTitle2; 
+			`sTitle2: nextState = userCont? `sChoose1Start : (delay? `sTitle3Start: `sTitle2); 
+
+			`sTitle3Start1: nextState = `sTitle3Start2; 
+			`sTitle3Start2: nextState = `sTitle3; 
+			`sTitle3: nextState = userCont? `sChoose1Start : (delay? `sTitle1Start: `sTitle3); 
+
+//			//Choose Screen moves to Deciding State when user presses KEY[1]
+//			`sChoose1Start: nextState = `sChoose1; //Resets the title counts and sets everything up to begin counting
+//			`sChoose1: nextState = userCont? `sScenario : (delay? `sChoose2Start: `sChoose1); //Clock keeps updating
+//
+//			`sChoose2Start: nextState = `sTitle2; //Resets the title counts and sets everything up to begin counting
+//			`sChoose2: nextState = userCont? `sScenario : (delay? `sChoose3Start: `sChoose2); //Clock keeps updating
+//
+//			`sChoose3Start: nextState = `sTitle3; //Resets the title counts and sets everything up to begin counting
+//			`sChoose3: nextState = userCont? `sScenario : (delay? `sChoose1Start: `sChoose3); //Clock keeps updating
+//
+//			//Wait for players to choose characters
+//			`s1: nextState = userCont2? `s2: currentState; //user controls next state
+//
+//			//Depending on which combination of inputs the players choose
+//			`s2: begin //Internal signals decide next state
+//			if(cont1a)
+//				nextState = `s3a;
+//			else if(cont1b) 
+//				nextState = `s3b; 
+//			else if(cont1c) 
+//				nextState = `s3c;
+//			else if(cont1d) 
+//				nextState = `s3d;
+//			else if(cont1e)
+//				nextState = `s3e; 
+//			else if(cont1f) 
+//				nextState = `s3f;
+//			else if(cont1g)
+//				nextState = `s3g;
+//			else if(cont1h)
+//				nextState = `s3h;
+//			else if(cont1i)
+//				nextState = `s3i;
+//			else
+//				nextState = currentState; 
+//		end
+//
+//		//Check if one of the players have 3 points, which = winner                                    
+//			`s3a: nextState = cont2? `s4: `s1; //Internal signals decide next state
+//			`s3b: nextState = cont2? `s4: `s1; 
+//			`s3c: nextState = cont2? `s4: `s1; 
+//			`s3d: nextState = cont2? `s4: `s1; 
+//			`s3e: nextState = cont2? `s4: `s1; 
+//			`s3f: nextState = cont2? `s4: `s1; 
+//			`s3g: nextState = cont2? `s4: `s1; 
+//			`s3h: nextState = cont2? `s4: `s1; 
+//			`s3i: nextState = cont2? `s4: `s1; 
+//
+//			//Checks which player won 5a = player 1, 5b = player 2
+//			`s4: nextState = cont3? `s5a: `s5b; //Internal signals decide next state
+//
+//			//Wait for users to restart the game, otherwise, display the winning screen
+//			`s5a: nextState = userCont3? `s0: currentState; //user controls next state
+//			`s5b: nextState = userCont3? `s0: currentState; //user controls next state
+//
+			default: nextState = `s0: //The moment the program starts, go to first state where everything gets reset
+			endcase
 		end
 
-		//Check if one of the players have 3 points, which = winner                                    
-		`s3a: nextState = cont2? `s4: `s1; //Internal signals decide next state
-		`s3b: nextState = cont2? `s4: `s1; 
-		`s3c: nextState = cont2? `s4: `s1; 
-		`s3d: nextState = cont2? `s4: `s1; 
-		`s3e: nextState = cont2? `s4: `s1; 
-		`s3f: nextState = cont2? `s4: `s1; 
-		`s3g: nextState = cont2? `s4: `s1; 
-		`s3h: nextState = cont2? `s4: `s1; 
-		`s3i: nextState = cont2? `s4: `s1; 
+		always @(*) begin
+			case(currentState)
+				`s0: begin 
+				//Inital xy registers
+				xInitReset = 1'b1; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b1; yInitSel = 2'b00; yInitLoad = 1'b0;
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b0; xReset = 1'b1; xLoad = 1'b0; xStart = 1'b0; yCountUp = 1'b0; yReset = 1'b1; yLoad = 1'b0; yStart = 1'b0; xySel = 1'b0;
+				//Color Register
+				black = 1'b0; memorySel = 5'b00000;
+				//Player Updating Registers
+				playerReset = 1'b1; winner = 1'b0; playerLoad = 1'b0;
+				//Delaying internal signals
+				delaySignalReset = 1'b1;
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
+				//Counting fir sprites (40x40)
+				addressSpriteCounterReset = 1'b1; spriteCountLoad = 1'b0;
+			end
+			`sTitle1Start1: begin 
+			//Loading the x and y inital coordinates -> xInitLoad, yInitLoad, xInitSel, yInitSel
+			//Start the delay signal counting
 
-		//Checks which player won 5a = player 1, 5b = player 2
-		`s4: nextState = cont3? `s5a: `s5b; //Internal signals decide next state
+				//Inital xy registers
+				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b1;
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; xStart = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; yStart = 1'b0; xySel = 1'b0;
+				//Color Register
+				black = 1'b0; memorySel = 5'b00000;
+				//Player Updating Registers
+				playerReset = 1'b0; winner = 1'b0; playerLoad = 1'b0;
+				//Delaying internal signals
+				delaySignalReset = 1'b1;
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				//Counting fir sprites (40x40)
+				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 
-		//Wait for users to restart the game, otherwise, display the winning screen
-		`s5a: nextState = userCont3? `s0: currentState; //user controls next state
-		`s5b: nextState = userCont3? `s0: currentState; //user controls next state
-		
-		default: nextState = `s0: //The moment the program starts, go to first state where everything gets reset
+		end
+		`sTitle1Start2: begin 
+		//Loading the inital coordinates into x and y before starting to count -> xLoad, yLoad, xStart, yStart
+		//Also make sure Screen Counter is at 0 -> AddressscreenCounterReset
+
+				//Inital xy registers
+				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; xStart = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; yStart = 1'b1; xySel = 1'b0;
+				//Color Register
+				black = 1'b0; memorySel = 5'b00000;
+				//Player Updating Registers
+				playerReset = 1'b0; winner = 1'b0; playerLoad = 1'b0;
+				//Delaying internal signals
+				delaySignalReset = 1'b0;
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
+				//Counting fir sprites (40x40)
+				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+
+		end
+		`sTitle1: begin
+//Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
+
+				//Inital xy registers
+				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; xStart = 1'b0; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; yStart = 1'b0; xySel = 1'b0;
+				//Color Register
+				black = 1'b0; memorySel = 5'b00000;
+				//Player Updating Registers
+				playerReset = 1'b0; winner = 1'b0; playerLoad = 1'b0;
+				//Delaying internal signals
+				delaySignalReset = 1'b0;
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
+				//Counting fir sprites (40x40)
+				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+
+		end
 	endcase
 end
-
-//STATE LOGISTICS
-
-
-always @(*) begin
-	case(currentState)
-		`s0: begin 
-
-	end
-	x	`s1: begin 
-	
-	end 
-		`s2: begin 
-	
-	end
-		`s3a: begin 
-	
-	end
-		`s3b: begin 
-	
-	end
-		`s3c: begin 
-	
-	end
-		`s3d: begin 
-	
-	end
-		`s3e: begin 
-	
-	end
-		`s3f: begin 
-
-	end
-		`s3g: begin
-	       
-	end
-		`s3h: begin 
-	
-	end
-		`s3i: begin 
-	
-	end
-		`s4: begin 
-	
-	end
-		`s5a: begin 
-	
-	end
-		`s5b: begin 
-	
-	end
-		`BLACK_RESET: begin
-		 controlReset = 1'b1;
-	end
-		`BLACK_LOOP: begin
-		paint = 1'b1;
-		countUp = 1'b1;
-	end
-		  
-	endcase
-end
-
-
-//SIGNALS
-yStart //Updates init vals into y
-xStart 
-xCountUp //Count up
-yCountUp
-
-xLoad
-xSel
-
-yLoad
-ySel
-
-xInitLoad
-xInitSel
-
-yInitLoad
-yInitSel
-
-
-endmodule
 
 
