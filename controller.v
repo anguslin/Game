@@ -1,19 +1,23 @@
 
-module controller(clk, userCont, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart, xySel, black, playerReset, winner1, winner2, playerLoad, delaySignalReset, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, yInitSel, xInitSel, memorySel, plot, scenarioLoad);
+module controller(clk, userCont, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart, xySel, black, playerReset, winner1, winner2, playerLoad, delaySignalReset, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, yInitSel, xInitSel, memorySel, plot, scenarioLoad, stateReset);
 
 //Signals controled by user inputs
-input clk, userCont; 
+input clk, userCont, stateReset; 
 //Signals controlled by internal datapath
 input dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken;
 //Output to datapath
-output xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart, xySel, black, playerReset, winner1, winner2, playerLoad, delaySignalReset, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, plot, scenarioLoad;
+output reg xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart, xySel, black, playerReset, winner1, winner2, playerLoad, delaySignalReset, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, plot, scenarioLoad;
 
-output [1:0] yInitSel;
-output [3:0] xInitSel 
-output [4:0] memorySel;
+output reg [1:0] yInitSel;
+output reg [3:0] xInitSel; 
+output reg [4:0] memorySel;
 
 //Signal to wait
 wire delaySgnal;
+
+//States
+reg [6:0] nextState;
+reg [6:0] currentState;
 
 //Reset everything state
 `define s0 7'd0
@@ -67,15 +71,15 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 			`sTitle1Start1: nextState = `sTitle1Start2; //Loading xInitial and yInitial Values 
 			`sTitle1Start2: nextState = `sTitle1; //Loading x Values and yValues
-			`sTitle1: nextState = userCont? `sChoose1Start : (delay? `sTitle2Start: `sTitle1); //Clock keeps updating
+			`sTitle1: nextState = userCont? `sChoose1Start : (delay? `sTitle2Start1: `sTitle1); //Clock keeps updating
 
-			`sTitle2Start1: nextState = `sTitleStart2; 
+			`sTitle2Start1: nextState = `sTitle2Start2; 
 			`sTitle2Start2: nextState = `sTitle2; 
-			`sTitle2: nextState = userCont? `sChoose1Start : (delay? `sTitle3Start: `sTitle2); 
+			`sTitle2: nextState = userCont? `sChoose1Start : (delay? `sTitle3Start1: `sTitle2); 
 
 			`sTitle3Start1: nextState = `sTitle3Start2; 
 			`sTitle3Start2: nextState = `sTitle3; 
-			`sTitle3: nextState = userCont? `sChoose1Start : (delay? `sTitle1Start: `sTitle3); 
+			`sTitle3: nextState = userCont? `sChoose1Start : (delay? `sTitle1Start1: `sTitle3); 
 
 //			//Choose Screen moves to Deciding State when user presses KEY[1]
 //			`sChoose1Start: nextState = `sChoose1; //Resets the title counts and sets everything up to begin counting
@@ -132,7 +136,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 //			`s5a: nextState = userCont3? `s0: currentState; //user controls next state
 //			`s5b: nextState = userCont3? `s0: currentState; //user controls next state
 //
-			default: nextState = `s0: //The moment the program starts, go to first state where everything gets reset
+			default: nextState = `s0; //The moment the program starts, go to first state where everything gets reset
 			endcase
 		end
 
@@ -230,4 +234,4 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 	endcase
 end
 
-
+endmodule

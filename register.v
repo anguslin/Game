@@ -5,7 +5,7 @@ module xInitReg (clk, xInitReset, xInitSel, xInit, xInitLoad);
 input clk, xInitReset, xInitLoad;
 input [3:0] xInitSel;
 output [7:0] xInit;
-wire reg [7:0] xInitToLUpdate;
+reg [7:0] xInitToUpdate;
 
 always @ (*) begin
 	case(xInitSel)
@@ -38,7 +38,7 @@ module yInitReg (clk, yInitReset, yInitSel, yInit, yInitLoad);
 input clk, yInitReset, yInitLoad;
 input [1:0] yInitSel;
 output [6:0] yInit;
-wire reg [6:0] yInitToLUpdate;
+reg [6:0] yInitToUpdate;
 
 always @ (*) begin
 	case(yInitSel)
@@ -59,25 +59,25 @@ input [7:0] xInit;
 input [6:0] yInit;
 output [7:0] x; 
 output [6:0] y;
-wire reg [7:0] xToUpdate;
-wire reg [6:0] yToUpdate;
+reg [7:0] xToUpdate;
+reg [6:0] yToUpdate;
 
 always@(*) begin
 	case(xySel)
 		1'b0: begin //Whole Screen Reading
 			       if (x < 160 & y == 120 & xCountUp) begin
-					xToUpdate <= x + 1;
-					yToUpdate <= 0;
+					xToUpdate = x + 1;
+					yToUpdate = 0;
 				end if (y < 120 & yCountUp)
-					yToUpdate <= y + 1;
+					yToUpdate = y + 1;
 			end
 
 			1'b1: begin
-	       if (x < init+ 40 & y == yInit+40 & xCountUp) begin
-					xToUpdate <= x + 1;
-					yToUpdate <= 0;
+	       if (x < xInit + 40 & y == yInit + 40 & xCountUp) begin
+					xToUpdate = x + 1;
+					yToUpdate = 0;
 				end if (y < yInit+40 & yCountUp)
-					yToUpdate <= y + 1;
+					yToUpdate = y + 1;
 			
 			end		
 	endcase
@@ -113,7 +113,7 @@ always @(*) begin
 		6'b001001: color = p2Win2;
 		6'b001010: color = chickenLeft1;
 		6'b001011: color = chickenLeft2;
-		6'b001100: color = chickenRight1
+		6'b001100: color = chickenRight1;
 		6'b001101: color = chickenRight2;
 		6'b001110: color = dogLeft1;       
 		6'b001111: color = dogLeft2;      
@@ -140,7 +140,7 @@ end
 endmodule
 
 module currentPlayerPoints(clk, playerReset, winner1, winner2, player1, player2, playerLoad)
-input clk, playerReset,winner, playerLoad;
+input clk, playerReset, winner1, winner2, playerLoad;
 output [3:0] player1, player2;
 wire [3:0] player1ToUpdate, player2ToUpdate;
 
