@@ -18,7 +18,7 @@ input clk, counterReset, doneCount;
 output reg [25:0] count;
 wire [25:0] countToUpdate;
 
-assign countToUpdate = counterReset? 26'b0: (doneCount?: 26'b0: (count+1)); //Resets back to 0 and keeps counting until next delay
+assign countToUpdate = counterReset? 26'b0: (doneCount? 26'b0: (count+1)); //Resets back to 0 and keeps counting until next delay
 DFlipFlop #(26) counter26BitReg(clk, countToUpdate, count, counterReset);
 endmodule
 
