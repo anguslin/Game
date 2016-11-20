@@ -53,7 +53,7 @@ endmodule
 
 //The actual x and y coordinates
 
-module xyReg(clk, xReset, yReset, xySel, x, y, xLoad, yLoad xStart, yStart, xCountUp, yCountUp, xInit, yInit);
+module xyReg(clk, xReset, yReset, xySel, x, y, xLoad, yLoad, xStart, yStart, xCountUp, yCountUp, xInit, yInit);
 input clk, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart, xySel;
 input [7:0] xInit;
 input [6:0] yInit;
@@ -92,7 +92,7 @@ endmodule
 
 
 //10 from title screens, 4 from chicken, 6 from dog, 12 from cat -> 10+4+6+12=32
-module colour (clk, black, memorySel, title1, title2, title3, choose1, choose2, choose3, p1Win1, p1Win2, p2Win1, p2Win2, chickenLeft1, chickenLeft2, chickenRight1, chickenRight2, dogLeft1, dogLeft2, dogLeft3, dogRight1, dogRight2, dogRight3, catLeft1, catLeft2, catLeft3, catLeft4, catLeft5, catLeft6, catRight1, catRight2, catRight3, catRight4, catRight5, catRight6,  color);
+module color(clk, black, memorySel, title1, title2, title3, choose1, choose2, choose3, p1Win1, p1Win2, p2Win1, p2Win2, chickenLeft1, chickenLeft2, chickenRight1, chickenRight2, dogLeft1, dogLeft2, dogLeft3, dogRight1, dogRight2, dogRight3, catLeft1, catLeft2, catLeft3, catLeft4, catLeft5, catLeft6, catRight1, catRight2, catRight3, catRight4, catRight5, catRight6,  color);
 input clk, black; //black is same as Reset, except 000 corresponds to black
 input [2:0] title1, title2, title3, choose1, choose2, choose3, p1Win1, p1Win2, p2Win1, p2Win2, chickenLeft1, chickenLeft2, chickenRight1, chickenRight2, dogLeft1, dogLeft2, dogLeft3, dogRight1, dogRight2, dogRight3, catLeft1, catLeft2, catLeft3, catLeft4, catLeft5, catLeft6, catRight1, catRight2, catRight3, catRight4, catRight5, catRight6;
 input [4:0] memorySel;
@@ -141,14 +141,14 @@ endmodule
 
 module currentPlayerPoints(clk, playerReset, winner1, winner2, player1, player2, playerLoad)
 input clk, playerReset,winner, playerLoad;
-output [1:0] player1, player2;
-wire [1:0] player1ToUpdate, player2ToUpdate;
+output [3:0] player1, player2;
+wire [3:0] player1ToUpdate, player2ToUpdate;
 
 assign player1ToUpdate = winner1? player1+1: player1;
 assign player2ToUpdate = winner2? player2+1: player2;
 
-DFlipFlopEnable #(2) player1Reg(clk, player1ToUpdate, player1, playerReset, playerLoad);
-DFlipFlopEnable #(2) player2Reg(clk, player2ToUpdate, player2, playerReset, playerLoad);
+DFlipFlopEnable #(4) player1Reg(clk, player1ToUpdate, player1, playerReset, playerLoad);
+DFlipFlopEnable #(4) player2Reg(clk, player2ToUpdate, player2, playerReset, playerLoad);
 
 endmodule
 

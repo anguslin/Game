@@ -1,9 +1,17 @@
-module controller(userCont1, userCont2, cont1a, cont1b, cont1c, cont1d, cont1e, cont1f, cont1g, cont1h,  cont1i, cont2, cont3); 
+
+module controller(clk, userCont, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart, xySel, black, playerReset, winner1, winner2, playerLoad, delaySignalReset, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, yInitSel, xInitSel, memorySel, plot, scenarioLoad);
 
 //Signals controled by user inputs
-input userCont; 
+input clk, userCont; 
 //Signals controlled by internal datapath
-input cont1a, cont1b, cont1c, cont1d, cont1e, cont1f, cont1g, cont1h, cont1i, cont2, cont3; 
+input dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken;
+//Output to datapath
+output xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart, xySel, black, playerReset, winner1, winner2, playerLoad, delaySignalReset, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, plot, scenarioLoad;
+
+output [1:0] yInitSel;
+output [3:0] xInitSel 
+output [4:0] memorySel;
+
 //Signal to wait
 wire delaySgnal;
 
@@ -138,13 +146,18 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Color Register
 				black = 1'b0; memorySel = 5'b00000;
 				//Player Updating Registers
-				playerReset = 1'b1; winner = 1'b0; playerLoad = 1'b0;
+				playerReset = 1'b1; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
 				delaySignalReset = 1'b1;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
 				addressSpriteCounterReset = 1'b1; spriteCountLoad = 1'b0;
+				//Plotting for VGA
+				plot = 1'b0;
+				//Loading the Scenario
+				scenarioLoad = 1'b0;
+
 			end
 			`sTitle1Start1: begin 
 			//Loading the x and y inital coordinates -> xInitLoad, yInitLoad, xInitSel, yInitSel
@@ -157,14 +170,17 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Color Register
 				black = 1'b0; memorySel = 5'b00000;
 				//Player Updating Registers
-				playerReset = 1'b0; winner = 1'b0; playerLoad = 1'b0;
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
 				delaySignalReset = 1'b1;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
 				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
-
+				//Plotting for VGA
+				plot = 1'b0;
+				//Loading the Scenario
+				scenarioLoad = 1'b1;
 		end
 		`sTitle1Start2: begin 
 		//Loading the inital coordinates into x and y before starting to count -> xLoad, yLoad, xStart, yStart
@@ -177,14 +193,17 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Color Register
 				black = 1'b0; memorySel = 5'b00000;
 				//Player Updating Registers
-				playerReset = 1'b0; winner = 1'b0; playerLoad = 1'b0;
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
 				delaySignalReset = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
 				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
-
+				//Plotting for VGA
+				plot = 1'b0;
+				//Loading the Scenario
+				scenarioLoad = 1'b0;
 		end
 		`sTitle1: begin
 //Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
@@ -196,14 +215,17 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Color Register
 				black = 1'b0; memorySel = 5'b00000;
 				//Player Updating Registers
-				playerReset = 1'b0; winner = 1'b0; playerLoad = 1'b0;
+				playerReset = 1'b0; winner1 = 1'b0; winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
 				delaySignalReset = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Counting fir sprites (40x40)
 				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
-
+				//Plotting for VGA
+				plot = 1'b1;
+				//Loading the Scenario
+				scenarioLoad = 1'b0;
 		end
 	endcase
 end
