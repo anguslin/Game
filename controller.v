@@ -1,19 +1,19 @@
 
-module controller(clk, userCont, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart, xySel, black, playerReset, winner1, winner2, playerLoad, delaySignalReset, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, yInitSel, xInitSel, memorySel, plot, scenarioLoad, stateReset);
+module controller(clk, userCont, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, xySel, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, yInitSel, xInitSel, memorySel, plot, scenarioLoad, stateReset);
 
 //Signals controled by user inputs
 input clk, userCont, stateReset; 
 //Signals controlled by internal datapath
 input dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken;
 //Output to datapath
-output reg xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart, xySel, black, playerReset, winner1, winner2, playerLoad, delaySignalReset, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, plot, scenarioLoad;
+output reg xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, plot, scenarioLoad;
 
-output reg [1:0] yInitSel;
+output reg [1:0] yInitSel, xySel;
 output reg [3:0] xInitSel; 
 output reg [4:0] memorySel;
 
 //Signal to wait
-wire delaySgnal;
+wire delay, delaySignalReset;
 
 //States
 reg [6:0] nextState;
@@ -146,7 +146,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Inital xy registers
 				xInitReset = 1'b1; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b1; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b1; xLoad = 1'b0; xStart = 1'b0; yCountUp = 1'b0; yReset = 1'b1; yLoad = 1'b0; yStart = 1'b0; xySel = 1'b0;
+				xCountUp = 1'b0; xReset = 1'b1; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b1; yLoad = 1'b0; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 5'b00000;
 				//Player Updating Registers
@@ -157,7 +157,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
 				addressSpriteCounterReset = 1'b1; spriteCountLoad = 1'b0;
-				//Plotting for VGA
+				//PA
 				plot = 1'b0;
 				//Loading the Scenario
 				scenarioLoad = 1'b0;
@@ -170,7 +170,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Inital xy registers
 				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b1;
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; xStart = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; yStart = 1'b0; xySel = 1'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 5'b00000;
 				//Player Updating Registers
@@ -187,13 +187,13 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				scenarioLoad = 1'b1;
 		end
 		`sTitle1Start2: begin 
-		//Loading the inital coordinates into x and y before starting to count -> xLoad, yLoad, xStart, yStart
+		//Loading the inital coordinates into x and y before starting to count -> xLoad, yLoad, xySel
 		//Also make sure Screen Counter is at 0 -> AddressscreenCounterReset
 
 				//Inital xy registers
 				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; xStart = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; yStart = 1'b1; xySel = 1'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 5'b00000;
 				//Player Updating Registers
@@ -215,7 +215,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Inital xy registers
 				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; xStart = 1'b0; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; yStart = 1'b0; xySel = 1'b0;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
 				//Color Register
 				black = 1'b0; memorySel = 5'b00000;
 				//Player Updating Registers

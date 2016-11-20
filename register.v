@@ -54,7 +54,8 @@ endmodule
 //The actual x and y coordinates
 
 module xyReg(clk, xReset, yReset, xySel, x, y, xLoad, yLoad, xStart, yStart, xCountUp, yCountUp, xInit, yInit);
-input clk, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart, xySel;
+input clk, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart;
+input [1:0] xySel;
 input [7:0] xInit;
 input [6:0] yInit;
 output [7:0] x; 
@@ -64,26 +65,27 @@ reg [6:0] yToUpdate;
 
 always@(*) begin
 	case(xySel)
-		1'b0: begin //Whole Screen Reading
-			       if (x < 160 & y == 120 & xCountUp) begin
+		2'b00: begin
+			yToUpdate = yInit;
+			xToUpdate = xInit;
+		end
+		2'b01: begin //Whole Screen Reading
+		       if (x < 160 & y == 120 & xCountUp) begin
 					xToUpdate = x + 1;
 					yToUpdate = 0;
-				end if (y < 120 & yCountUp)
+			end if (y < 120 & yCountUp)
 					yToUpdate = y + 1;
 			end
-
-			1'b1: begin
-	       if (x < xInit + 40 & y == yInit + 40 & xCountUp) begin
+		2'b10: begin
+	       		if (x < xInit + 40 & y == yInit + 40 & xCountUp) begin
 					xToUpdate = x + 1;
 					yToUpdate = 0;
-				end if (y < yInit+40 & yCountUp)
+			end if (y < yInit+40 & yCountUp)
 					yToUpdate = y + 1;
 			
 			end		
 	endcase
 end
-assign xToUpdate = xStart? xInit: xToUpdate;
-assign yToUpdate = yStart? yInit: yToUpdate;
 
 DFlipFlopEnable #(8) xReg(clk, xToUpdate, x, xReset, xLoad);
 DFlipFlopEnable #(7) yReg(clk, yToUpdate, y, yReset, yLoad);

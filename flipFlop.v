@@ -5,7 +5,7 @@ parameter n=1;
 input clk, reset;
 input [n-1:0] in;
 output reg [n-1:0] out;
-reg [n-1:0] outToUpdate;
+wire [n-1:0] outToUpdate;
 
 assign outToUpdate = reset? 0: in;
 
@@ -20,7 +20,7 @@ parameter n = 1;
 input clk, enable, reset;
 input [n-1:0] in;
 output reg [n-1:0] out;
-wire [width-1:0] outToUpdate;
+wire [n-1:0] outToUpdate;
 
 //If reset, set to 0, otherwise if enable is on, then set it as
 assign outToUpdate = reset? 0:(enable? in: outToUpdate);
