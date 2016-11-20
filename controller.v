@@ -13,7 +13,8 @@ output reg [3:0] xInitSel;
 output reg [4:0] memorySel;
 
 //Signal to wait
-wire delay, delaySignalReset;
+wire delay;
+reg delaySignalReset;
 
 //States
 reg [6:0] nextState;

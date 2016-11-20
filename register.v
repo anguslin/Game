@@ -141,7 +141,7 @@ end
 
 endmodule
 
-module currentPlayerPoints(clk, playerReset, winner1, winner2, player1, player2, playerLoad)
+module currentPlayerPoints(clk, playerReset, winner1, winner2, player1, player2, playerLoad);
 input clk, playerReset, winner1, winner2, playerLoad;
 output [3:0] player1, player2;
 wire [3:0] player1ToUpdate, player2ToUpdate;

@@ -17,7 +17,7 @@ input [3:0] KEY;
 output [6:0] HEX0, HEX1;
 
 //Wires
-wire resetn, userCont, scenarioLoad, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, plot, scenarioLoad;
+wire resetn, userCont, scenarioLoad, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, plot;
 wire [1:0] yInitSel, xySel;
 wire [2:0] color;
 wire [3:0] xInitSel, player1, player2;
@@ -53,7 +53,7 @@ defparam VGA.BACKGROUND_IMAGE = "black.mif";
 datapath datapathInstant(.clk(CLOCK_50), .xInitReset(xInitReset), .xInitLoad(xInitLoad), .yInitReset(yInitReset), .yInitLoad(yInitLoad), .xCountUp(xCountUp), .xReset(xReset), .xLoad(xLoad), .xStart(xStart), .yCountUp(yCountUp), .yReset(yReset), .yLoad(yLoad), .yStart(yStart), .xySel(xySel), .black(black), .playerReset(playerReset), .winner1(winner1), .winner2(winner2), .playerLoad(playerLoad), .addressScreenCounterReset(addressScreenCounterReset), .screenCountLoad(screenCountLoad), .addressSpriteCounterReset(addressSpriteCounterReset), .spriteCountLoad(spriteCountLoad), .yInitSel(yInitSel), .xInitSel(xInitSel), .memorySel(memorySel), .x(x), .y(y), .color(color), .player1(player1), .player2(player2));
 
 //Controller
-controller controlInstant(.clk(CLOCK_50), .userCont(userCont), .dogDog(dogDog), .dogCat(dogCat), .dogChicken(dogChicken), .catDog(catDog), .catCat(catCat), .catChicken(catChicken), .chickenDog(chickenDog), .chickenCat(chickenCat), .chickenChicken(chickenChicken), .xInitReset(xInitReset), .xInitLoad(xInitLoad), .yInitReset(yInitReset), .yInitLoad(yInitLoad), .xCountUp(xCountUp), .xReset(xReset), .xLoad(xLoad), .xStart(xStart), .yCountUp(yCountUp), .yReset(yReset), .yLoad(yLoad), .yStart(yStart), .xySel(xySel), .black(black), .playerReset(playerReset), .winner1(winner1), .winner2(winner2), .playerLoad(playerLoad), .addressScreenCounterReset(addressScreenCounterReset), .screenCountLoad(screenCountLoad), .addressSpriteCounterReset(addressSpriteCounterReset), .spriteCountLoad(spriteCountLoad), .yInitSel(yInitSel), .xInitSel(xInitSel), .memorySel(memorySel), plot(plot), scenarioLoad(scenarioLoad), .stateReset(resetn));
+controller controlInstant(.clk(CLOCK_50), .userCont(userCont), .dogDog(dogDog), .dogCat(dogCat), .dogChicken(dogChicken), .catDog(catDog), .catCat(catCat), .catChicken(catChicken), .chickenDog(chickenDog), .chickenCat(chickenCat), .chickenChicken(chickenChicken), .xInitReset(xInitReset), .xInitLoad(xInitLoad), .yInitReset(yInitReset), .yInitLoad(yInitLoad), .xCountUp(xCountUp), .xReset(xReset), .xLoad(xLoad), .xStart(xStart), .yCountUp(yCountUp), .yReset(yReset), .yLoad(yLoad), .yStart(yStart), .xySel(xySel), .black(black), .playerReset(playerReset), .winner1(winner1), .winner2(winner2), .playerLoad(playerLoad), .addressScreenCounterReset(addressScreenCounterReset), .screenCountLoad(screenCountLoad), .addressSpriteCounterReset(addressSpriteCounterReset), .spriteCountLoad(spriteCountLoad), .yInitSel(yInitSel), .xInitSel(xInitSel), .memorySel(memorySel), .plot(plot), .scenarioLoad(scenarioLoad), .stateReset(resetn));
 
 //Display HEX0 for Player 1 points and HEX1 for Player 2 points
 displayHEX HEX0Display (.s(player1), .h(HEX0));
