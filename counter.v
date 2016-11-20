@@ -15,7 +15,7 @@ endmodule
 //Counts up
 module counter26Bit (clk, counterReset, doneCount, count); // counts up at 25MHz
 input clk, counterReset, doneCount;
-output reg [25:0] count;
+output [25:0] count;
 wire [25:0] countToUpdate;
 
 assign countToUpdate = counterReset? 26'b0: (doneCount? 26'b0: (count+1)); //Resets back to 0 and keeps counting until next delay
@@ -33,7 +33,7 @@ endmodule
 //Screen Address Counters
 module addressScreenCounter(clk, addressScreenCounterReset, screenCount, screenCountLoad); //15 bit address for the screens (120x160) = 19200 -> 2^15 = 32768
 input clk, addressScreenCounterReset, screenCountLoad;
-output reg [14:0] screenCount;
+output [14:0] screenCount;
 wire [14:0] screenCountToUpdate;
 
 assign screenCountToUpdate =  screenCount + 1;
@@ -43,7 +43,7 @@ endmodule
 //Sprite Address Counters
 module addressSpriteCounter(clk, addressSpriteCounterReset, spriteCount, spriteCountLoad); //11 bit address for the sprites (40x40) = 1600 -> 2^11 = 2048
 input clk, addressSpriteCounterReset, spriteCountLoad;
-output reg [10:0] spriteCount;
+output [10:0] spriteCount;
 wire [10:0] spriteCountToUpdate;
 
 assign spriteCountToUpdate =  spriteCount + 1;

@@ -18,7 +18,7 @@ reg delaySignalReset;
 
 //States
 reg [6:0] nextState;
-reg [6:0] currentState;
+wire [6:0] currentState;
 
 //Reset everything state
 `define s0 7'd0
