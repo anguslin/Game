@@ -22,9 +22,11 @@ wire [6:0] currentState;
 
 //Reset everything state
 `define s0 7'd0
+
 //Title Screen
 `define sTitle1Start1 7'd1
 `define sTitle1Start2 7'd2
+//`define sTitle1Start3 7'd30
 `define sTitle2Start1 7'd3
 `define sTitle2Start2 7'd4
 `define sTitle3Start1 7'd5
@@ -42,7 +44,7 @@ wire [6:0] currentState;
 //Determine which of the 9 Scenarios was chosen
 `define sScenario 7'd16
 
-`define s2 7 'd17  
+`define s2 7'd17  
 `define s3a 7'd18
 `define s3b 7'd19
 `define s3c 7'd20
@@ -72,6 +74,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 			`sTitle1Start1: nextState = `sTitle1Start2; //Loading xInitial and yInitial Values 
 			`sTitle1Start2: nextState = `sTitle1; //Loading x Values and yValues
+			//`sTitle1Start3: nextState = `sTitle1; //Loading x Values and yValues
 			`sTitle1: nextState = userCont? `sChoose1Start : (delay? `sTitle2Start1: `sTitle1); //Clock keeps updating
 
 			`sTitle2Start1: nextState = `sTitle2Start2; 
@@ -194,7 +197,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Inital xy registers
 				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b01;
 				//Color Register
 				black = 1'b0; memorySel = 5'b00000;
 				//Player Updating Registers
@@ -210,6 +213,29 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Loading the Scenario
 				scenarioLoad = 1'b0;
 		end
+	//			`sTitle1Start3: begin 
+		//Loading the inital coordinates into x and y before starting to count -> xLoad, yLoad, xySel
+		//Also make sure Screen Counter is at 0 -> AddressscreenCounterReset
+
+				//Inital xy registers
+			//	xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				//x and y vga Coordinate Registers
+	//			xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				//black = 1'b0; memorySel = 5'b00000;
+				//Player Updating Registers
+				//playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
+				//Delaying internal signals
+				//delaySignalReset = 1'b0;
+				//Counting for screens (160x120)
+				//addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
+				//Counting fir sprites (40x40)
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//Plotting for VGA
+				//plot = 1'b1;
+				//Loading the Scenario
+				//scenarioLoad = 1'b0;
+		//end
 		`sTitle1: begin
 //Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
 
