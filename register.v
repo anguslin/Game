@@ -58,7 +58,7 @@ input clk, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart;
 input [1:0] xySel;
 input [7:0] xInit;
 input [6:0] yInit;
-output screenDone;
+output reg screenDone;
 output [7:0] x; 
 output [6:0] y;
 reg [7:0] xToUpdate;
@@ -75,28 +75,24 @@ always@(*) begin
 		       if (y < 120 && x == 160 && yCountUp) begin
 					yToUpdate = y + 1;
 					xToUpdate = 1;
-				screenDone = 0;
-				end 
-				if (x < 160 && xCountUp) begin
+					screenDone = 0;
+			end else if (x < 160 && xCountUp) begin
 					xToUpdate = x + 1;
-				screenDone = 0;
-			end
-			if(x == 160 && y == 120)
+					screenDone = 0;
+					end else
 					screenDone = 1;
 			end
 		2'b10: begin
-	       		if (y < yInit + 40 & x == xInit + 40 & yCountUp) begin
+	       		if (y < yInit + 40 && x == xInit + 40 && yCountUp) begin
 					yToUpdate = y + 1;
-					xToUpdate = 0;
+					xToUpdate = xInit + 1;
 					screenDone = 0;
-				end if (x < xInit + 40 & xCountUp) begin
+			end else if (x < xInit + 40 && xCountUp) begin
 					xToUpdate = x + 1;
 					screenDone = 0;
-				end
-					
-					//xToUpdate = y + 1;
-			
-			end		
+					end else 
+					screenDone = 1;
+		end	
 	endcase
 end
 
@@ -166,9 +162,5 @@ DFlipFlopEnable #(4) player1Reg(clk, player1ToUpdate, player1, playerReset, play
 DFlipFlopEnable #(4) player2Reg(clk, player2ToUpdate, player2, playerReset, playerLoad);
 
 endmodule
-
-
-
-
 
 
