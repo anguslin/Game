@@ -3,31 +3,18 @@
 module delaySignal (clk, delaySignalReset, signal); //delays signal so it goes at 4Hz
 input clk, delaySignalReset;
 output signal;
-wire [25:0] count;
-wire doneCount;
+reg [25:0] count;
 
-assign signal = doneCount;
+assign signal = (count == 26'd12500000) ? 1'b1 : 1'b0;
 
-counter26Bit c1(clk, delaySignalReset, doneCount, count); // counts up at 50MHz
-hz4 h1(count, doneCount); //signal is set to 1 when it counts to 4hz
-endmodule
-
-//Counts up
-module counter26Bit (clk, counterReset, doneCount, count); // counts up at 25MHz
-input clk, counterReset, doneCount;
-output [25:0] count;
-wire [25:0] countToUpdate;
-
-assign countToUpdate = count+1; //Resets back to 0 and keeps counting until next delay
-DFlipFlop #(26) counter26BitReg(clk, countToUpdate, count, counterReset);
-endmodule
-
-//Checks when counter finishes counting
-module hz4 (count, doneCount); //div = 1 when it counts to designated value
-input [25:0] count;
-output doneCount;
-
-assign doneCount = (count > 26'd12500000)? 1'b1 : 1'b0;
+always @(posedge clk) // triggered every time clock rises	
+	begin
+		case (delaySignalReset)
+		1: count = 0;
+		0: count = count + 1;
+		default: count = 0; 
+		endcase	
+	end
 endmodule
 
 //Screen Address Counters
@@ -49,4 +36,3 @@ wire [10:0] spriteCountToUpdate;
 assign spriteCountToUpdate =  spriteCount + 1;
 DFlipFlopEnable #(11) spriteCountReg(clk, spriteCountToUpdate, spriteCount, addressSpriteCounterReset, spriteCountLoad);
 endmodule
-
