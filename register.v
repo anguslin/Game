@@ -60,7 +60,7 @@ input [7:0] xInit;
 input [6:0] yInit;
 output [7:0] x; 
 output [6:0] y;
-reg [7:0] xToUpdate;
+reg [7:0] xToUpdate = 1;
 reg [6:0] yToUpdate;
 
 always@(*) begin
@@ -70,18 +70,19 @@ always@(*) begin
 			xToUpdate = xInit;
 		end
 		2'b01: begin //Whole Screen Reading
-		       if (x < 160 & y == 120 & xCountUp) begin
-					xToUpdate = x + 1;
-					yToUpdate = 0;
-			end if (y < 120 & yCountUp)
+		       if (y < 120 && x == 160 && yCountUp) begin
 					yToUpdate = y + 1;
+					xToUpdate = 1;end if (x < 160 && xCountUp)
+					xToUpdate = x + 1;
 			end
 		2'b10: begin
-	       		if (x < xInit + 40 & y == yInit + 40 & xCountUp) begin
-					xToUpdate = x + 1;
-					yToUpdate = 0;
-			end if (y < yInit+40 & yCountUp)
+	       		if (y < yInit + 40 & x == xInit + 40 & yCountUp) begin
 					yToUpdate = y + 1;
+					xToUpdate = 0;
+			end if (x < xInit + 40 & xCountUp)
+					xToUpdate = x + 1;
+					
+					//xToUpdate = y + 1;
 			
 			end		
 	endcase
