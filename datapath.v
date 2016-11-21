@@ -12,7 +12,7 @@ output [2:0] color;
 //Display player points on LEDs
 output [3:0] player1, player2;
 
-//Internal Signals for FSM
+//Internal Signal for FSM
 output screenDone;
 
 wire [6:0] yInit;
@@ -23,10 +23,47 @@ wire [10:0] spriteCount;
 //Color outputs from the memory ROMs
 wire [2:0] title1Color, title2Color, title3Color, choose1Color, choose2Color, choose3Color, p1Win1Color, p1Win2Color, p2Win1Color, p2Win2Color, chickenLeft1Color, chickenLeft2Color, chickenRight1Color, chickenRight2Color, dogLeft1Color, dogLeft2Color, dogLeft3Color, dogRight1Color, dogRight2Color, dogRight3Color, catLeft1Color, catLeft2Color, catLeft3Color, catLeft4Color, catLeft5Color, catLeft6Color, catRight1Color, catRight2Color, catRight3Color, catRight4Color, catRight5Color, catRight6Color;
 
-//Module Instantiations
-
 //Memory ROMs
+//Title
 Title1 Title1Mem(.address(screenCount), .clock(clk), .q(title1Color));
+Title2 Title2Mem(.address(screenCount), .clock(clk), .q(title2Color));
+Title3 Title3Mem(.address(screenCount), .clock(clk), .q(title3Color));
+//Choose Screens
+Choose1 Choose1Mem(.address(screenCount), .clock(clk), .q(choose1Color));
+Choose2 Choose2Mem(.address(screenCount), .clock(clk), .q(choose2Color));
+Choose3 Choose3Mem(.address(screenCount), .clock(clk), .q(choose3Color));
+//Player 1 Wins Screens
+P1W P1WMem(.address(screenCount), .clock(clk), .q(p1Win1Color));
+P1W2 P1W2Mem(.address(screenCount), .clock(clk), .q(p1Win2Color));
+//Player 2 Wins Screens
+P2W P2WMem(.address(screenCount), .clock(clk), .q(p2Win1Color));
+P2W2 P2W2Mem(.address(screenCount), .clock(clk), .q(p2Win2Color));
+//Dog Sprites
+DogWalk1Right DogRight1Mem(.address(spriteCount), .clock(clk), .q(dogRight1Color));
+DogWalk2Right DogRight2Mem(.address(spriteCount), .clock(clk), .q(dogRight2Color));
+DogWalk3Right DogRight3Mem(.address(spriteCount), .clock(clk), .q(dogRight3Color));
+DogWalk1Left DogLeft1Mem(.address(spriteCount), .clock(clk), .q(dogLeft1Color));
+DogWalk2Left DogLeft2Mem(.address(spriteCount), .clock(clk), .q(dogLeft2Color));
+DogWalk3Left DogLeft3Mem(.address(spriteCount), .clock(clk), .q(dogLeft3Color));
+//Chicken Sprites
+ChickenWalk1Right ChickenRight1Mem(.address(spriteCount), .clock(clk), .q(chickenRight1Color));
+ChickenWalk2Right ChickenRight2Mem(.address(spriteCount), .clock(clk), .q(chickenRight2Color));
+ChickenWalk1Left ChickenLeft1Mem(.address(spriteCount), .clock(clk), .q(chickenLeft1Color));
+ChickenWalk2Left ChickenLeft2Mem(.address(spriteCount), .clock(clk), .q(chickenLeft2Color));
+//Cat Sprites
+CatRun1Right CatRight1Mem(.address(spriteCount), .clock(clk), .q(catRight1Color));
+CatRun2Right CatRight2Mem(.address(spriteCount), .clock(clk), .q(catRight2Color));
+CatRun3Right CatRight3Mem(.address(spriteCount), .clock(clk), .q(catRight3Color));
+CatRun4Right CatRight4Mem(.address(spriteCount), .clock(clk), .q(catRight4Color));
+CatRun5Right CatRight5Mem(.address(spriteCount), .clock(clk), .q(catRight5Color));
+CatRun6Right CatRight6Mem(.address(spriteCount), .clock(clk), .q(catRight6Color));
+CatRun1Left CatLeft1Mem(.address(spriteCount), .clock(clk), .q(catLeft1Color));
+CatRun2Left CatLeft2Mem(.address(spriteCount), .clock(clk), .q(catLeft2Color));
+CatRun3Left CatLeft3Mem(.address(spriteCount), .clock(clk), .q(catLeft3Color));
+CatRun4Left CatLeft4Mem(.address(spriteCount), .clock(clk), .q(catLeft4Color));
+CatRun5Left CatLeft5Mem(.address(spriteCount), .clock(clk), .q(catLeft5Color));
+CatRun6Left CatLeft6Mem(.address(spriteCount), .clock(clk), .q(catLeft6Color));
+
 //The starting point of the x coordinate
 xInitReg xInitial(.clk(clk), .xInitReset(xInitReset), .xInitSel(xInitSel), .xInit(xInit), .xInitLoad(xInitLoad));
 //The starting point of the y coordinate
