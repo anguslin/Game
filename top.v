@@ -20,8 +20,8 @@ output [6:0] HEX0, HEX1;
 wire stateReset, resetn, userCont, scenarioLoad, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, plot, screenDone;
 wire [1:0] yInitSel, xySel;
 wire [2:0] color;
-wire [3:0] xInitSel, player1, player2;
-wire [4:0] memorySel;
+wire [3:0] player1, player2;
+wire [4:0] memorySel, xInitSel;
 wire [6:0] y;
 wire [7:0] x; 
 

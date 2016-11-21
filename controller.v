@@ -8,7 +8,7 @@ input dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chicke
 output reg xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, plot, scenarioLoad;
 
 output reg [1:0] yInitSel, xySel;
-output reg [3:0] xInitSel; 
+output reg [4:0] xInitSel; 
 output reg [4:0] memorySel;
 
 //Signal to wait
@@ -49,6 +49,15 @@ wire [6:0] currentState;
 `define sCatDog4 7'd20
 `define sCatDog5 7'd21
 `define sCatDog 7'd22
+
+
+`define sCatDog1A 7'd30  
+`define sCatDog2A 7'd31
+`define sCatDog3A 7'd32
+`define sCatDog4A 7'd33
+`define sCatDog5A 7'd34
+`define sCatDogA 7'd35
+
 `define sBlackScreen1 7'd23
 `define sBlackScreen2 7'd24
 `define sBlackScreen 7'd25
@@ -84,6 +93,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sTitle3Start2: nextState = `sTitle3; 
 			`sTitle3: nextState = userCont? `sCatDog1 : (delay? `sTitle1Start1: `sTitle3); 
 			
+			//First
 			//Start with Loading Dog
 			`sCatDog1: nextState = `sCatDog2;
 			`sCatDog2: nextState = `sCatDog3;
@@ -92,11 +102,24 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sCatDog4: nextState = `sCatDog5;
 			`sCatDog5: nextState = `sCatDog;
 			`sCatDog: nextState = delay? `sBlackScreen1: `sCatDog;
-//Clears Screen and redraws cat and dog in correct posiiton
-
+			//Clears Screen and redraws cat and dog in correct posiiton
 			`sBlackScreen1: nextState = `sBlackScreen2;
 			`sBlackScreen2: nextState = `sBlackScreen;
-			`sBlackScreen: nextState = delay? `sCatDog1: `sBlackScreen;
+			`sBlackScreen: nextState = screenDone? `sCatDog1A: `sBlackScreen;
+			
+			//Second
+			//Start with Loading Dog
+			`sCatDog1A: nextState = `sCatDog2A;
+			`sCatDog2A: nextState = `sCatDog3A;
+			`sCatDog3A: nextState = screenDone? `sCatDog4A: `sCatDog3A;
+			//Start Loading Cat
+			`sCatDog4A: nextState = `sCatDog5A;
+			`sCatDog5A: nextState = `sCatDogA;
+			`sCatDogA: nextState = delay? `sBlackScreen1: `sCatDogA;
+			//Clears Screen and redraws cat and dog in correct posiiton
+			`sBlackScreen1: nextState = `sBlackScreen2;
+			`sBlackScreen2: nextState = `sBlackScreen;
+			`sBlackScreen: nextState = screenDone? `sCatDog: `sBlackScreen;
 
 //			`sBlackScreen: begin
 //				if(catDogSignal)
@@ -185,7 +208,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			case(currentState)
 				`s0: begin 
 				//Inital xy registers
-				xInitReset = 1'b1; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b1; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b1; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b1; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b1; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b1; yLoad = 1'b0; xySel = 2'b00;
 				//Color Register
@@ -209,7 +232,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			//Start the delay signal counting
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b1;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b1;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b00;
 				//Color Register
@@ -232,7 +255,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		//Also make sure Screen Counter is at 0 -> AddressscreenCounterReset
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -277,7 +300,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 //Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
 				//Color Register
@@ -301,7 +324,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			//Start the delay signal counting
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b1;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b1;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b00;
 				//Color Register
@@ -325,7 +348,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		//Also make sure Screen Counter is at 0 -> AddressscreenCounterReset
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -347,7 +370,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 //Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
 				//Color Register
@@ -370,7 +393,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			//Start the delay signal counting
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b1;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b1;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b00;
 				//Color Register
@@ -394,7 +417,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		//Also make sure Screen Counter is at 0 -> AddressscreenCounterReset
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -416,7 +439,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 //Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
 				//Color Register
@@ -456,12 +479,12 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		
 		
 				//Loading Dog on the right side
-`sCatDog1: begin 
+		`sCatDog1: begin 
 			//Loading the x and y inital coordinates -> xInitLoad, yInitLoad, xInitSel, yInitSel
 			//Start the delay signal counting
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0001; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b01; yInitLoad = 1'b1;
+				xInitReset = 1'b0; xInitSel = 5'b00001; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b01; yInitLoad = 1'b1;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b00;
 				//Color Register
@@ -484,7 +507,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		//Also make sure Screen Counter is at 0 -> AddressscreenCounterReset
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -506,7 +529,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 //Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b10;
 				//Color Register
@@ -530,7 +553,7 @@ end
 			//Start the delay signal counting
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b1000; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b01; yInitLoad = 1'b1;
+				xInitReset = 1'b0; xInitSel = 5'b01000; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b01; yInitLoad = 1'b1;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b00;
 				//Color Register
@@ -553,7 +576,7 @@ end
 		//Also make sure Screen Counter is at 0 -> AddressscreenCounterReset
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -575,7 +598,7 @@ end
 //Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b10;
 				//Color Register
@@ -595,12 +618,160 @@ end
 
 		end
 
+
+
+
+
+//Loading Dog Moving to The Right
+	`sCatDog1A: begin 
+			//Loading the x and y inital coordinates -> xInitLoad, yInitLoad, xInitSel, yInitSel
+			//Start the delay signal counting
+
+				//Inital xy registers
+				xInitReset = 1'b0; xInitSel = 5'b10101; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b01; yInitLoad = 1'b1;
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b00;
+				//Color Register
+				black = 1'b0; memorySel = 5'b10010;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
+				//Delaying internal signals
+				delaySignalReset = 1'b1;
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				//Counting for sprites (40x40)
+				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//Plotting for VGA
+				plot = 1'b0;
+				//Loading the Scenario
+				scenarioLoad = 1'b0;
+		end
+		`sCatDog2A: begin 
+		//Loading the inital coordinates into x and y before starting to count -> xLoad, yLoad, xySel
+		//Also make sure Screen Counter is at 0 -> AddressscreenCounterReset
+
+				//Inital xy registers
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
+				//Color Register
+				black = 1'b0; memorySel = 5'b10010;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
+				//Delaying internal signals
+				delaySignalReset = 1'b0;
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				//Counting fir sprites (40x40)
+				addressSpriteCounterReset = 1'b1; spriteCountLoad = 1'b0;
+				//Plotting for VGA
+				plot = 1'b0;
+				//Loading the Scenario
+				scenarioLoad = 1'b0;
+		end
+		`sCatDog3A: begin
+//Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
+
+				//Inital xy registers
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b10;
+				//Color Register
+				black = 1'b0; memorySel = 5'b10010;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0; winner2 = 1'b0; playerLoad = 1'b0;
+				//Delaying internal signals
+				delaySignalReset = 1'b0;
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				//Counting fir sprites (40x40)
+				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b1;
+				//Plotting for VGA
+				plot = 1'b1;
+				//Loading the Scenario
+				scenarioLoad = 1'b0; 
+end
+
+//Loading Cat moving to the right
+`sCatDog4A: begin 
+			//Loading the x and y inital coordinates -> xInitLoad, yInitLoad, xInitSel, yInitSel
+			//Start the delay signal counting
+
+				//Inital xy registers
+				xInitReset = 1'b0; xInitSel = 5'b01110; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b01; yInitLoad = 1'b1;
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b00;
+				//Color Register
+				black = 1'b0; memorySel = 5'b10101;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
+				//Delaying internal signals
+				delaySignalReset = 1'b1;
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				//Counting fir sprites (40x40)
+				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//Plotting for VGA
+				plot = 1'b0;
+				//Loading the Scenario
+				scenarioLoad = 1'b0;
+		end
+		`sCatDog5A: begin 
+		//Loading the inital coordinates into x and y before starting to count -> xLoad, yLoad, xySel
+		//Also make sure Screen Counter is at 0 -> AddressscreenCounterReset
+
+				//Inital xy registers
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
+				//Color Register
+				black = 1'b0; memorySel = 5'b10100;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
+				//Delaying internal signals
+				delaySignalReset = 1'b0;
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				//Counting fir sprites (40x40)
+				addressSpriteCounterReset = 1'b1; spriteCountLoad = 1'b0;
+				//Plotting for VGA
+				plot = 1'b0;
+				//Loading the Scenario
+				scenarioLoad = 1'b0;
+		end
+		`sCatDogA: begin
+//Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
+
+				//Inital xy registers
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b10;
+				//Color Register
+				black = 1'b0; memorySel = 5'b10101;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0; winner2 = 1'b0; playerLoad = 1'b0;
+				//Delaying internal signals
+				delaySignalReset = 1'b0;
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				//Counting fir sprites (40x40)
+				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b1;
+				//Plotting for VGA
+				plot = 1'b1;
+				//Loading the Scenario
+				scenarioLoad = 1'b0; 
+			end
+
+
+
+
+
 		`sBlackScreen1: begin 
 			//Loading the x and y inital coordinates -> xInitLoad, yInitLoad, xInitSel, yInitSel
 			//Start the delay signal counting
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b1;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b1;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b00;
 				//Color Register
@@ -623,7 +794,7 @@ end
 		//Also make sure Screen Counter is at 0 -> AddressscreenCounterReset
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b0; xInitSel = 5'b000000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -645,7 +816,7 @@ end
 //Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 4'b0000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b0; xInitSel = 5'b00000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
 				//Color Register

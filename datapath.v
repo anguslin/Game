@@ -2,7 +2,7 @@ module datapath(clk, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xRe
 
 input clk, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad; 
 input [1:0] yInitSel, xySel;
-input [3:0] xInitSel;
+input [4:0] xInitSel;
 input [4:0] memorySel;
 
 //VGA outputs
