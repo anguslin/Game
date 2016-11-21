@@ -23,7 +23,7 @@ output reg [n-1:0] out;
 wire [n-1:0] outToUpdate;
 
 //If reset, set to 0, otherwise if enable is on, then set it as
-assign outToUpdate = reset? 0:(enable? in: outToUpdate);
+assign outToUpdate = reset? 0:(enable? in: out);
 
 //Update on rising edge
 always @(posedge clk) 
