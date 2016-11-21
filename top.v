@@ -35,7 +35,7 @@ assign resetn = KEY[0];
 assign clk = CLOCK_50;
 assign player1Choice = SW[2:0];
 assign player2Choice = SW[2:0];
-assign userCont = ~KEY[1];
+assign userCont = KEY[1];
 
 `define cat 3'b001
 `define dog 3'b010
