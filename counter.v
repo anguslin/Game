@@ -18,7 +18,7 @@ input clk, counterReset, doneCount;
 output [25:0] count;
 wire [25:0] countToUpdate;
 
-assign countToUpdate = counterReset? 26'b0: (doneCount? 26'b0: (count+1)); //Resets back to 0 and keeps counting until next delay
+assign countToUpdate = count+1; //Resets back to 0 and keeps counting until next delay
 DFlipFlop #(26) counter26BitReg(clk, countToUpdate, count, counterReset);
 endmodule
 
@@ -27,7 +27,7 @@ module hz4 (count, doneCount); //div = 1 when it counts to designated value
 input [25:0] count;
 output doneCount;
 
-assign doneCount = (count == 26'd12500000) ? 1'b1 : 1'b0;
+assign doneCount = (count > 26'd12500000)? 1'b1 : 1'b0;
 endmodule
 
 //Screen Address Counters

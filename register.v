@@ -53,14 +53,15 @@ endmodule
 
 //The actual x and y coordinates
 
-module xyReg(clk, xReset, yReset, xySel, x, y, xLoad, yLoad, xStart, yStart, xCountUp, yCountUp, xInit, yInit);
+module xyReg(clk, xReset, yReset, xySel, x, y, xLoad, yLoad, xStart, yStart, xCountUp, yCountUp, xInit, yInit, screenDone);
 input clk, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart;
 input [1:0] xySel;
 input [7:0] xInit;
 input [6:0] yInit;
+output screenDone;
 output [7:0] x; 
 output [6:0] y;
-reg [7:0] xToUpdate = 1;
+reg [7:0] xToUpdate;
 reg [6:0] yToUpdate;
 
 always@(*) begin
@@ -68,19 +69,30 @@ always@(*) begin
 		2'b00: begin
 			yToUpdate = yInit;
 			xToUpdate = xInit;
+			screenDone = 0;
 		end
 		2'b01: begin //Whole Screen Reading
 		       if (y < 120 && x == 160 && yCountUp) begin
 					yToUpdate = y + 1;
-					xToUpdate = 1;end if (x < 160 && xCountUp)
+					xToUpdate = 1;
+				screenDone = 0;
+				end 
+				if (x < 160 && xCountUp) begin
 					xToUpdate = x + 1;
+				screenDone = 0;
+			end
+			if(x == 160 && y == 120)
+					screenDone = 1;
 			end
 		2'b10: begin
 	       		if (y < yInit + 40 & x == xInit + 40 & yCountUp) begin
 					yToUpdate = y + 1;
 					xToUpdate = 0;
-			end if (x < xInit + 40 & xCountUp)
+					screenDone = 0;
+				end if (x < xInit + 40 & xCountUp) begin
 					xToUpdate = x + 1;
+					screenDone = 0;
+				end
 					
 					//xToUpdate = y + 1;
 			
