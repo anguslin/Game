@@ -21,7 +21,8 @@ wire stateReset, resetn, userCont, scenarioLoad, xInitReset, xInitLoad, yInitRes
 wire [1:0] yInitSel, xySel;
 wire [2:0] color;
 wire [3:0] player1, player2;
-wire [4:0] memorySel, xInitSel;
+wire [4:0] xInitSel;
+wire [6:0] memorySel;
 wire [6:0] y;
 wire [7:0] x; 
 
