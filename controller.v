@@ -1,7 +1,7 @@
 module controller(clk, userCont, userChoose, userResetGame, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, xySel, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, yInitSel, xInitSel, memorySel, plot, scenarioLoad, stateReset, screenDone);
 
 //Signals controled by user inputs
-input clk, userCont, userChoose, userResetGame, screenDone, stateReset; 
+input clk, userCont, userChoose, userResetGame, stateReset; 
 //Signals controlled by internal datapath
 input screenDone, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken;
 //Output to datapath
@@ -532,7 +532,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		end
 
 		`sScenario: begin
-			scenarioLoad = 1'b0;
+			scenarioLoad = 1'b0; xCountUp = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yLoad = 1'b0; xySel = 2'b00; screenCountLoad = 1'b0; plot = 1'b0;
 		end
 
 			`sCatDog1Start1: begin 

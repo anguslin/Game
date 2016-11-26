@@ -67,17 +67,17 @@ displayHEX HEX1Displayer (.s(player2), .h(HEX1));
 always@(posedge clk) begin
 	if(scenarioLoad) begin
 	case({player1Choice, player2Choice})
-		{`cat,`cat}: {dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken} = 9'b100000000;
-		{`cat,`dog}: {dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken} = 9'b010000000;
-		{`cat,`chicken}: {dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken} = 9'b001000000;
-		{`dog,`cat}: {dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken} = 9'b000100000;
-		{`dog,`dog}: {dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken} = 9'b000010000;
-		{`dog,`chicken}: {dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken} = 9'b000001000;
-		{`chicken,`cat}: {dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken} = 9'b000000100;
-		{`chicken,`dog}: {dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken} = 9'b000000010;
-		{`chicken,`chicken}: {dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken} = 9'b000000001;
+		{`cat,`cat}: {catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b100000000;
+		{`cat,`dog}: {catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b010000000;
+		{`cat,`chicken}: {catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b001000000;
+		{`dog,`cat}: {catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b000100000;
+		{`dog,`dog}: {catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b000010000;
+		{`dog,`chicken}: {catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b000001000;
+		{`chicken,`cat}: {catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b000000100;
+		{`chicken,`dog}: {catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b000000010;
+		{`chicken,`chicken}: {catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b000000001;
 		//Default is cat vs cat if user does not give proper inputs
-		default:{dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken} = 9'b100000000;
+		default:{catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b100000000;
 	endcase
 	end
 end
