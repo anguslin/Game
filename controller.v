@@ -43,6 +43,9 @@ wire [6:0] currentState;
 `define sCatDog2Start2 7'd14  
 `define sCatDog2 7'd15
 
+`define sBlackScreen1 7'd16  
+`define sBlackScreen2 7'd17  
+`define sBlackScreen 7'd18
 
 
 //Delay Signal
@@ -485,11 +488,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 		end
 
-
-
-
-
-
 		`sBlackScreen1: begin 
 			//Loading the x and y inital coordinates -> xInitLoad, yInitLoad, xInitSel, yInitSel
 			//Start the delay signal counting
@@ -518,7 +516,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		//Also make sure Screen Counter is at 0 -> AddressscreenCounterReset
 
 				//Inital xy registers
-				xInitReset = 1'b0; xInitSel = 5'b000000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
+				xInitReset = 1'b0; xInitSel = 5'b000; xInitLoad = 1'b0; yInitReset = 1'b0; yInitSel = 2'b00; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
