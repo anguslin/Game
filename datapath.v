@@ -22,7 +22,7 @@ wire [10:0] spriteCount;
 
 //Color outputs from the memory ROMs
 wire [2:0] title1Color, title2Color, title3Color, choose1Color, choose2Color, choose3Color, p1Win1Color, p1Win2Color, p2Win1Color, p2Win2Color, chickenLeft1Color, chickenLeft2Color, chickenRight1Color, chickenRight2Color, dogLeft1Color, dogLeft2Color, dogLeft3Color, dogRight1Color, dogRight2Color, dogRight3Color, catLeft1Color, catLeft2Color, catLeft3Color, catLeft4Color, catLeft5Color, catLeft6Color, catRight1Color, catRight2Color, catRight3Color, catRight4Color, catRight5Color, catRight6Color;
-
+  
 //Memory ROMs
 //Title
 Title1 Title1Mem(.address(screenCount), .clock(clk), .q(title1Color));
@@ -38,31 +38,78 @@ P1W2 P1W2Mem(.address(screenCount), .clock(clk), .q(p1Win2Color));
 //Player 2 Wins Screens
 P2W P2WMem(.address(screenCount), .clock(clk), .q(p2Win1Color));
 P2W2 P2W2Mem(.address(screenCount), .clock(clk), .q(p2Win2Color));
-//Dog Sprites
-DogWalk1Right DogRight1Mem(.address(spriteCount), .clock(clk), .q(dogRight1Color));
-DogWalk2Right DogRight2Mem(.address(spriteCount), .clock(clk), .q(dogRight2Color));
-DogWalk3Right DogRight3Mem(.address(spriteCount), .clock(clk), .q(dogRight3Color));
-DogWalk1Left DogLeft1Mem(.address(spriteCount), .clock(clk), .q(dogLeft1Color));
-DogWalk2Left DogLeft2Mem(.address(spriteCount), .clock(clk), .q(dogLeft2Color));
-DogWalk3Left DogLeft3Mem(.address(spriteCount), .clock(clk), .q(dogLeft3Color));
-//Chicken Sprites
-ChickenWalk1Right ChickenRight1Mem(.address(spriteCount), .clock(clk), .q(chickenRight1Color));
-ChickenWalk2Right ChickenRight2Mem(.address(spriteCount), .clock(clk), .q(chickenRight2Color));
-ChickenWalk1Left ChickenLeft1Mem(.address(spriteCount), .clock(clk), .q(chickenLeft1Color));
-ChickenWalk2Left ChickenLeft2Mem(.address(spriteCount), .clock(clk), .q(chickenLeft2Color));
-//Cat Sprites
-CatRun1Right CatRight1Mem(.address(spriteCount), .clock(clk), .q(catRight1Color));
-CatRun2Right CatRight2Mem(.address(spriteCount), .clock(clk), .q(catRight2Color));
-CatRun3Right CatRight3Mem(.address(spriteCount), .clock(clk), .q(catRight3Color));
-CatRun4Right CatRight4Mem(.address(spriteCount), .clock(clk), .q(catRight4Color));
-CatRun5Right CatRight5Mem(.address(spriteCount), .clock(clk), .q(catRight5Color));
-CatRun6Right CatRight6Mem(.address(spriteCount), .clock(clk), .q(catRight6Color));
-CatRun1Left CatLeft1Mem(.address(spriteCount), .clock(clk), .q(catLeft1Color));
-CatRun2Left CatLeft2Mem(.address(spriteCount), .clock(clk), .q(catLeft2Color));
-CatRun3Left CatLeft3Mem(.address(spriteCount), .clock(clk), .q(catLeft3Color));
-CatRun4Left CatLeft4Mem(.address(spriteCount), .clock(clk), .q(catLeft4Color));
-CatRun5Left CatLeft5Mem(.address(spriteCount), .clock(clk), .q(catLeft5Color));
-CatRun6Left CatLeft6Mem(.address(spriteCount), .clock(clk), .q(catLeft6Color));
+//Cat Cat Sprites
+catCat1 catCat1Mem(.address(screenCount), .clock(clk), .q(catCat1Color));
+catCat2 catCat2Mem(.address(screenCount), .clock(clk), .q(catCat2Color));
+catCat3 catCat3Mem(.address(screenCount), .clock(clk), .q(catCat3Color));
+//Cat Dog Sprites
+catDog1 catDog1Mem(.address(screenCount), .clock(clk), .q(catDog1Color));
+catDog2 catDog2Mem(.address(screenCount), .clock(clk), .q(catDog2Color));
+catDog3 catDog3Mem(.address(screenCount), .clock(clk), .q(catDog3Color));
+catDog4 catDog4Mem(.address(screenCount), .clock(clk), .q(catDog4Color));
+catDog5 catDog5Mem(.address(screenCount), .clock(clk), .q(catDog5Color));
+catDog6 catDog6Mem(.address(screenCount), .clock(clk), .q(catDog6Color));
+catDog7 catDog7Mem(.address(screenCount), .clock(clk), .q(catDog7Color));
+catDog8 catDog8Mem(.address(screenCount), .clock(clk), .q(catDog8Color));
+catDog9 catDog9Mem(.address(screenCount), .clock(clk), .q(catDog9Color));
+//Cat Chicken Sprites
+catChicken1 catChicken1Mem(.address(screenCount), .clock(clk), .q(catChicken1Color));
+catChicken2 catChicken2Mem(.address(screenCount), .clock(clk), .q(catChicken2Color));
+catChicken3 catChicken3Mem(.address(screenCount), .clock(clk), .q(catChicken3Color));
+catChicken4 catChicken4Mem(.address(screenCount), .clock(clk), .q(catChicken4Color));
+catChicken5 catChicken5Mem(.address(screenCount), .clock(clk), .q(catChicken5Color));
+catChicken6 catChicken6Mem(.address(screenCount), .clock(clk), .q(catChicken6Color));
+catChicken7 catChicken7Mem(.address(screenCount), .clock(clk), .q(catChicken7Color));
+catChicken8 catChicken8Mem(.address(screenCount), .clock(clk), .q(catChicken8Color));
+catChicken9 catChicken9Mem(.address(screenCount), .clock(clk), .q(catChicken9Color));
+//Chicken Cat Sprites
+chickenCat1 ChickenCat1Mem(.address(screenCount), .clock(clk), .q(chickenCat1Color));
+chickenCat2 ChickenCat2Mem(.address(screenCount), .clock(clk), .q(chickenCat2Color));
+chickenCat3 ChickenCat3Mem(.address(screenCount), .clock(clk), .q(chickenCat3Color));
+chickenCat4 ChickenCat4Mem(.address(screenCount), .clock(clk), .q(chickenCat4Color));
+chickenCat5 ChickenCat5Mem(.address(screenCount), .clock(clk), .q(chickenCat5Color));
+chickenCat6 ChickenCat6Mem(.address(screenCount), .clock(clk), .q(chickenCat6Color));
+chickenCat7 ChickenCat7Mem(.address(screenCount), .clock(clk), .q(chickenCat7Color));
+chickenCat8 ChickenCat8em(.address(screenCount), .clock(clk), .q(chickenCat18olor));
+chickenCat9 ChickenCat9Mem(.address(screenCount), .clock(clk), .q(chickenCat9Color));
+//Chicken Chicken Sprites
+chickenChicken1 ChickenChicken1Mem(.address(screenCount), .clock(clk), .q(chickenChicken1Color));
+chickenChicken2 ChickenChicken2Mem(.address(screenCount), .clock(clk), .q(chickenChicken2Color));
+chickenChicken3 ChickenChicken3Mem(.address(screenCount), .clock(clk), .q(chickenChicken3Color));
+//Chicken Dog Sprites
+chickenDog1 ChickenDog1Mem(.address(screenCount), .clock(clk), .q(chickenDog1Color));
+chickenDog2 ChickenDog2Mem(.address(screenCount), .clock(clk), .q(chickenDog2Color));
+chickenDog3 ChickenDog3Mem(.address(screenCount), .clock(clk), .q(chickenDog3Color));
+chickenDog4 ChickenDog4Mem(.address(screenCount), .clock(clk), .q(chickenDog4Color));
+chickenDog5 ChickenDog5Mem(.address(screenCount), .clock(clk), .q(chickenDog5Color));
+chickenDog6 ChickenDog6Mem(.address(screenCount), .clock(clk), .q(chickenDog6Color));
+chickenDog7 ChickenDog7Mem(.address(screenCount), .clock(clk), .q(chickenDog7Color));
+chickenDog8 ChickenDog8Mem(.address(screenCount), .clock(clk), .q(chickenDog8Color));
+chickenDog9 ChickenDog9Mem(.address(screenCount), .clock(clk), .q(chickenDog9Color));
+//Dog Cat Sprites
+dogCat1 dogCat1Mem(.address(screenCount), .clock(clk), .q(dogCat1Color));
+dogCat2 dogCat2Mem(.address(screenCount), .clock(clk), .q(dogCat2Color));
+dogCat3 dogCat3Mem(.address(screenCount), .clock(clk), .q(dogCat3olor));
+dogCat4 dogCat4Mem(.address(screenCount), .clock(clk), .q(dogCat4Color));
+dogCat5 dogCat5Mem(.address(screenCount), .clock(clk), .q(dogCat5Color));
+dogCat6 dogCat6Mem(.address(screenCount), .clock(clk), .q(dogCat6Color));
+dogCat7 dogCat7Mem(.address(screenCount), .clock(clk), .q(dogCat7Color));
+dogCat8 dogCat8Mem(.address(screenCount), .clock(clk), .q(dogCat8Color));
+dogCat9 dogCat9Mem(.address(screenCount), .clock(clk), .q(dogCat9Color));
+//Dog Chicken Sprites
+dogChicken1 dogChicken1Mem(.address(screenCount), .clock(clk), .q(dogChicken1Color));
+dogChicken2 dogChicken2Mem(.address(screenCount), .clock(clk), .q(dogChicken2Color));
+dogChicken3 dogChicken3Mem(.address(screenCount), .clock(clk), .q(dogChicken3Color));
+dogChicken4 dogChicken4Mem(.address(screenCount), .clock(clk), .q(dogChicken4Color));
+dogChicken5 dogChicken5Mem(.address(screenCount), .clock(clk), .q(dogChicken5Color));
+dogChicken6 dogChicken6Mem(.address(screenCount), .clock(clk), .q(dogChicken6Color));
+dogChicken7 dogChicken7Mem(.address(screenCount), .clock(clk), .q(dogChicken7Color));
+dogChicken8 dogChicken8Mem(.address(screenCount), .clock(clk), .q(dogChicken8Color));
+dogChicken9 dogChicken9Mem(.address(screenCount), .clock(clk), .q(dogChicken9Color));
+//Dog Dog Sprites
+dogDog1 catDog1Mem(.address(screenCount), .clock(clk), .q(dogDog1Color));
+dogDog2 catDog2Mem(.address(screenCount), .clock(clk), .q(dogDog2Color));
+dogDog3 catDog3Mem(.address(screenCount), .clock(clk), .q(dogDog3Color));
 
 //The starting point of the x coordinate
 xInitReg xInitial(.clk(clk), .xInitReset(xInitReset), .xInitSel(xInitSel), .xInit(xInit), .xInitLoad(xInitLoad));
