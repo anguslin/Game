@@ -1,7 +1,7 @@
 module controller(clk, userCont, userChoose, userResetGame, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, xySel, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, yInitSel, xInitSel, memorySel, plot, scenarioLoad, stateReset, screenDone);
 
 //Signals controled by user inputs
-input clk, userCont, userChoose, userResetGame, screenDone; 
+input clk, userCont, userChoose, userResetGame, screenDone, stateReset; 
 //Signals controlled by internal datapath
 input screenDone, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken;
 //Output to datapath
@@ -73,6 +73,21 @@ wire [6:0] currentState;
 `define sCatDog9Start2 7'd44  
 `define sCatDog9 7'd45
 
+
+
+
+
+
+`define sCatCatStart1 7'd46  
+`define sCatChickenStart1 7'd47  
+`define sChickenCatStart1 7'd48  
+`define sChickenDogStart1 7'd49  
+`define sChickenChickenStart1 7'd50  
+`define sDogCatStart1 7'd51  
+`define sDogChickenStart1 7'd52  
+`define sDogDogStart1 7'd53  
+
+
 //Scenario
 `define sScenario 7'd124
 
@@ -121,7 +136,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sChoose3: nextState = userChoose? `sScenario : (delay? `sChoose1Start1: `sChoose3); 
 			
 			//Default if it doesnt specify is Cat Cat Scenario
-			`sScenario: nextState = catCat? `sCatCat1Start1: (catDog? `sCatDogStart1: (catChicken? `sCatChickenStart1: chickenCat? `sChickenCat: (chickenDog? `sChickenDogStart1: (chickenChicken? `sChickenChickenStart1: (dogCat? `sDogCatStart1: (dogDog? `sDogDogStart1: (dogChicken? `sDogChickenStart1: `sCatCat1Start1)))))))
+			`sScenario: nextState = catCat? `sCatCat1Start1: (catDog? `sCatDogStart1: (catChicken? `sCatChickenStart1: chickenCat? `sChickenCat: (chickenDog? `sChickenDogStart1: (chickenChicken? `sChickenChickenStart1: (dogCat? `sDogCatStart1: (dogDog? `sDogDogStart1: (dogChicken? `sDogChickenStart1: `sCatCat1Start1)))))));
 
 			//CatDog Scenario
 			`sCatDog1Start1: nextState = `sCatDog1Start2;
@@ -159,9 +174,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sCatDog9Start1: nextState = `sCatDog9Start2;
 			`sCatDog9Start2: nextState = `sCatDog9;
 			`sCatDog9: nextState = delay? `sChoose1Start1: `sCatDog9;
-
-
-
 
 			default: nextState = `s0; //The moment the program starts, go to first state where everything gets reset
 			endcase
