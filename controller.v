@@ -65,15 +65,15 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sTitle1Start1: nextState = `sTitle1Start2; //Loading xInitial and yInitial Values 
 			`sTitle1Start2: nextState = `sTitle1; //Loading x Values and yValues
 			//`sTitle1Start3: nextState = `sTitle1; //Loading x Values and yValues
-			`sTitle1: nextState = userCont? `sCatDog1 : (delay? `sTitle2Start1: `sTitle1); //Clock keeps updating
+			`sTitle1: nextState = userCont? `sCatDog1Start1 : (delay? `sTitle2Start1: `sTitle1); //Clock keeps updating
 
 			`sTitle2Start1: nextState = `sTitle2Start2; 
 			`sTitle2Start2: nextState = `sTitle2; 
-			`sTitle2: nextState = userCont? `sCatDog1 : (delay? `sTitle3Start1: `sTitle2); 
+			`sTitle2: nextState = userCont? `sCatDog1Start1 : (delay? `sTitle3Start1: `sTitle2); 
 
 			`sTitle3Start1: nextState = `sTitle3Start2; 
 			`sTitle3Start2: nextState = `sTitle3; 
-			`sTitle3: nextState = userCont? `sCatDog1 : (delay? `sTitle1Start1: `sTitle3); 
+			`sTitle3: nextState = userCont? `sCatDog1Start1 : (delay? `sTitle1Start1: `sTitle3); 
 			
 			//First
 			`sCatDog1Start1: nextState = `sCatDog1Start2;
@@ -259,7 +259,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b00;
 				//Color Register
-				black = 1'b0; memorySel = 7'd3;
+				black = 1'b0; memorySel = 7'd2;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
@@ -283,7 +283,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
-				black = 1'b0; memorySel = 7'd3;
+				black = 1'b0; memorySel = 7'd2;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
@@ -305,7 +305,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
 				//Color Register
-				black = 1'b0; memorySel = 7'd3;
+				black = 1'b0; memorySel = 7'd2;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0; winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
