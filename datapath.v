@@ -21,8 +21,8 @@ wire [14:0] screenCount;
 wire [10:0] spriteCount;
 
 //Color outputs from the memory ROMs
-wire [2:0] title1Color, title2Color, title3Color, choose1Color, choose2Color, choose3Color, p1Win1Color, p1Win2Color, p2Win1Color, p2Win2Color, chickenLeft1Color, chickenLeft2Color, chickenRight1Color, chickenRight2Color, dogLeft1Color, dogLeft2Color, dogLeft3Color, dogRight1Color, dogRight2Color, dogRight3Color, catLeft1Color, catLeft2Color, catLeft3Color, catLeft4Color, catLeft5Color, catLeft6Color, catRight1Color, catRight2Color, catRight3Color, catRight4Color, catRight5Color, catRight6Color;
-  
+wire [2:0] title1Color, title2Color, title3Color, choose1Color, choose2Color, choose3Color, p1Win1Color, p1Win2Color, p2Win1Color, p2Win2Color, catCat1Color, catCat2Color, catCat3Color, catChicken1Color, catChicken2Color, catChicken3Color, catChicken4Color, catChicken5Color, catChicken6Color, catChicken7Color, catChicken8Color, catDog1Color, catDog2Color, catDog3Color, catDog4Color, catDog5Color, catDog6Color, catDog7Color, catDog8Color, catDog9Color, dogDog1Color, dogDog2Color, dogDog3Color, dogCat1Color, dogCat2Color, dogCat3Color, dogCat4Color, dogCat5Color, dogCat6Color, dogCat7Color, dogCat8Color, dogCat9Color, dogChicken1Color, dogChicken2Color, dogChicken3Color, dogChicken4Color, dogChicken5Color, dogChicken6Color, dogChicken7Color, dogChicken8Color, dogChicken9Color, chickenChicken1Color, chickenChicken2Color, chickenChicken3Color, chickenDog1Color, chickenDog2Color, chickenDog3Color, chickenDog4Color, chickenDog5Color, chickenDog6Color, chickenDog7Color, chickenDog8Color, chickenDog9Color, chickenCat1Color, chickenCat2Color, chickenCat3Color, chickenCat4Color, chickenCat5Color, chickenCat6Color, chickenCat7Color, chickenCat8Color, chickenCat9Color;
+
 //Memory ROMs
 //Title
 Title1 Title1Mem(.address(screenCount), .clock(clk), .q(title1Color));
