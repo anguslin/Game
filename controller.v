@@ -367,7 +367,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		`sCatDog1: begin
 //Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
 
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1, xySel = 2'b01;
+				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
@@ -414,7 +414,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		`sCatDog2: begin
 //Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
 
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1, xySel = 2'b01;
+				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
