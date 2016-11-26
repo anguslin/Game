@@ -48,7 +48,7 @@ catDog2 catDog2Mem(.address(screenCount), .clock(clk), .q(catDog2Color));
 catDog3 catDog3Mem(.address(screenCount), .clock(clk), .q(catDog3Color));
 catDog4 catDog4Mem(.address(screenCount), .clock(clk), .q(catDog4Color));
 catDog5 catDog5Mem(.address(screenCount), .clock(clk), .q(catDog5Color));
-catDog6 catDog6Mem(.address(screenCount), .clock(clk), .q(catDog6Color));
+catDog6 catDog6Mem(.address(screenCount), .clock(clk:), .q(catDog6Color));
 catDog7 catDog7Mem(.address(screenCount), .clock(clk), .q(catDog7Color));
 catDog8 catDog8Mem(.address(screenCount), .clock(clk), .q(catDog8Color));
 catDog9 catDog9Mem(.address(screenCount), .clock(clk), .q(catDog9Color));
