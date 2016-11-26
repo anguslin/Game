@@ -89,7 +89,7 @@ chickenDog9 ChickenDog9Mem(.address(screenCount), .clock(clk), .q(chickenDog9Col
 //Dog Cat Sprites
 dogCat1 dogCat1Mem(.address(screenCount), .clock(clk), .q(dogCat1Color));
 dogCat2 dogCat2Mem(.address(screenCount), .clock(clk), .q(dogCat2Color));
-dogCat3 dogCat3Mem(.address(screenCount), .clock(clk), .q(dogCat3olor));
+dogCat3 dogCat3Mem(.address(screenCount), .clock(clk), .q(dogCat3Color));
 dogCat4 dogCat4Mem(.address(screenCount), .clock(clk), .q(dogCat4Color));
 dogCat5 dogCat5Mem(.address(screenCount), .clock(clk), .q(dogCat5Color));
 dogCat6 dogCat6Mem(.address(screenCount), .clock(clk), .q(dogCat6Color));
