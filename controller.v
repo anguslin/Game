@@ -120,7 +120,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sTitle3Start1: nextState = `sTitle3Start2; 
 			`sTitle3Start2: nextState = `sTitle3; 
 			`sTitle3: nextState = userCont? `sChoose1Start1 : (delay? `sTitle1Start1: `sTitle3); 
-		
 
 			//Title Screen moves to Choose screen when user presses KEY[1]
 			`sChoose1Start1: nextState = `sChoose1Start2; //Loading xInitial and yInitial Values 

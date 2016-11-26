@@ -31,11 +31,11 @@ reg dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenC
 wire [2:0] player1Choice;
 wire [2:0] player2Choice;
 
-assign stateReset = ~KEY[0];
+assign stateReset = SW[9];
 assign resetn = KEY[0];
 assign clk = CLOCK_50;
 assign player1Choice = SW[2:0];
-assign player2Choice = SW[2:0];
+assign player2Choice = SW[5:0];
 assign userCont = ~KEY[1];
 assign userChoose = ~KEY[2];
 assign userResetGame = ~KEY[3];
