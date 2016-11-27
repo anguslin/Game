@@ -38,101 +38,71 @@ wire [7:0] currentState;
 `define sChoose3Start 8'd16
 `define sChoose3 8'd18
 //CatDog Sreens
-`define sCatDog5Start1 8'd31  
-`define sCatDog5Start2 8'd32  
-`define sCatDog5 8'd33
-`define sCatDog6Start1 8'd34  
-`define sCatDog6Start2 8'd35  
-`define sCatDog6 8'd36
-`define sCatDog7Start1 8'd37  
-`define sCatDog7Start2 8'd38  
-`define sCatDog7 8'd39
-`define sCatDog8Start1 8'd40  
-`define sCatDog8Start2 8'd41  
-`define sCatDog8 8'd42
-`define sCatDog9Start1 8'd43  
-`define sCatDog9Start2 8'd44  
-`define sCatDog9 8'd45
+`define sCatDog1Start 8'd31  
+`define sCatDog1 8'd33
+`define sCatDog2Start 8'd34  
+`define sCatDog2 8'd36
+`define sCatDog3Start 8'd37  
+`define sCatDog3 8'd39
+`define sCatDog4Start 8'd40  
+`define sCatDog4 8'd42
+`define sCatDog5Start 8'd43  
+`define sCatDog5 8'd45
 //CatChicken Sreens
-`define sCatChicken5Start1 8'd58  
-`define sCatChicken5Start2 8'd59  
-`define sCatChicken5 8'd60
-`define sCatChicken6Start1 8'd61  
-`define sCatChicken6Start2 8'd62  
-`define sCatChicken6 8'd63
-`define sCatChicken7Start1 8'd64  
-`define sCatChicken7Start2 8'd65  
-`define sCatChicken7 8'd66
-`define sCatChicken8Start1 8'd67  
-`define sCatChicken8Start2 8'd68  
-`define sCatChicken8 8'd69
-`define sCatChicken9Start1 8'd70  
-`define sCatChicken9Start2 8'd71  
-`define sCatChicken9 8'd72
+`define sCatChicken1Start 8'd58  
+`define sCatChicken1 8'd60
+`define sCatChicken2Start 8'd61  
+`define sCatChicken2 8'd63
+`define sCatChicken3Start 8'd64  
+`define sCatChicken3 8'd66
+`define sCatChicken4Start 8'd67  
+`define sCatChicken4 8'd69
+`define sCatChicken5Start 8'd70  
+`define sCatChicken5 8'd72
 //DogCat Sreens
-`define sDogCat5Start1 8'd85  
-`define sDogCat5Start2 8'd86  
-`define sDogCat5 8'd87
-`define sDogCat6Start1 8'd88  
-`define sDogCat6Start2 8'd89  
-`define sDogCat6 8'd90
-`define sDogCat7Start1 8'd91  
-`define sDogCat7Start2 8'd92  
-`define sDogCat7 8'd93
-`define sDogCat8Start1 8'd94  
-`define sDogCat8Start2 8'd95  
-`define sDogCat8 8'd96
-`define sDogCat9Start1 8'd97  
-`define sDogCat9Start2 8'd98  
-`define sDogCat9 8'd99
+`define sDogCat1Start 8'd85  
+`define sDogCat1 8'd87
+`define sDogCat2Start 8'd88  
+`define sDogCat2 8'd90
+`define sDogCat3Start 8'd91  
+`define sDogCat3 8'd93
+`define sDogCat4Start 8'd94  
+`define sDogCat4 8'd96
+`define sDogCat5Start 8'd97  
+`define sDogCat5 8'd99
 //DogChicken Sreens
-`define sDogChicken5Start1 8'd112 
-`define sDogChicken5Start2 8'd113 
-`define sDogChicken5 8'd114
-`define sDogChicken6Start1 8'd115 
-`define sDogChicken6Start2 8'd116 
-`define sDogChicken6 8'd117
-`define sDogChicken7Start1 8'd118 
-`define sDogChicken7Start2 8'd119 
-`define sDogChicken7 8'd120
-`define sDogChicken8Start1 8'd121 
-`define sDogChicken8Start2 8'd122 
-`define sDogChicken8 8'd123
-`define sDogChicken9Start1 8'd124 
-`define sDogChicken9Start2 8'd125 
-`define sDogChicken9 8'd126
+`define sDogChicken1Start 8'd112 
+`define sDogChicken1 8'd114
+`define sDogChicken2Start 8'd115 
+`define sDogChicken2 8'd117
+`define sDogChicken3Start 8'd118 
+`define sDogChicken3 8'd120
+`define sDogChicken4Start 8'd121 
+`define sDogChicken4 8'd123
+`define sDogChicken5Start 8'd124 
+`define sDogChicken5 8'd126
 //ChickenCat Sreens
-`define sChickenCat5Start1 8'd139 
-`define sChickenCat5Start2 8'd140 
-`define sChickenCat5 8'd141
-`define sChickenCat6Start1 8'd142 
-`define sChickenCat6Start2 8'd142 
-`define sChickenCat6 8'd143
-`define sChickenCat7Start1 8'd144 
-`define sChickenCat7Start2 8'd145 
-`define sChickenCat7 8'd146
-`define sChickenCat8Start1 8'd147 
-`define sChickenCat8Start2 8'd148 
-`define sChickenCat8 8'd149
-`define sChickenCat9Start1 8'd150 
-`define sChickenCat9Start2 8'd151 
-`define sChickenCat9 8'd152
+`define sChickenCat1Start 8'd139 
+`define sChickenCat1 8'd141
+`define sChickenCat2Start 8'd142 
+`define sChickenCat2 8'd143
+`define sChickenCat3Start 8'd144 
+`define sChickenCat3 8'd146
+`define sChickenCat4Start 8'd147 
+`define sChickenCat4 8'd149
+`define sChickenCat5Start 8'd150 
+`define sChickenCat5 8'd152
 //ChickenDog Sreens
-`define sChickenDog5Start1 8'd165 
-`define sChickenDog5Start2 8'd166 
-`define sChickenDog5 8'd167
-`define sChickenDog6Start1 8'd168 
-`define sChickenDog6Start2 8'd169 
-`define sChickenDog6 8'd170
-`define sChickenDog7Start1 8'd171 
-`define sChickenDog7Start2 8'd172 
-`define sChickenDog7 8'd173
-`define sChickenDog8Start1 8'd174 
-`define sChickenDog8Start2 8'd175 
-`define sChickenDog8 8'd176
-`define sChickenDog9Start1 8'd177 
-`define sChickenDog9Start2 8'd178 
-`define sChickenDog9 8'd179
+`define sChickenDog1Start 8'd165 
+`define sChickenDog1 8'd167
+`define sChickenDog2Start 8'd168 
+`define sChickenDog2 8'd170
+`define sChickenDog3Start 8'd171 
+`define sChickenDog3 8'd173
+`define sChickenDog4Start 8'd174 
+`define sChickenDog4 8'd176
+`define sChickenDog5Start 8'd177 
+`define sChickenDog5 8'd179
 //CatCat Sreens
 `define sCatCat1Start 8'd180 
 `define sCatCat1 8'd182
@@ -173,18 +143,14 @@ wire [7:0] currentState;
 `define sChickenChicken6Start 8'd231 
 `define sChickenChicken6 8'd233
 //Player 1 Wins 
-`define sP1Wins1Start1 8'd234 
-`define sP1Wins1Start2 8'd235
+`define sP1Wins1Start 8'd234 
 `define sP1Wins1 8'd236
-`define sP1Wins2Start1 8'd237
-`define sP1Wins2Start2 8'd238
+`define sP1Wins2Start 8'd237
 `define sP1Wins2 8'd239
 //Player 2 Wins 
-`define sP2Wins1Start1 8'd240
-`define sP2Wins1Start2 8'd241
+`define sP2Wins1Start 8'd240
 `define sP2Wins1 8'd242
-`define sP2Wins2Start1 8'd243
-`define sP2Wins2Start2 8'd244
+`define sP2Wins2Start 8'd243
 `define sP2Wins2 8'd245
 //Scenario
 `define sScenario 8'd246
@@ -225,133 +191,103 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sChoose3: nextState = userChoose? `sScenario : (delay? `sChoose1Start: `sChoose3); 
 			
 			//Default if it doesnt specify is Cat Cat Scenario
-			`sScenario: nextState = catCat? `sCatCat1Start: (catDog? `sCatDog5Start1: (catChicken? `sCatChicken5Start1: (chickenCat? `sChickenCat5Start1: (chickenDog? `sChickenDog5Start1: (chickenChicken? `sChickenChicken1Start: (dogCat? `sDogCat5Start1: (dogDog? `sDogDog1Start: (dogChicken? `sDogChicken5Start1: `sCatCat1Start))))))));
+			`sScenario: nextState = catCat? `sCatCat1Start: (catDog? `sCatDog5Start: (catChicken? `sCatChicken5Start: (chickenCat? `sChickenCat5Start: (chickenDog? `sChickenDog5Start: (chickenChicken? `sChickenChicken1Start: (dogCat? `sDogCat5Start: (dogDog? `sDogDog1Start: (dogChicken? `sDogChicken5Start: `sCatCat1Start))))))));
 
 			//Cat Dog
-			`sCatDog5Start1: nextState = `sCatDog5Start2;
-			`sCatDog5Start2: nextState = `sCatDog5;
-			`sCatDog5: nextState = delay? `sCatDog6Start1: `sCatDog5;
+			`sCatDog5Start: nextState = `sCatDog5;
+			`sCatDog5: nextState = delay? `sCatDog6Start: `sCatDog5;
 
-			`sCatDog6Start1: nextState = `sCatDog6Start2;
-			`sCatDog6Start2: nextState = `sCatDog6;
-			`sCatDog6: nextState = delay? `sCatDog7Start1: `sCatDog6;
+			`sCatDog6Start: nextState = `sCatDog6;
+			`sCatDog6: nextState = delay? `sCatDog7Start: `sCatDog6;
 
-			`sCatDog7Start1: nextState = `sCatDog7Start2;
-			`sCatDog7Start2: nextState = `sCatDog7;
-			`sCatDog7: nextState = delay? `sCatDog8Start1: `sCatDog7;
+			`sCatDog7Start: nextState = `sCatDog7;
+			`sCatDog7: nextState = delay? `sCatDog8Start: `sCatDog7;
 
-			`sCatDog8Start1: nextState = `sCatDog8Start2;
-			`sCatDog8Start2: nextState = `sCatDog8;
-			`sCatDog8: nextState = delay? `sCatDog9Start1: `sCatDog8;
+			`sCatDog8Start: nextState = `sCatDog8;
+			`sCatDog8: nextState = delay? `sCatDog9Start: `sCatDog8;
 
-			`sCatDog9Start1: nextState = `sCatDog9Start2;
-			`sCatDog9Start2: nextState = `sCatDog9;
-			`sCatDog9: nextState = delay? (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start)): `sCatDog9;
+			`sCatDog9Start: nextState = `sCatDog9;
+			`sCatDog9: nextState = delay? (player1Wins? `sP1Wins1Start :(player2Wins? `sP2Wins1Start: `sChoose1Start)): `sCatDog9;
 
-//Cat CHicken
-			`sCatChicken5Start1: nextState = `sCatChicken5Start2;
-			`sCatChicken5Start2: nextState = `sCatChicken5;
-			`sCatChicken5: nextState = delay? `sCatChicken6Start1: `sCatChicken5;
+//Cat Chicken
+			`sCatChicken5Start: nextState = `sCatChicken5;
+			`sCatChicken5: nextState = delay? `sCatChicken6Start: `sCatChicken5;
 
-			`sCatChicken6Start1: nextState = `sCatChicken6Start2;
-			`sCatChicken6Start2: nextState = `sCatChicken6;
-			`sCatChicken6: nextState = delay? `sCatChicken7Start1: `sCatChicken6;
+			`sCatChicken6Start: nextState = `sCatChicken6;
+			`sCatChicken6: nextState = delay? `sCatChicken7Start: `sCatChicken6;
 
-			`sCatChicken7Start1: nextState = `sCatChicken7Start2;
-			`sCatChicken7Start2: nextState = `sCatChicken7;
-			`sCatChicken7: nextState = delay? `sCatChicken8Start1: `sCatChicken7;
+			`sCatChicken7Start: nextState = `sCatChicken7;
+			`sCatChicken7: nextState = delay? `sCatChicken8Start: `sCatChicken7;
 
-			`sCatChicken8Start1: nextState = `sCatChicken8Start2;
-			`sCatChicken8Start2: nextState = `sCatChicken8;
-			`sCatChicken8: nextState = delay? `sCatChicken9Start1: `sCatChicken8;
+			`sCatChicken8Start: nextState = `sCatChicken8;
+			`sCatChicken8: nextState = delay? `sCatChicken9Start: `sCatChicken8;
 
-			`sCatChicken9Start1: nextState = `sCatChicken9Start2;
-			`sCatChicken9Start2: nextState = `sCatChicken9;
-			`sCatChicken9: nextState = delay? (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start)): `sCatChicken9;
+			`sCatChicken9Start: nextState = `sCatChicken9;
+			`sCatChicken9: nextState = delay? (player1Wins? `sP1Wins1Start :(player2Wins? `sP2Wins1Start: `sChoose1Start)): `sCatChicken9;
 
 			//ChickenCat Scenario
-			`sChickenCat5Start1: nextState = `sChickenCat5Start2;
-			`sChickenCat5Start2: nextState = `sChickenCat5;
-			`sChickenCat5: nextState = delay? `sChickenCat6Start1: `sChickenCat5;
+			`sChickenCat5Start: nextState = `sChickenCat5;
+			`sChickenCat5: nextState = delay? `sChickenCat6Start: `sChickenCat5;
 
-			`sChickenCat6Start1: nextState = `sChickenCat6Start2;
-			`sChickenCat6Start2: nextState = `sChickenCat6;
-			`sChickenCat6: nextState = delay? `sChickenCat7Start1: `sChickenCat6;
+			`sChickenCat6Start: nextState = `sChickenCat6;
+			`sChickenCat6: nextState = delay? `sChickenCat7Start: `sChickenCat6;
 
-			`sChickenCat7Start1: nextState = `sChickenCat7Start2;
-			`sChickenCat7Start2: nextState = `sChickenCat7;
-			`sChickenCat7: nextState = delay? `sChickenCat8Start1: `sChickenCat7;
+			`sChickenCat7Start: nextState = `sChickenCat7;
+			`sChickenCat7: nextState = delay? `sChickenCat8Start: `sChickenCat7;
 
-			`sChickenCat8Start1: nextState = `sChickenCat8Start2;
-			`sChickenCat8Start2: nextState = `sChickenCat8;
-			`sChickenCat8: nextState = delay? `sChickenCat9Start1: `sChickenCat8;
+			`sChickenCat8Start: nextState = `sChickenCat8;
+			`sChickenCat8: nextState = delay? `sChickenCat9Start: `sChickenCat8;
 
-			`sChickenCat9Start1: nextState = `sChickenCat9Start2;
-			`sChickenCat9Start2: nextState = `sChickenCat9;
-			`sChickenCat9: nextState = delay?  (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start)): `sChickenCat9;
+			`sChickenCat9Start: nextState = `sChickenCat9;
+			`sChickenCat9: nextState = delay?  (player1Wins? `sP1Wins1Start :(player2Wins? `sP2Wins1Start: `sChoose1Start)): `sChickenCat9;
 
 			//ChickenDog Scenario
-			`sChickenDog5Start1: nextState = `sChickenDog5Start2;
-			`sChickenDog5Start2: nextState = `sChickenDog5;
-			`sChickenDog5: nextState = delay? `sChickenDog6Start1: `sChickenDog5;
+			`sChickenDog5Start: nextState = `sChickenDog5;
+			`sChickenDog5: nextState = delay? `sChickenDog6Start: `sChickenDog5;
 
-			`sChickenDog6Start1: nextState = `sChickenDog6Start2;
-			`sChickenDog6Start2: nextState = `sChickenDog6;
-			`sChickenDog6: nextState = delay? `sChickenDog7Start1: `sChickenDog6;
+			`sChickenDog6Start: nextState = `sChickenDog6;
+			`sChickenDog6: nextState = delay? `sChickenDog7Start: `sChickenDog6;
 
-			`sChickenDog7Start1: nextState = `sChickenDog7Start2;
-			`sChickenDog7Start2: nextState = `sChickenDog7;
-			`sChickenDog7: nextState = delay? `sChickenDog8Start1: `sChickenDog7;
+			`sChickenDog7Start: nextState = `sChickenDog7;
+			`sChickenDog7: nextState = delay? `sChickenDog8Start: `sChickenDog7;
 
-			`sChickenDog8Start1: nextState = `sChickenDog8Start2;
-			`sChickenDog8Start2: nextState = `sChickenDog8;
-			`sChickenDog8: nextState = delay? `sChickenDog9Start1: `sChickenDog8;
+			`sChickenDog8Start: nextState = `sChickenDog8;
+			`sChickenDog8: nextState = delay? `sChickenDog9Start: `sChickenDog8;
 
-			`sChickenDog9Start1: nextState = `sChickenDog9Start2;
-			`sChickenDog9Start2: nextState = `sChickenDog9;
-			`sChickenDog9: nextState = delay?  (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start)): `sChickenDog9;
+			`sChickenDog9Start: nextState = `sChickenDog9;
+			`sChickenDog9: nextState = delay?  (player1Wins? `sP1Wins1Start :(player2Wins? `sP2Wins1Start: `sChoose1Start)): `sChickenDog9;
 
 			//DogCat Scenario
-			`sDogCat5Start1: nextState = `sDogCat5Start2;
-			`sDogCat5Start2: nextState = `sDogCat5;
-			`sDogCat5: nextState = delay? `sDogCat6Start1: `sDogCat5;
+			`sDogCat5Start: nextState = `sDogCat5;
+			`sDogCat5: nextState = delay? `sDogCat6Start: `sDogCat5;
 
-			`sDogCat6Start1: nextState = `sDogCat6Start2;
-			`sDogCat6Start2: nextState = `sDogCat6;
-			`sDogCat6: nextState = delay? `sDogCat7Start1: `sDogCat6;
+			`sDogCat6Start: nextState = `sDogCat6;
+			`sDogCat6: nextState = delay? `sDogCat7Start: `sDogCat6;
 
-			`sDogCat7Start1: nextState = `sDogCat7Start2;
-			`sDogCat7Start2: nextState = `sDogCat7;
-			`sDogCat7: nextState = delay? `sDogCat8Start1: `sDogCat7;
+			`sDogCat7Start: nextState = `sDogCat7;
+			`sDogCat7: nextState = delay? `sDogCat8Start: `sDogCat7;
 
-			`sDogCat8Start1: nextState = `sDogCat8Start2;
-			`sDogCat8Start2: nextState = `sDogCat8;
-			`sDogCat8: nextState = delay? `sDogCat9Start1: `sDogCat8;
+			`sDogCat8Start: nextState = `sDogCat8;
+			`sDogCat8: nextState = delay? `sDogCat9Start: `sDogCat8;
 
-			`sDogCat9Start1: nextState = `sDogCat9Start2;
-			`sDogCat9Start2: nextState = `sDogCat9;
-			`sDogCat9: nextState = delay?  (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start)): `sDogCat9;
+			`sDogCat9Start: nextState = `sDogCat9;
+			`sDogCat9: nextState = delay?  (player1Wins? `sP1Wins1Start :(player2Wins? `sP2Wins1Start: `sChoose1Start)): `sDogCat9;
 
 			//DogChicken Scenario
-			`sDogChicken5Start1: nextState = `sDogChicken5Start2;
-			`sDogChicken5Start2: nextState = `sDogChicken5;
-			`sDogChicken5: nextState = delay? `sDogChicken6Start1: `sDogChicken5;
+			`sDogChicken5Start: nextState = `sDogChicken5;
+			`sDogChicken5: nextState = delay? `sDogChicken6Start: `sDogChicken5;
 
-			`sDogChicken6Start1: nextState = `sDogChicken6Start2;
-			`sDogChicken6Start2: nextState = `sDogChicken6;
-			`sDogChicken6: nextState = delay? `sDogChicken7Start1: `sDogChicken6;
+			`sDogChicken6Start: nextState = `sDogChicken6;
+			`sDogChicken6: nextState = delay? `sDogChicken7Start: `sDogChicken6;
 
-			`sDogChicken7Start1: nextState = `sDogChicken7Start2;
-			`sDogChicken7Start2: nextState = `sDogChicken7;
-			`sDogChicken7: nextState = delay? `sDogChicken8Start1: `sDogChicken7;
+			`sDogChicken7Start: nextState = `sDogChicken7;
+			`sDogChicken7: nextState = delay? `sDogChicken8Start: `sDogChicken7;
 
-			`sDogChicken8Start1: nextState = `sDogChicken8Start2;
-			`sDogChicken8Start2: nextState = `sDogChicken8;
-			`sDogChicken8: nextState = delay? `sDogChicken9Start1: `sDogChicken8;
+			`sDogChicken8Start: nextState = `sDogChicken8;
+			`sDogChicken8: nextState = delay? `sDogChicken9Start: `sDogChicken8;
 
-			`sDogChicken9Start1: nextState = `sDogChicken9Start2;
-			`sDogChicken9Start2: nextState = `sDogChicken9;
-			`sDogChicken9: nextState = delay?  (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start)): `sDogChicken9;
+			`sDogChicken9Start: nextState = `sDogChicken9;
+			`sDogChicken9: nextState = delay?  (player1Wins? `sP1Wins1Start:(player2Wins? `sP2Wins1Start: `sChoose1Start)): `sDogChicken9;
 
 			//CatCat Scenario
 			`sCatCat1Start: nextState = `sCatCat1;
@@ -411,17 +347,17 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sChickenChicken6: nextState = delay? `sChoose1Start: `sChickenChicken6;
 
 			//P1Wins
-			`sP1Wins1Start: nextState = `sP1Wins1Start2; 
+			`sP1Wins1Start: nextState = `sP1Wins1; 
 			`sP1Wins1: nextState = userResetGame? `sTitle1Start1 : (delay? `sP1Wins2Start: `sP1Wins1); 
 
-			`sP1Wins2Start: nextState = `sP1Wins2Start2; 
+			`sP1Wins2Start: nextState = `sP1Wins2; 
 			`sP1Wins2: nextState = userResetGame? `sTitle1Start1 : (delay? `sP1Wins1Start: `sP1Wins2); 
 
 			//P2Wins
-			`sP2Wins1Start: nextState = `sP2Wins1Start2; 
+			`sP2Wins1Start: nextState = `sP2Wins1; 
 			`sP2Wins1: nextState = userResetGame? `sTitle1Start1 : (delay? `sP2Wins2Start: `sP2Wins1); 
 
-			`sP2Wins2Start: nextState = `sP2Wins2Start2; 
+			`sP2Wins2Start: nextState = `sP2Wins2; 
 			`sP2Wins2: nextState = userResetGame? `sTitle1Start1 : (delay? `sP2Wins1Start: `sP2Wins2); 
 
 			default: nextState = `s0; //The moment the program starts, go to first state where everything gets reset
