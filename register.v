@@ -208,11 +208,11 @@ input clk, playerReset, winner1, winner2, playerLoad;
 output [3:0] player1, player2;
 wire [3:0] player1ToUpdate, player2ToUpdate;
 
-assign player1ToUpdate = winner1? player1+1: player1;
-assign player2ToUpdate = winner2? player2+1: player2;
+assign player1ToUpdate = player1+1;
+assign player2ToUpdate = player2+1;
 
-DFlipFlopEnable #(4) player1Reg(clk, player1ToUpdate, player1, playerReset, playerLoad);
-DFlipFlopEnable #(4) player2Reg(clk, player2ToUpdate, player2, playerReset, playerLoad);
+DFlipFlopEnable #(4) player1Reg(clk, player1ToUpdate, player1, playerReset, winner1);
+DFlipFlopEnable #(4) player2Reg(clk, player2ToUpdate, player2, playerReset, winner2);
 
 endmodule
 
