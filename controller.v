@@ -280,17 +280,17 @@ wire [7:0] currentState;
 
 //Player 1 Wins 
 `define sP1Wins1Start1 8'd234 
-`define sP1Wins1Start1 8'd235
+`define sP1Wins1Start2 8'd235
 `define sP1Wins1 8'd236
-`define sP1Wins2Start2 8'd237
+`define sP1Wins2Start1 8'd237
 `define sP1Wins2Start2 8'd238
 `define sP1Wins2 8'd239
 
 //Player 2 Wins 
 `define sP2Wins1Start1 8'd240
-`define sP2Wins1Start1 8'd241
+`define sP2Wins1Start2 8'd241
 `define sP2Wins1 8'd242
-`define sP2Wins2Start2 8'd243
+`define sP2Wins2Start1 8'd243
 `define sP2Wins2Start2 8'd244
 `define sP2Wins2 8'd245
 
@@ -716,7 +716,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Color Register
 				black = 1'b0; memorySel = 7'd0;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
+				playerReset = 1'b1; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
 				//Counting for screens (160x120)
@@ -1022,7 +1022,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			//Start the delay signal counting
 
 		
-				winner1 = 1'b1;  winner2 = 1'b0; playerLoad = 1'b1;
+				winner1 = 1'b1;  winner2 = 1'b0;
 				//Inital xy registers
 				xInitReset = 1'b0; xInitSel = 5'b0; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b0; yInitLoad = 1'b1;
 				//x and y vga Coordinate Registers
@@ -1047,7 +1047,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		//Loading the inital coordinates into x and y before starting to count -> xLoad, yLoad, xySel
 		//Also make sure Screen Counter is at 0 -> AddressscreenCounterReset
 		
-				winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
+				winner1 = 1'b1;  winner2 = 1'b0;
 				//Inital xy registers
 				xInitLoad = 1'b0; yInitLoad = 1'b0;
 				//x and y vga Coordinate Registers
@@ -1060,7 +1060,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		`sCatDog1: begin
 //Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
 
-
+winner1 = 1'b0;  winner2 = 1'b0;
 				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
@@ -1522,12 +1522,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				scenarioLoad = 1'b0;
 		end
 
-
-
-
-
-
-
 	`sP1Wins1Start1: begin 
 			//Loading the x and y inital coordinates -> xInitLoad, yInitLoad, xInitSel, yInitSel
 			//Start the delay signal counting
@@ -1564,6 +1558,8 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				delaySignalReset = 1'b0; 
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b1; 
+			
+				
 		end
 		`sP1Wins1: begin
 //Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
@@ -1572,7 +1568,8 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
-				plot = 1'b1;
+				plot = 1'b1;		
+				
 		end
 
 `sP1Wins2Start1: begin 
@@ -1581,16 +1578,16 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 				//Inital xy registers
 				xInitReset = 1'b0; xInitSel = 5'b0; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b0; yInitLoad = 1'b1;
-				//x and y vga Coordinate Registers
+			//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
 				//Color Register
 				black = 1'b0; memorySel = 7'd7;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
+			playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+			addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
 				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
@@ -1608,14 +1605,16 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
+				addressScreenCounterReset = 1'b1;
+				
 		end
+		
 		`sP1Wins2: begin
 //Go into a loop of loading the values of the respective ROM color until it finishes loading -> memorySel, xCountUp, xLoad, yCountUp, yLoad, addressScreenCountLoad
 
 				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
+			addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
