@@ -216,4 +216,3 @@ DFlipFlopEnable #(4) player2Reg(clk, player2ToUpdate, player2, playerReset, play
 
 endmodule
 
-
