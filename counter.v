@@ -9,11 +9,10 @@ assign signal = (count == 26'd12500000) ? 1'b1 : 1'b0;
 
 always @(posedge clk) // triggered every time clock rises	
 	begin
-		case (delaySignalReset)
-		1: count = 0;
-		0: count = count + 1;
-		default: count = 0; 
-		endcase	
+		if(delaySignalReset == 1)
+			count = 0;
+		else 
+			count = count +1;
 	end
 endmodule
 
@@ -28,11 +27,11 @@ DFlipFlopEnable #(15) screenCountReg(clk, screenCountToUpdate, screenCount, addr
 endmodule
 
 //Sprite Address Counters
-module addressSpriteCounter(clk, addressSpriteCounterReset, spriteCount, spriteCountLoad); //11 bit address for the sprites (40x40) = 1600 -> 2^11 = 2048
-input clk, addressSpriteCounterReset, spriteCountLoad;
-output [10:0] spriteCount;
-wire [10:0] spriteCountToUpdate;
+//module addressSpriteCounter(clk, addressSpriteCounterReset, spriteCount, spriteCountLoad); //11 bit address for the sprites (40x40) = 1600 -> 2^11 = 2048
+//input clk, addressSpriteCounterReset, spriteCountLoad;
+//output [10:0] spriteCount;
+//wire [10:0] spriteCountToUpdate;
 
-assign spriteCountToUpdate =  spriteCount + 1;
-DFlipFlopEnable #(11) spriteCountReg(clk, spriteCountToUpdate, spriteCount, addressSpriteCounterReset, spriteCountLoad);
-endmodule
+//assign spriteCountToUpdate =  spriteCount + 1;
+//DFlipFlopEnable #(11) spriteCountReg(clk, spriteCountToUpdate, spriteCount, addressSpriteCounterReset, spriteCountLoad);
+//endmodule

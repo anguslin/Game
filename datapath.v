@@ -1,8 +1,7 @@
-module datapath(clk, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, xySel, black, playerReset,winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, yInitSel, xInitSel, memorySel, x, y, color, player1, player2, screenDone);
+module datapath(clk, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, xySel, black, playerReset,winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, memorySel, x, y, color, player1, player2);
 
-input clk, xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad; 
-input [1:0] yInitSel, xySel;
-input [4:0] xInitSel;
+input clk, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad; 
+input [1:0] xySel;
 input [6:0] memorySel;
 
 //VGA outputs
@@ -12,16 +11,13 @@ output [2:0] color;
 //Display player points on LEDs
 output [3:0] player1, player2;
 
-//Internal Signal for FSM
-output screenDone;
-
-wire [6:0] yInit;
-wire [7:0] xInit;
+//wire [6:0] yInit;
+//wire [7:0] xInit;
 wire [14:0] screenCount;
-wire [10:0] spriteCount;
+//wire [10:0] spriteCount;
 
 //Color outputs from the memory ROMs
-wire [2:0] title1Color, title2Color, title3Color, choose1Color, choose2Color, choose3Color, p1Win1Color, p1Win2Color, p2Win1Color, p2Win2Color, catCat1Color, catCat2Color, catCat3Color, catChicken1Color, catChicken2Color, catChicken3Color, catChicken4Color, catChicken5Color, catChicken6Color, catChicken7Color, catChicken8Color, catChicken9Color, catDog1Color, catDog2Color, catDog3Color, catDog4Color, catDog5Color, catDog6Color, catDog7Color, catDog8Color, catDog9Color, dogDog1Color, dogDog2Color, dogDog3Color, dogCat1Color, dogCat2Color, dogCat3Color, dogCat4Color, dogCat5Color, dogCat6Color, dogCat7Color, dogCat8Color, dogCat9Color, dogChicken1Color, dogChicken2Color, dogChicken3Color, dogChicken4Color, dogChicken5Color, dogChicken6Color, dogChicken7Color, dogChicken8Color, dogChicken9Color, chickenChicken1Color, chickenChicken2Color, chickenChicken3Color, chickenDog1Color, chickenDog2Color, chickenDog3Color, chickenDog4Color, chickenDog5Color, chickenDog6Color, chickenDog7Color, chickenDog8Color, chickenDog9Color, chickenCat1Color, chickenCat2Color, chickenCat3Color, chickenCat4Color, chickenCat5Color, chickenCat6Color, chickenCat7Color, chickenCat8Color, chickenCat9Color;
+wire [2:0] title1Color, title2Color, title3Color, choose1Color, choose2Color, choose3Color, p1Win1Color, p1Win2Color, p2Win1Color, p2Win2Color, catCat2Color, catCat3Color, catChicken5Color, catChicken6Color, catChicken7Color, catChicken8Color, catChicken9Color, catDog5Color, catDog6Color, catDog7Color, catDog8Color, catDog9Color, dogDog2Color, dogDog3Color, dogCat5Color, dogCat6Color, dogCat7Color, dogCat8Color, dogCat9Color, dogChicken5Color, dogChicken6Color, dogChicken7Color, dogChicken8Color, dogChicken9Color, chickenChicken2Color, chickenChicken3Color, chickenDog5Color, chickenDog6Color, chickenDog7Color, chickenDog8Color, chickenDog9Color, chickenCat5Color, chickenCat6Color, chickenCat7Color, chickenCat8Color, chickenCat9Color;
 
 //Memory ROMs
 //Title
@@ -109,19 +105,19 @@ dogDog2 dogDog2Mem(.address(screenCount), .clock(clk), .q(dogDog2Color));
 dogDog3 dogDog3Mem(.address(screenCount), .clock(clk), .q(dogDog3Color));
 
 //The starting point of the x coordinate
-xInitReg xInitial(.clk(clk), .xInitReset(xInitReset), .xInitSel(xInitSel), .xInit(xInit), .xInitLoad(xInitLoad));
+//xInitReg xInitial(.clk(clk), .xInitReset(xInitReset), .xInitSel(xInitSel), .xInit(xInit), .xInitLoad(xInitLoad));
 //The starting point of the y coordinate
-yInitReg yInital(.clk(clk), .yInitReset(yInitReset), .yInitSel(yInitSel), .yInit(yInit), .yInitLoad(yInitLoad));
+//yInitReg yInital(.clk(clk), .yInitReset(yInitReset), .yInitSel(yInitSel), .yInit(yInit), .yInitLoad(yInitLoad));
 //Choose x and y coordinates to output to VGA
 xyReg xyRegiser(.clk(clk), .xReset(xReset), .yReset(yReset), .xySel(xySel), .x(x), .y(y), .xLoad(xLoad), .yLoad(yLoad), .xCountUp(xCountUp), .yCountUp(yCountUp), .xInit(xInit), .yInit(yInit), .screenDone(screenDone));
 //Choose Color to be output to VGA based on memory
-color colorReg(.clk(clk), .black(black), .memorySel(memorySel), .title1(title1Color), .title2(title2Color), .title3(title3Color), .choose1(choose1Color), .choose2(choose2Color), .choose3(choose3Color), .p1Win1(p1Win1Color), .p1Win2(p1Win2Color), .p2Win1(p2Win1Color), .p2Win2(p2Win2Color), .catCat2(catCat2Color), .catCat3(catCat3Color), .catChicken1(catChicken1Color), .catChicken2(catChicken2Color), .catChicken3(catChicken3Color), .catChicken4(catChicken4Color), .catChicken5(catChicken5Color), .catChicken6(catChicken6Color), .catChicken7(catChicken7Color), .catChicken8(catChicken8Color), .catChicken9(catChicken9Color), .catDog1(catDog1Color), .catDog2(catDog2Color), .catDog3(catDog3Color), .catDog4(catDog4Color), .catDog5(catDog5Color), .catDog6(catDog6Color), .catDog7(catDog7Color), .catDog8(catDog8Color), .catDog9(catDog9Color), .dogDog2(dogDog2Color), .dogDog3(dogDog3Color), .dogCat1(dogCat1Color), .dogCat2(dogCat2Color), .dogCat3(dogCat3Color), .dogCat4(dogCat4Color), .dogCat5(dogCat5Color), .dogCat6(dogCat6Color), .dogCat7(dogCat7Color), .dogCat8(dogCat8Color), .dogCat9(dogCat9Color), .dogChicken1(dogChicken1Color), .dogChicken2(dogChicken2Color), .dogChicken3(dogChicken3Color), .dogChicken4(dogChicken4Color), .dogChicken5(dogChicken5Color), .dogChicken6(dogChicken6Color), .dogChicken7(dogChicken7Color), .dogChicken8(dogChicken8Color), .dogChicken9(dogChicken9Color), .chickenChicken2(chickenChicken2Color), .chickenChicken3(chickenChicken3Color), .chickenDog1(chickenDog1Color), .chickenDog2(chickenDog2Color), .chickenDog3(chickenDog3Color), .chickenDog4(chickenDog4Color), .chickenDog5(chickenDog5Color), .chickenDog6(chickenDog6Color), .chickenDog7(chickenDog7Color), .chickenDog8(chickenDog8Color), .chickenDog9(chickenDog9Color), .chickenCat1(chickenCat1Color), .chickenCat2(chickenCat2Color), .chickenCat3(chickenCat3Color), .chickenCat4(chickenCat4Color), .chickenCat5(chickenCat5Color), .chickenCat6(chickenCat6Color), .chickenCat7(chickenCat7Color), .chickenCat8(chickenCat8Color), .chickenCat9(chickenCat9Color), .color(color));
+color colorReg(.clk(clk), .black(black), .memorySel(memorySel), .title1(title1Color), .title2(title2Color), .title3(title3Color), .choose1(choose1Color), .choose2(choose2Color), .choose3(choose3Color), .p1Win1(p1Win1Color), .p1Win2(p1Win2Color), .p2Win1(p2Win1Color), .p2Win2(p2Win2Color), .catCat2(catCat2Color), .catCat3(catCat3Color), .catChicken5(catChicken5Color), .catChicken6(catChicken6Color), .catChicken7(catChicken7Color), .catChicken8(catChicken8Color), .catChicken9(catChicken9Color), .catDog5(catDog5Color), .catDog6(catDog6Color), .catDog7(catDog7Color), .catDog8(catDog8Color), .catDog9(catDog9Color), .dogDog2(dogDog2Color), .dogDog3(dogDog3Color), .dogCat5(dogCat5Color), .dogCat6(dogCat6Color), .dogCat7(dogCat7Color), .dogCat8(dogCat8Color), .dogCat9(dogCat9Color), .dogChicken5(dogChicken5Color), .dogChicken6(dogChicken6Color), .dogChicken7(dogChicken7Color), .dogChicken8(dogChicken8Color), .dogChicken9(dogChicken9Color), .chickenChicken2(chickenChicken2Color), .chickenChicken3(chickenChicken3Color), .chickenDog5(chickenDog5Color), .chickenDog6(chickenDog6Color), .chickenDog7(chickenDog7Color), .chickenDog8(chickenDog8Color), .chickenDog9(chickenDog9Color), .chickenCat5(chickenCat5Color), .chickenCat6(chickenCat6Color), .chickenCat7(chickenCat7Color), .chickenCat8(chickenCat8Color), .chickenCat9(chickenCat9Color), .color(color));
 
 //Current Player Points 
 currentPlayerPoints pointsRegister(.clk(clk), .playerReset(playerReset), .winner1(winner1), .winner2(winner2), .player1(player1), .player2(player2), .playerLoad(playerLoad));
 //Screen Address Counters
 addressScreenCounter screenCounter(.clk(clk), .addressScreenCounterReset(addressScreenCounterReset), .screenCount(screenCount), .screenCountLoad(screenCountLoad)); 
 //Sprite Address Counters
-addressSpriteCounter spriteCounter(.clk(clk), .addressSpriteCounterReset(addressSpriteCounterReset), .spriteCount(spriteCount), .spriteCountLoad(spriteCountLoad)); //11 bit address for the sprites (40x40) = 1600 -> 2^11 = 2048
+//addressSpriteCounter spriteCounter(.clk(clk), .addressSpriteCounterReset(addressSpriteCounterReset), .spriteCount(spriteCount), .spriteCountLoad(spriteCountLoad)); //11 bit address for the sprites (40x40) = 1600 -> 2^11 = 2048
 
 endmodule
