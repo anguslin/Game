@@ -1,14 +1,13 @@
-module controller(clk, userCont, userChoose, userResetGame, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken, //xInitReset, //xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, xySel, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, yInitSel, xInitSel, memorySel, plot, scenarioLoad, stateReset, screenDone, player1Wins, player2Wins);
+module controller(clk, userCont, userChoose, userResetGame, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, xySel, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, memorySel, plot, scenarioLoad, stateReset, player1Wins, player2Wins);
 
 //Signals controled by user inputs
 input clk, userCont, userChoose, userResetGame, stateReset; 
 //Signals controlled by internal datapath
-input screenDone, player1Wins, player2Wins, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken;
+input player1Wins, player2Wins, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken;
 //Output to datapath
-output reg //xInitReset, //xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, addressSpriteCounterReset, spriteCountLoad, plot, scenarioLoad;
+output reg xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, plot;
 
-output reg [1:0] yInitSel, xySel;
-output reg [4:0] xInitSel; 
+output reg [1:0] xySel;
 output reg [6:0] memorySel;
 
 //Signal to wait
@@ -356,7 +355,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 			`sCatDog9Start1: nextState = `sCatDog9Start2;
 			`sCatDog9Start2: nextState = `sCatDog9;
-			`sCatDog9: nextState = delay? (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start1)): `sCatDog9;
+			`sCatDog9: nextState = delay? (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start)): `sCatDog9;
 
 			//CatChicken Scenario
 //			`sCatChicken1Start1: nextState = `sCatChicken1Start2;
@@ -393,7 +392,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 			`sCatChicken9Start1: nextState = `sCatChicken9Start2;
 			`sCatChicken9Start2: nextState = `sCatChicken9;
-			`sCatChicken9: nextState = delay? (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start1)): `sCatChicken9;
+			`sCatChicken9: nextState = delay? (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start)): `sCatChicken9;
 
 			//ChickenCat Scenario
 //			`sChickenCat1Start1: nextState = `sChickenCat1Start2;
@@ -430,7 +429,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 			`sChickenCat9Start1: nextState = `sChickenCat9Start2;
 			`sChickenCat9Start2: nextState = `sChickenCat9;
-			`sChickenCat9: nextState = delay?  (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start1)): `sChickenCat9;
+			`sChickenCat9: nextState = delay?  (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start)): `sChickenCat9;
 
 			//ChickenDog Scenario
 //			`sChickenDog1Start1: nextState = `sChickenDog1Start2;
@@ -467,7 +466,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 			`sChickenDog9Start1: nextState = `sChickenDog9Start2;
 			`sChickenDog9Start2: nextState = `sChickenDog9;
-			`sChickenDog9: nextState = delay?  (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start1)): `sChickenDog9;
+			`sChickenDog9: nextState = delay?  (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start)): `sChickenDog9;
 
 			//DogCat Scenario
 //			`sDogCat1Start1: nextState = `sDogCat1Start2;
@@ -504,7 +503,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 			`sDogCat9Start1: nextState = `sDogCat9Start2;
 			`sDogCat9Start2: nextState = `sDogCat9;
-			`sDogCat9: nextState = delay?  (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start1)): `sDogCat9;
+			`sDogCat9: nextState = delay?  (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start)): `sDogCat9;
 
 			//DogChicken Scenario
 //			`sDogChicken1Start1: nextState = `sDogChicken1Start2;
@@ -541,7 +540,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 			`sDogChicken9Start1: nextState = `sDogChicken9Start2;
 			`sDogChicken9Start2: nextState = `sDogChicken9;
-			`sDogChicken9: nextState = delay?  (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start1)): `sDogChicken9;
+			`sDogChicken9: nextState = delay?  (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start)): `sDogChicken9;
 
 			//CatCat Scenario
 			`sCatCat1Start1: nextState = `sCatCat1Start2;
@@ -566,7 +565,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 			`sCatCat6Start1: nextState = `sCatCat6Start2;
 			`sCatCat6Start2: nextState = `sCatCat6;
-			`sCatCat6: nextState = delay? `sChoose1Start1: `sCatCat6;
+			`sCatCat6: nextState = delay? `sChoose1Start: `sCatCat6;
 
 			//DogDog Scenario
 			`sDogDog1Start1: nextState = `sDogDog1Start2;
@@ -591,7 +590,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 			`sDogDog6Start1: nextState = `sDogDog6Start2;
 			`sDogDog6Start2: nextState = `sDogDog6;
-			`sDogDog6: nextState = delay? `sChoose1Start1: `sDogDog6;
+			`sDogDog6: nextState = delay? `sChoose1Start: `sDogDog6;
 
 			//ChickenChicken Scenario
 			`sChickenChicken1Start1: nextState = `sChickenChicken1Start2;
@@ -616,7 +615,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 			`sChickenChicken6Start1: nextState = `sChickenChicken6Start2;
 			`sChickenChicken6Start2: nextState = `sChickenChicken6;
-			`sChickenChicken6: nextState = delay? `sChoose1Start1: `sChickenChicken6;
+			`sChickenChicken6: nextState = delay? `sChoose1Start: `sChickenChicken6;
 
 			//P1Wins
 			`sP1Wins1Start1: nextState = `sP1Wins1Start2; 
@@ -654,7 +653,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b1; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b1; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -676,7 +675,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
@@ -695,7 +694,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
@@ -713,7 +712,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
@@ -730,7 +729,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
@@ -747,7 +746,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
@@ -763,7 +762,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
@@ -779,7 +778,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
@@ -796,7 +795,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Counting for sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
@@ -812,7 +811,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
@@ -906,7 +905,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		end
 
 
-//`sChoose2Start1: begin 
+//`sChoose2Start: begin 
 				//Inital xy registers
 //				//xInitReset = 1'b0; xInitSel = 5'b0; //xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b0; yInitLoad = 1'b1;
 				//x and y vga Coordinate Registers
@@ -920,7 +919,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 //				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-//				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+//				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 //				plot = 1'b0;
 //		end
@@ -943,7 +942,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 //				plot = 1'b1;
 //		end
 
-//`sChoose3Start1: begin 
+//`sChoose3Start: begin 
 				//Inital xy registers
 //				//xInitReset = 1'b0; xInitSel = 5'b0; //xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b0; yInitLoad = 1'b1;
 				//x and y vga Coordinate Registers
@@ -957,7 +956,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 //				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-//				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+//				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 //				plot = 1'b0;
 //		end
@@ -999,7 +998,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1040,7 +1039,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1079,7 +1078,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1118,7 +1117,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1157,7 +1156,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1196,7 +1195,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1235,7 +1234,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1275,7 +1274,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1314,7 +1313,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1354,7 +1353,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1395,7 +1394,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1434,7 +1433,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1473,7 +1472,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1512,7 +1511,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1551,7 +1550,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1590,7 +1589,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1630,7 +1629,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1669,7 +1668,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1709,7 +1708,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1755,7 +1754,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1802,7 +1801,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1849,7 +1848,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1900,7 +1899,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1947,7 +1946,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -1991,7 +1990,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2030,7 +2029,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2069,7 +2068,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2114,7 +2113,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2163,7 +2162,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2210,7 +2209,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2257,7 +2256,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2308,7 +2307,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2355,7 +2354,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2402,7 +2401,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2450,7 +2449,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2497,7 +2496,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2548,7 +2547,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2597,7 +2596,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2644,7 +2643,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2691,7 +2690,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2742,7 +2741,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2789,7 +2788,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2836,7 +2835,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2884,7 +2883,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2931,7 +2930,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -2982,7 +2981,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3031,7 +3030,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3078,7 +3077,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3125,7 +3124,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3176,7 +3175,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3223,7 +3222,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3270,7 +3269,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3318,7 +3317,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3365,7 +3364,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3409,7 +3408,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3449,7 +3448,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3488,7 +3487,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3527,7 +3526,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3566,7 +3565,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3605,7 +3604,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3645,7 +3644,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3685,7 +3684,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3724,7 +3723,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3763,7 +3762,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3802,7 +3801,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3841,7 +3840,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3882,7 +3881,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3922,7 +3921,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -3961,7 +3960,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -4000,7 +3999,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -4039,7 +4038,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -4078,7 +4077,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -4117,7 +4116,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -4158,7 +4157,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 			addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
@@ -4197,7 +4196,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
@@ -4238,7 +4237,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Counting for screens (160x120)
 			addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
 				//Counting fir sprites (40x40)
-				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end

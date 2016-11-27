@@ -32,12 +32,11 @@
 
 //The actual x and y coordinates
 
-module xyReg(clk, xReset, yReset, xySel, x, y, xLoad, yLoad, xStart, yStart, xCountUp, yCountUp, screenDone);
+module xyReg(clk, xReset, yReset, xySel, x, y, xLoad, yLoad, xStart, yStart, xCountUp, yCountUp);
 input clk, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart;
 input [1:0] xySel;
 //input [7:0] xInit;
 //input [6:0] yInit;
-output reg screenDone;
 output [7:0] x; 
 output [6:0] y;
 reg [7:0] xToUpdate;
