@@ -9,7 +9,7 @@ output reg xInitReset, xInitLoad, yInitReset, yInitLoad, xCountUp, xReset, xLoad
 
 output reg [1:0] yInitSel, xySel;
 output reg [4:0] xInitSel; 
-output reg [4:0] memorySel;
+output reg [6:0] memorySel;
 
 //Signal to wait
 wire delay;
@@ -101,7 +101,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 //STATE ASSIGNMENTS
 //Update state on clock; if reset, goes to state with 5'b00000 which is the first state
-	DFlipFlop #(5) (clk, nextState, currentState, stateReset);
+	DFlipFlop #(7) (clk, nextState, currentState, stateReset);
 
 	always @(*) begin
 		case(currentState)
@@ -135,7 +135,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sChoose3: nextState = userChoose? `sScenario : (delay? `sChoose1Start1: `sChoose3); 
 			
 			//Default if it doesnt specify is Cat Cat Scenario
-			`sScenario: nextState = catCat? `sCatCat1Start1: (catDog? `sCatDog1Start1: (catChicken? `sCatChicken1Start1: chickenCat? `sChickenCat1Start1: (chickenDog? `sChickenDog1Start1: (chickenChicken? `sChickenChicken1Start1: (dogCat? `sDogCat1Start1: (dogDog? `sDogDog1Start1: (dogChicken? `sDogChicken1Start1: `sCatCat1Start1)))))));
+			`sScenario: nextState = catCat? `sCatCat1Start1: (catDog? `sCatDog1Start1: (catChicken? `sCatChicken1Start1: (chickenCat? `sChickenCat1Start1: (chickenDog? `sChickenDog1Start1: (chickenChicken? `sChickenChicken1Start1: (dogCat? `sDogCat1Start1: (dogDog? `sDogDog1Start1: (dogChicken? `sDogChicken1Start1: `sCatCat1Start1))))))));
 
 			//CatDog Scenario
 			`sCatDog1Start1: nextState = `sCatDog1Start2;
@@ -531,7 +531,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		end
 
 		`sScenario: begin
-			scenarioLoad = 1'b0; xCountUp = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yLoad = 1'b0; xySel = 2'b00; screenCountLoad = 1'b0; plot = 1'b0;
+			xCountUp = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yLoad = 1'b0; xySel = 2'b00; screenCountLoad = 1'b0; plot = 1'b0;
 		end
 
 			`sCatDog1Start1: begin 
