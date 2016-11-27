@@ -1,44 +1,13 @@
 
 //The starting point of the xcoordinate
-
 module xInitReg (clk, xInitReset, xInitSel, xInit, xInitLoad);
 input clk, xInitReset, xInitLoad;
 input [4:0] xInitSel;
 output [7:0] xInit;
-reg [7:0] xInitToUpdate;
+wire [7:0] xInitToUpdate;
 
-always @ (*) begin
-	case(xInitSel)
-		5'b00000: xInitToUpdate = 8'd0; //For Starting at the top left corner
+assign xInitToUpdate = 1'b0;
 
-		5'b00001: xInitToUpdate = 8'd36; //For the left side of the battles
-		5'b00010: xInitToUpdate = 8'd30; 
-		5'b00011: xInitToUpdate = 8'd24; 
-		5'b00100: xInitToUpdate = 8'd18;
-		5'b00101: xInitToUpdate = 8'd12;
-		5'b00110: xInitToUpdate = 8'd6;
-		5'b00111: xInitToUpdate = 8'd0;
-
-		5'b01000: xInitToUpdate = 8'd90; //For the Right side of the battles
-		5'b01001: xInitToUpdate = 8'd96; 
-		5'b01010: xInitToUpdate = 8'd102; 
-		5'b01011: xInitToUpdate = 8'd108; 
-		5'b01100: xInitToUpdate = 8'd114; 
-		5'b01101: xInitToUpdate = 8'd120; 
-		
-		5'b01110: xInitToUpdate = 8'd84; //For moving states
-		5'b01111: xInitToUpdate = 8'd78;
-		5'b10000: xInitToUpdate = 8'd72;
-		5'b10001: xInitToUpdate = 8'd66;
-		5'b10010: xInitToUpdate = 8'd60;
-		5'b10011: xInitToUpdate = 8'd54;
-		5'b10100: xInitToUpdate = 8'd48;
-		5'b10101: xInitToUpdate = 8'd42;
-
-
-		default: xInitToUpdate = 8'b0;
-	endcase
-end
 DFlipFlopEnable #(8) xInitReg(clk, xInitToUpdate, xInit, xInitReset, xInitLoad);
 endmodule
 
@@ -85,23 +54,9 @@ always@(*) begin
 		       if (y < 120 && x == 160 && yCountUp) begin
 					yToUpdate = y + 1;
 					xToUpdate = 1;
-					screenDone = 0;
 			end else if (x < 160 && xCountUp) begin
 					xToUpdate = x + 1;
-					screenDone = 0;
-					end else
-					screenDone = 1;
-			end
-		2'b10: begin
-	       		if (y < yInit + 40 && x == xInit + 40 && yCountUp) begin
-					yToUpdate = y + 1;
-					xToUpdate = xInit + 1;
-					screenDone = 0;
-			end else if (x < xInit + 40 && xCountUp) begin
-					xToUpdate = x + 1;
-					screenDone = 0;
-					end else 
-					screenDone = 1;
+					end 
 		end	
 	endcase
 end
