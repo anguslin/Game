@@ -1,37 +1,4 @@
-
-//The starting point of the xcoordinate
-//module xInitReg (clk, xInitReset, xInitSel, xInit, xInitLoad);
-//input clk, xInitReset, xInitLoad;
-//input [4:0] xInitSel;
-//output [7:0] xInit;
-//wire [7:0] xInitToUpdate;
-
-//assign xInitToUpdate = 1'b0;
-
-//DFlipFlopEnable #(8) xInitReg(clk, xInitToUpdate, xInit, xInitReset, xInitLoad);
-//endmodule
-
-//The starting point of the ycoordinate
-
-//module yInitReg (clk, yInitReset, yInitSel, yInit, yInitLoad);
-//input clk, yInitReset, yInitLoad;
-//input [1:0] yInitSel;
-//output [6:0] yInit;
-//reg [6:0] yInitToUpdate;
-
-//always @ (*) begin
-//	case(yInitSel)
-//		2'b00: yInitToUpdate = 7'd0; //For Starting at the top left corner
-//		2'b01: yInitToUpdate = 7'd30; //Height for the battles
-//		default: yInitToUpdate = 7'b0;
-//	endcase
-//end
-//DFlipFlopEnable #(7) yInitReg(clk, yInitToUpdate, yInit, yInitReset, yInitLoad);
-//endmodule
-
-
-//The actual x and y coordinates
-
+//Register for storing x and y coordinates for VGA
 module xyReg(clk, xReset, yReset, xySel, x, y, xLoad, yLoad, xStart, yStart, xCountUp, yCountUp);
 input clk, xCountUp, xReset, xLoad, xStart, yCountUp, yReset, yLoad, yStart;
 input [1:0] xySel;
@@ -85,7 +52,7 @@ always @(*) begin
 	{1'b0,7'd5 }: color = choose3;
 	{1'b0,7'd6 }: color = p1Win1;
 	{1'b0,7'd7 }: color = p1Win2;
-	{1'b0,7'd8 }: color = p2Win2;
+	{1'b0,7'd8 }: color = p2Win1;
 	{1'b0,7'd9 }: color = p2Win2;
 //	{1'b0,7'd10}: color = catCat1; 
 	{1'b0,7'd11}: color = catCat2;

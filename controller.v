@@ -411,22 +411,18 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sChickenChicken6: nextState = delay? `sChoose1Start: `sChickenChicken6;
 
 			//P1Wins
-			`sP1Wins1Start1: nextState = `sP1Wins1Start2; 
-			`sP1Wins1Start2: nextState = `sP1Wins1; 
-			`sP1Wins1: nextState = userResetGame? `sTitle1Start1 : (delay? `sP1Wins2Start1: `sP1Wins1); 
+			`sP1Wins1Start: nextState = `sP1Wins1Start2; 
+			`sP1Wins1: nextState = userResetGame? `sTitle1Start1 : (delay? `sP1Wins2Start: `sP1Wins1); 
 
-			`sP1Wins2Start1: nextState = `sP1Wins2Start2; 
-			`sP1Wins2Start2: nextState = `sP1Wins2; 
-			`sP1Wins2: nextState = userResetGame? `sTitle1Start1 : (delay? `sP1Wins1Start1: `sP1Wins2); 
+			`sP1Wins2Start: nextState = `sP1Wins2Start2; 
+			`sP1Wins2: nextState = userResetGame? `sTitle1Start1 : (delay? `sP1Wins1Start: `sP1Wins2); 
 
 			//P2Wins
-			`sP2Wins1Start1: nextState = `sP2Wins1Start2; 
-			`sP2Wins1Start2: nextState = `sP2Wins1; 
-			`sP2Wins1: nextState = userResetGame? `sTitle1Start1 : (delay? `sP2Wins2Start1: `sP2Wins1); 
+			`sP2Wins1Start: nextState = `sP2Wins1Start2; 
+			`sP2Wins1: nextState = userResetGame? `sTitle1Start1 : (delay? `sP2Wins2Start: `sP2Wins1); 
 
-			`sP2Wins2Start1: nextState = `sP2Wins2Start2; 
-			`sP2Wins2Start2: nextState = `sP2Wins2; 
-			`sP2Wins2: nextState = userResetGame? `sTitle1Start1 : (delay? `sP2Wins1Start1: `sP2Wins2); 
+			`sP2Wins2Start: nextState = `sP2Wins2Start2; 
+			`sP2Wins2: nextState = userResetGame? `sTitle1Start1 : (delay? `sP2Wins1Start: `sP2Wins2); 
 
 			default: nextState = `s0; //The moment the program starts, go to first state where everything gets reset
 			endcase
@@ -669,7 +665,9 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b1;
 		end
+
 //Scenario -> Just put all signals to 0
+
 		`sScenario: begin
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b00;
@@ -684,10 +682,13 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 		end
-//Cat Dog
-		`sCatDog5Start1: begin 
+
+//START OF WINNING STATES (NO TIES)
+
+//CAT DOG
+		`sCatDog1Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd17;
 				//Player Updating Registers
@@ -695,820 +696,749 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sCatDog5Start2: begin 
+		`sCatDog1: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
-				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b1;  winner2 = 1'b0; 
-				//Delaying internal signals
-				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sCatDog5: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd17;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
+				//Delaying internal signals
+				delaySignalReset = 1'b0; 
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sCatDog6Start1: begin 
+		`sCatDog2Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd18;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sCatDog6Start2: begin 
+		`sCatDog2: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd18;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sCatDog6: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sCatDog7Start1: begin 
+	`sCatDog3Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd19;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sCatDog7Start2: begin 
+		`sCatDog3: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd19;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sCatDog7: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sCatDog8Start1: begin 
+		`sCatDog4Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd20;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sCatDog8Start2: begin 
+		`sCatDog4: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd20;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sCatDog8: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sCatDog9Start1: begin 
+	`sCatDog5Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd21;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sCatDog9Start2: begin 
+		`sCatDog5: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd21;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sCatDog9: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sCatChicken5Start1: begin 
+//CAT CHICKEN
+		`sCatChicken1Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd26;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b1;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b1; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sCatChicken5Start2: begin 
+		`sCatChicken1: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
-				///Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b1;  
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd26;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sCatChicken5: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
-				///Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sCatChicken6Start1: begin 
+		`sCatChicken2Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd27;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sCatChicken6Start2: begin 
+		`sCatChicken2: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd27;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sCatChicken6: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sCatChicken7Start1: begin 
+	`sCatChicken3Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd28;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sCatChicken7Start2: begin 
+		`sCatChicken3: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd28;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sCatChicken7: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-
-		`sCatChicken8Start1: begin 
+		`sCatChicken4Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd29;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sCatChicken8Start2: begin 
+		`sCatChicken4: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd29;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sCatChicken8: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sCatChicken9Start1: begin 
+	`sCatChicken5Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd30;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sCatChicken9Start2: begin 
+		`sCatChicken5: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd30;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sCatChicken9: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sChickenCat5Start1: begin 
+
+//CHICKEN CAT
+		`sChickenCat1Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd35;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b1;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b1;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sChickenCat5Start2: begin 
+		`sChickenCat1: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
-				///Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b1;  winner2 = 1'b0;  
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd35;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sChickenCat5: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
-				///Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sChickenCat6Start1: begin 
-
+		`sChickenCat2Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd36;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sChickenCat6Start2: begin 
-
+		`sChickenCat2: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd36;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sChickenCat6: begin
-
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sChickenCat7Start1: begin 
+	`sChickenCat3Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd37;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sChickenCat7Start2: begin 
+		`sChickenCat3: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd37;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sChickenCat7: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sChickenCat8Start1: begin 
+		`sChickenCat4Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd38;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sChickenCat8Start2: begin 
+		`sChickenCat4: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd38;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sChickenCat8: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sChickenCat9Start1: begin 
+	`sChickenCat5Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd39;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sChickenCat9Start2: begin 
+		`sChickenCat5: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd39;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sChickenCat9: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
+
 //CHICKEN DOG
-		`sChickenDog5Start1: begin 
+
+`sChickenDog1Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd47;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b1;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b1; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sChickenDog5Start2: begin 
+		`sChickenDog1: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
-				///Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b1;  
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd47;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sChickenDog5: begin
-
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
-				///Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sChickenDog6Start1: begin 
-
+		`sChickenDog2Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd48;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sChickenDog6Start2: begin 
-
+		`sChickenDog2: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd48;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sChickenDog6: begin
-
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sChickenDog7Start1: begin 
-
+	`sChickenDog3Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd49;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sChickenDog7Start2: begin 
-
+		`sChickenDog3: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd49;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sChickenDog7: begin
-
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-
-		`sChickenDog8Start1: begin 
-
+		`sChickenDog4Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd50;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sChickenDog8Start2: begin 
-
+		`sChickenDog4: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd50;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sChickenDog8: begin
-
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sChickenDog9Start1: begin 
-
+	`sChickenDog5Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd51;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sChickenDog9Start2: begin 
-
+		`sChickenDog5: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd51;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sChickenDog9: begin
-
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-//DOG CAT
-		`sDogCat5Start1: begin 
 
+//DOG CAT
+
+		`sDogCat1Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd56;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b1;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b1; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sDogCat5Start2: begin 
-
+		`sDogCat1: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
-				///Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b1;  
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd56;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sDogCat5: begin
-
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
-				///Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sDogCat6Start1: begin 
-
+		`sDogCat2Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd57;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sDogCat6Start2: begin 
-
+		`sDogCat2: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd57;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sDogCat6: begin
-
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sDogCat7Start1: begin 
-
+		`sDogCat3Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd58;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sDogCat7Start2: begin 
-
+		`sDogCat3: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd58;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sDogCat7: begin
-
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sDogCat8Start1: begin 
-
+		`sDogCat4Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd59;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sDogCat8Start2: begin 
-
+		`sDogCat4: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd59;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sDogCat8: begin
-
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sDogCat9Start1: begin 
-
+		`sDogCat5Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd60;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sDogCat9Start2: begin 
-
+		`sDogCat5: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd60;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sDogCat9: begin
-
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
@@ -1516,171 +1446,163 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 		end
 
 //DOG CHICKEN
-		`sDogChicken5Start1: begin 
 
+`sDogChicken1Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd65;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b1;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b1;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sDogChicken5Start2: begin 
-
+		`sDogChicken1: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
-				///Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b1;  winner2 = 1'b0;  
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd65;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sDogChicken5: begin
-
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
-				///Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sDogChicken6Start1: begin 
-
+		`sDogChicken2Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd66;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sDogChicken6Start2: begin 
+		`sDogChicken2: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd66;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sDogChicken6: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sDogChicken7Start1: begin 
+	`sDogChicken3Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd67;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sDogChicken7Start2: begin 
+		`sDogChicken3: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd67;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sDogChicken7: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-
-		`sDogChicken8Start1: begin 
+		`sDogChicken4Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd68;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sDogChicken8Start2: begin 
+		`sDogChicken4: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd68;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sDogChicken8: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
 
-		`sDogChicken9Start1: begin 
+	`sDogChicken5Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd69;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sDogChicken9Start2: begin 
-
+		`sDogChicken5: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd69;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-		`sDogChicken9: begin
-
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
+
+
+
+
+
+
+
 
 
 //START OF TIES
@@ -1780,7 +1702,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 		end
 
-
 		`sChickenChicken4Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
@@ -1812,7 +1733,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 		end
 
-
 		`sChickenChicken5Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
@@ -1843,7 +1763,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 
 		end
-
 
 		`sChickenChicken6Start: begin 
 				//x and y vga Coordinate Registers
@@ -1881,7 +1800,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
-				black = 1'b0; memorySel = 7'd21;
+				black = 1'b0; memorySel = 7'd71;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
@@ -1896,7 +1815,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
 				//Color Register
-				black = 1'b0; memorySel = 7'd21;
+				black = 1'b0; memorySel = 7'd71;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
@@ -1912,7 +1831,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
-				black = 1'b0; memorySel = 7'd22;
+				black = 1'b0; memorySel = 7'd72;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
@@ -1927,7 +1846,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
 				//Color Register
-				black = 1'b0; memorySel = 7'd22;
+				black = 1'b0; memorySel = 7'd72;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
@@ -1944,7 +1863,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
-				black = 1'b0; memorySel = 7'd21;
+				black = 1'b0; memorySel = 7'd71;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
@@ -1959,7 +1878,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
 				//Color Register
-				black = 1'b0; memorySel = 7'd21;
+				black = 1'b0; memorySel = 7'd71;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
@@ -1976,7 +1895,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
-				black = 1'b0; memorySel = 7'd22;
+				black = 1'b0; memorySel = 7'd72;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
@@ -1991,7 +1910,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
 				//Color Register
-				black = 1'b0; memorySel = 7'd22;
+				black = 1'b0; memorySel = 7'd72;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
@@ -2008,7 +1927,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
-				black = 1'b0; memorySel = 7'd21;
+				black = 1'b0; memorySel = 7'd71;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
@@ -2023,7 +1942,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
 				//Color Register
-				black = 1'b0; memorySel = 7'd21;
+				black = 1'b0; memorySel = 7'd71;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
@@ -2040,7 +1959,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
-				black = 1'b0; memorySel = 7'd22;
+				black = 1'b0; memorySel = 7'd72;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
@@ -2055,7 +1974,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
 				//Color Register
-				black = 1'b0; memorySel = 7'd22;
+				black = 1'b0; memorySel = 7'd72;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
@@ -2066,9 +1985,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 
 		end
-
-
-
 
 //Cat Cat
 		`sCatCat1Start: begin 
@@ -2262,133 +2178,128 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 //START OF FINAL WINNING SCREENS
 
-		`sP1Wins1Start1: begin 
+		
+//PLAYER 1 WINS
+
+`sP1Wins1Start: begin 
 				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd6;
 				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sP1Wins1Start2: begin 
+		`sP1Wins1: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd6;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
-
-		`sP1Wins1: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
-				//Plotting for VGA
-				plot = 1'b1;		
-				
-		end
-
-		`sP1Wins2Start1: begin 
-			//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
-				//Color Register
-				black = 1'b0; memorySel = 7'd7;
-				//Player Updating Registers
-			playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
-				//Delaying internal signals
-				delaySignalReset = 1'b1; 
-				//Counting for screens (160x120)
-			addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
-				//Plotting for VGA
-				plot = 1'b0;
-		end
-		
-		`sP1Wins2Start2: begin 
-				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
-				//Delaying internal signals
-				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1;
-		end
-		
-		`sP1Wins2: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
-				//Counting for screens (160x120)
-			addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
-		
-		
-		`sP2Wins1Start1: begin 
-				//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
-				//Color Register
-				black = 1'b0; memorySel = 7'd6;
-				//Player Updating Registers
-				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
-				//Delaying internal signals
-				delaySignalReset = 1'b1; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
-				//Plotting for VGA
-				plot = 1'b0;
-		end
-		
-		`sP2Wins1Start2: begin 
-				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
-				//Delaying internal signals
-				delaySignalReset = 1'b0; 
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1; 
-		end
 
-		`sP2Wins1: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
-				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
-				//Plotting for VGA
-				plot = 1'b1;		
-				
-		end
-
-		`sP2Wins2Start1: begin 
-			//x and y vga Coordinate Registers
-				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+		`sP1Wins2Start: begin 
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
 				black = 1'b0; memorySel = 7'd7;
 				//Player Updating Registers
-			playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0;  
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b1; 
 				//Counting for screens (160x120)
-			addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 		end
 		
-		`sP2Wins2Start2: begin 
+		`sP1Wins2: begin
 				//x and y vga Coordinate Registers
-				xLoad = 1'b1; yLoad = 1'b1;
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd7;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
 				//Delaying internal signals
 				delaySignalReset = 1'b0; 
 				//Counting for screens (160x120)
-				addressScreenCounterReset = 1'b1;
+				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
+				//Plotting for VGA
+				plot = 1'b1;
+		end
+
+
+
+//PLAYER 2 WINS	
+		`sP2Wins1Start: begin 
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
+				//Color Register
+				black = 1'b0; memorySel = 7'd8;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
+				//Delaying internal signals
+				delaySignalReset = 1'b1; 
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
+				//Plotting for VGA
+				plot = 1'b0;
+		end
+		
+		`sP2Wins1: begin
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd8;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
+				//Delaying internal signals
+				delaySignalReset = 1'b0; 
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
+				//Plotting for VGA
+				plot = 1'b1;
+		end
+
+		`sP2Wins2Start: begin 
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
+				//Color Register
+				black = 1'b0; memorySel = 7'd9;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
+				//Delaying internal signals
+				delaySignalReset = 1'b1; 
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b1; screenCountLoad = 1'b0;
+				//Plotting for VGA
+				plot = 1'b0;
 		end
 		
 		`sP2Wins2: begin
-				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b1; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b1; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b01;
+				//Color Register
+				black = 1'b0; memorySel = 7'd9;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; 
+				//Delaying internal signals
+				delaySignalReset = 1'b0; 
 				//Counting for screens (160x120)
-			addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
+				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
 		end
