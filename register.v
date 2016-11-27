@@ -66,7 +66,7 @@ endmodule
 
 
 //10 from title screens, 4 from chicken, 6 from dog, 12 from cat -> 10+4+6+12=32
-module color(clk, black, memorySel, title1, title2, title3, choose1, choose2, choose3, p1Win1, p1Win2, p2Win1, p2Win2, catCat2, catCat3, catChicken5, catChicken6, catChicken7, catChicken8, catChicken9, catDog5, catDog6, catDog7, catDog8, catDog9, dogDog2, dogDog3, dogCat5, dogCat6, dogCat7, dogCat8, dogCat9, dogChicken5, dogChicken6, dogChicken7, dogChicken8, dogChicken9, chickenChicken2, chickenChicken3, chickenDog4, chickenDog5, chickenDog6, chickenDog7, chickenDog8, chickenDog9, chickenCat4, chickenCat5, chickenCat6, chickenCat7, chickenCat8, chickenCat9, color);
+module color(clk, black, memorySel, title1, title2, title3, choose1, choose2, choose3, p1Win1, p1Win2, p2Win1, p2Win2, catCat2, catCat3, catChicken5, catChicken6, catChicken7, catChicken8, catChicken9, catDog5, catDog6, catDog7, catDog8, catDog9, dogDog2, dogDog3, dogCat5, dogCat6, dogCat7, dogCat8, dogCat9, dogChicken5, dogChicken6, dogChicken7, dogChicken8, dogChicken9, chickenChicken2, chickenChicken3, chickenDog5, chickenDog6, chickenDog7, chickenDog8, chickenDog9, chickenCat5, chickenCat6, chickenCat7, chickenCat8, chickenCat9, color);
 
 input clk, black; //black is same as Reset, except 000 corresponds to black
 input [2:0] title1, title2, title3, choose1, choose2, choose3, p1Win1, p1Win2, p2Win1, p2Win2, catCat2, catCat3, catChicken5, catChicken6, catChicken7, catChicken8, catChicken9, catDog5, catDog6, catDog7, catDog8, catDog9, dogDog2, dogDog3, dogCat5, dogCat6, dogCat7, dogCat8, dogCat9, dogChicken5, dogChicken6, dogChicken7, dogChicken8, dogChicken9, chickenChicken2, chickenChicken3, chickenDog5, chickenDog6, chickenDog7, chickenDog8, chickenDog9, chickenCat5, chickenCat6, chickenCat7, chickenCat8, chickenCat9;
@@ -153,11 +153,10 @@ always @(*) begin
 	default: color = 3'b000;
 	endcase
 end
-
 endmodule
 
-module currentPlayerPoints(clk, playerReset, winner1, winner2, player1, player2, playerLoad);
-input clk, playerReset, winner1, winner2, playerLoad;
+module currentPlayerPoints(clk, playerReset, winner1, winner2, player1, player2);
+input clk, playerReset, winner1, winner2;
 output [3:0] player1, player2;
 wire [3:0] player1ToUpdate, player2ToUpdate;
 

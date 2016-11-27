@@ -1,6 +1,6 @@
-module datapath(clk, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, xySel, black, playerReset,winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, memorySel, x, y, color, player1, player2);
+module datapath(clk, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, xySel, black, playerReset,winner1, winner2, addressScreenCounterReset, screenCountLoad, memorySel, x, y, color, player1, player2);
 
-input clk, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad; 
+input clk, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, black, playerReset, winner1, winner2, addressScreenCounterReset, screenCountLoad; 
 input [1:0] xySel;
 input [6:0] memorySel;
 
@@ -114,7 +114,7 @@ xyReg xyRegiser(.clk(clk), .xReset(xReset), .yReset(yReset), .xySel(xySel), .x(x
 color colorReg(.clk(clk), .black(black), .memorySel(memorySel), .title1(title1Color), .title2(title2Color), .title3(title3Color), .choose1(choose1Color), .choose2(choose2Color), .choose3(choose3Color), .p1Win1(p1Win1Color), .p1Win2(p1Win2Color), .p2Win1(p2Win1Color), .p2Win2(p2Win2Color), .catCat2(catCat2Color), .catCat3(catCat3Color), .catChicken5(catChicken5Color), .catChicken6(catChicken6Color), .catChicken7(catChicken7Color), .catChicken8(catChicken8Color), .catChicken9(catChicken9Color), .catDog5(catDog5Color), .catDog6(catDog6Color), .catDog7(catDog7Color), .catDog8(catDog8Color), .catDog9(catDog9Color), .dogDog2(dogDog2Color), .dogDog3(dogDog3Color), .dogCat5(dogCat5Color), .dogCat6(dogCat6Color), .dogCat7(dogCat7Color), .dogCat8(dogCat8Color), .dogCat9(dogCat9Color), .dogChicken5(dogChicken5Color), .dogChicken6(dogChicken6Color), .dogChicken7(dogChicken7Color), .dogChicken8(dogChicken8Color), .dogChicken9(dogChicken9Color), .chickenChicken2(chickenChicken2Color), .chickenChicken3(chickenChicken3Color), .chickenDog5(chickenDog5Color), .chickenDog6(chickenDog6Color), .chickenDog7(chickenDog7Color), .chickenDog8(chickenDog8Color), .chickenDog9(chickenDog9Color), .chickenCat5(chickenCat5Color), .chickenCat6(chickenCat6Color), .chickenCat7(chickenCat7Color), .chickenCat8(chickenCat8Color), .chickenCat9(chickenCat9Color), .color(color));
 
 //Current Player Points 
-currentPlayerPoints pointsRegister(.clk(clk), .playerReset(playerReset), .winner1(winner1), .winner2(winner2), .player1(player1), .player2(player2), .playerLoad(playerLoad));
+currentPlayerPoints pointsRegister(.clk(clk), .playerReset(playerReset), .winner1(winner1), .winner2(winner2), .player1(player1), .player2(player2));
 //Screen Address Counters
 addressScreenCounter screenCounter(.clk(clk), .addressScreenCounterReset(addressScreenCounterReset), .screenCount(screenCount), .screenCountLoad(screenCountLoad)); 
 //Sprite Address Counters

@@ -1,4 +1,3 @@
-
 //Designed to delay signals that need to wait before turning to 1
 module delaySignal (clk, delaySignalReset, signal); //delays signal so it goes at 4Hz
 input clk, delaySignalReset;
@@ -25,13 +24,3 @@ wire [14:0] screenCountToUpdate;
 assign screenCountToUpdate =  screenCount + 1;
 DFlipFlopEnable #(15) screenCountReg(clk, screenCountToUpdate, screenCount, addressScreenCounterReset, screenCountLoad);
 endmodule
-
-//Sprite Address Counters
-//module addressSpriteCounter(clk, addressSpriteCounterReset, spriteCount, spriteCountLoad); //11 bit address for the sprites (40x40) = 1600 -> 2^11 = 2048
-//input clk, addressSpriteCounterReset, spriteCountLoad;
-//output [10:0] spriteCount;
-//wire [10:0] spriteCountToUpdate;
-
-//assign spriteCountToUpdate =  spriteCount + 1;
-//DFlipFlopEnable #(11) spriteCountReg(clk, spriteCountToUpdate, spriteCount, addressSpriteCounterReset, spriteCountLoad);
-//endmodule
