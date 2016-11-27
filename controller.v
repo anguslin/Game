@@ -147,6 +147,7 @@ wire [7:0] currentState;
 `define sCatCat6Start 8'd195 
 `define sCatCat6 8'd197
 //DogDog Sreens
+`define sDogDog1Start 8'd199
 `define sDogDog1 8'd200
 `define sDogDog2Start 8'd201 
 `define sDogDog2 8'd203
@@ -224,7 +225,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sChoose3: nextState = userChoose? `sScenario : (delay? `sChoose1Start: `sChoose3); 
 			
 			//Default if it doesnt specify is Cat Cat Scenario
-			`sScenario: nextState = catCat? `sCatCat5Start1: (catDog? `sCatDog5Start1: (catChicken? `sCatChicken5Start1: (chickenCat? `sChickenCat5Start1: (chickenDog? `sChickenDog5Start1: (chickenChicken? `sChickenChicken1Start: (dogCat? `sDogCat5Start1: (dogDog? `sDogDog1Start1: (dogChicken? `sDogChicken5Start1: `sCatCat5Start1))))))));
+			`sScenario: nextState = catCat? `sCatCat1Start: (catDog? `sCatDog5Start1: (catChicken? `sCatChicken5Start1: (chickenCat? `sChickenCat5Start1: (chickenDog? `sChickenDog5Start1: (chickenChicken? `sChickenChicken1Start: (dogCat? `sDogCat5Start1: (dogDog? `sDogDog1Start: (dogChicken? `sDogChicken5Start1: `sCatCat1Start))))))));
 
 			//Cat Dog
 			`sCatDog5Start1: nextState = `sCatDog5Start2;
@@ -332,10 +333,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sDogCat9: nextState = delay?  (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start)): `sDogCat9;
 
 			//DogChicken Scenario
-			`sDogChicken4Start1: nextState = `sDogChicken4Start2;
-			`sDogChicken4Start2: nextState = `sDogChicken4;
-			`sDogChicken4: nextState = delay? `sDogChicken5Start1: `sDogChicken4;
-
 			`sDogChicken5Start1: nextState = `sDogChicken5Start2;
 			`sDogChicken5Start2: nextState = `sDogChicken5;
 			`sDogChicken5: nextState = delay? `sDogChicken6Start1: `sDogChicken5;
@@ -1878,9 +1875,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 
 		end
-
-
-
 
 //Dog Dog
 		`sDogDog1Start: begin 
