@@ -12,7 +12,7 @@ output	[9:0]	VGA_B; 	// VGA Blue[9:0]
 
 //Other user inputs + clock 
 input CLOCK_50;	//50 MHz
-input [5:0] SW;
+input [9:0] SW;
 input [3:0] KEY;
 output [6:0] HEX0, HEX1;
 
@@ -35,7 +35,7 @@ assign stateReset = SW[9];
 assign resetn = KEY[0];
 assign clk = CLOCK_50;
 assign player1Choice = SW[2:0];
-assign player2Choice = SW[5:0];
+assign player2Choice = SW[5:3];
 assign userCont = ~KEY[1];
 assign userChoose = ~KEY[2];
 assign userResetGame = ~KEY[3];
@@ -64,9 +64,8 @@ displayHEX HEX0Display (.s(player1), .h(HEX0));
 displayHEX HEX1Displayer (.s(player2), .h(HEX1));
 
 //See which of the 9 scenarios is true
-always@(posedge clk) begin
-	if(scenarioLoad) begin
-	case({player1Choice, player2Choice})
+always@(*) begin
+	case({player2Choice, player1Choice})
 		{`cat,`cat}: {catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b100000000;
 		{`cat,`dog}: {catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b010000000;
 		{`cat,`chicken}: {catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b001000000;
@@ -78,7 +77,6 @@ always@(posedge clk) begin
 		{`chicken,`chicken}: {catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b000000001;
 		//Default is cat vs cat if user does not give proper inputs
 		default:{catCat, catDog, catChicken, dogCat, dogDog, dogChicken, chickenCat, chickenDog, chickenChicken} = 9'b100000000;
-	endcase
-	end
+endcase
 end
 endmodule
