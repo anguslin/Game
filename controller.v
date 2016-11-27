@@ -1,4 +1,4 @@
-module controller(clk, userCont, userChoose, userResetGame, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, xySel, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, memorySel, plot, scenarioLoad, stateReset, player1Wins, player2Wins);
+module controller(clk, userCont, userChoose, userResetGame, dogDog, dogCat, dogChicken, catDog, catCat, catChicken, chickenDog, chickenCat, chickenChicken, xCountUp, xReset, xLoad, yCountUp, yReset, yLoad, xySel, black, playerReset, winner1, winner2, playerLoad, addressScreenCounterReset, screenCountLoad, memorySel, plot, //scenarioLoad, stateReset, player1Wins, player2Wins);
 
 //Signals controled by user inputs
 input clk, userCont, userChoose, userResetGame, stateReset; 
@@ -657,7 +657,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 
 			end
 			`sTitle1Start1: begin 
@@ -980,7 +980,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 //		end
 
 		`sScenario: begin
-			scenarioLoad = 1'b0; xCountUp = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yLoad = 1'b0; xySel = 2'b00; screenCountLoad = 1'b0; plot = 1'b0;
+			//scenarioLoad = 1'b0; xCountUp = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yLoad = 1'b0; xySel = 2'b00; screenCountLoad = 1'b0; plot = 1'b0;
 		end
 
 			`sCatDog1Start1: begin 
@@ -1002,7 +1002,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatDog1Start2: begin 
@@ -1043,7 +1043,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatDog2Start2: begin 
@@ -1082,7 +1082,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatDog3Start2: begin 
@@ -1121,7 +1121,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatDog4Start2: begin 
@@ -1160,7 +1160,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatDog5Start2: begin 
@@ -1199,7 +1199,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatDog6Start2: begin 
@@ -1238,7 +1238,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatDog7Start2: begin 
@@ -1278,7 +1278,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatDog8Start2: begin 
@@ -1317,7 +1317,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatDog9Start2: begin 
@@ -1357,7 +1357,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatChicken1Start2: begin 
@@ -1398,7 +1398,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatChicken2Start2: begin 
@@ -1437,7 +1437,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatChicken3Start2: begin 
@@ -1476,7 +1476,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatChicken4Start2: begin 
@@ -1515,7 +1515,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatChicken5Start2: begin 
@@ -1554,7 +1554,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatChicken6Start2: begin 
@@ -1593,7 +1593,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatChicken7Start2: begin 
@@ -1633,7 +1633,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatChicken8Start2: begin 
@@ -1672,7 +1672,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatChicken9Start2: begin 
@@ -1712,7 +1712,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenCat1Start2: begin 
@@ -1758,7 +1758,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenCat2Start2: begin 
@@ -1805,7 +1805,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenCat3Start2: begin 
@@ -1852,7 +1852,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenCat4Start2: begin 
@@ -1903,7 +1903,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenCat5Start2: begin 
@@ -1950,7 +1950,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenCat6Start2: begin 
@@ -1994,7 +1994,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenCat7Start2: begin 
@@ -2033,7 +2033,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenCat8Start2: begin 
@@ -2072,7 +2072,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenCat9Start2: begin 
@@ -2117,7 +2117,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenDog1Start2: begin 
@@ -2166,7 +2166,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenDog2Start2: begin 
@@ -2213,7 +2213,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenDog3Start2: begin 
@@ -2260,7 +2260,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenDog4Start2: begin 
@@ -2311,7 +2311,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenDog5Start2: begin 
@@ -2358,7 +2358,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenDog6Start2: begin 
@@ -2405,7 +2405,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenDog7Start2: begin 
@@ -2453,7 +2453,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenDog8Start2: begin 
@@ -2500,7 +2500,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenDog9Start2: begin 
@@ -2551,7 +2551,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogCat1Start2: begin 
@@ -2600,7 +2600,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogCat2Start2: begin 
@@ -2647,7 +2647,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogCat3Start2: begin 
@@ -2694,7 +2694,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogCat4Start2: begin 
@@ -2745,7 +2745,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogCat5Start2: begin 
@@ -2792,7 +2792,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogCat6Start2: begin 
@@ -2839,7 +2839,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogCat7Start2: begin 
@@ -2887,7 +2887,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogCat8Start2: begin 
@@ -2934,7 +2934,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogCat9Start2: begin 
@@ -2985,7 +2985,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogChicken1Start2: begin 
@@ -3034,7 +3034,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogChicken2Start2: begin 
@@ -3081,7 +3081,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogChicken3Start2: begin 
@@ -3128,7 +3128,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogChicken4Start2: begin 
@@ -3179,7 +3179,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogChicken5Start2: begin 
@@ -3226,7 +3226,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogChicken6Start2: begin 
@@ -3273,7 +3273,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogChicken7Start2: begin 
@@ -3321,7 +3321,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogChicken8Start2: begin 
@@ -3368,7 +3368,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogChicken9Start2: begin 
@@ -3412,7 +3412,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogDog1Start2: begin 
@@ -3452,7 +3452,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogDog2Start2: begin 
@@ -3491,7 +3491,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogDog3Start2: begin 
@@ -3530,7 +3530,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogDog4Start2: begin 
@@ -3569,7 +3569,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogDog5Start2: begin 
@@ -3608,7 +3608,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sDogDog6Start2: begin 
@@ -3648,7 +3648,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenChicken1Start2: begin 
@@ -3688,7 +3688,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenChicken2Start2: begin 
@@ -3727,7 +3727,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenChicken3Start2: begin 
@@ -3766,7 +3766,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenChicken4Start2: begin 
@@ -3805,7 +3805,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenChicken5Start2: begin 
@@ -3844,7 +3844,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sChickenChicken6Start2: begin 
@@ -3885,7 +3885,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatCat1Start2: begin 
@@ -3925,7 +3925,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatCat2Start2: begin 
@@ -3964,7 +3964,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatCat3Start2: begin 
@@ -4003,7 +4003,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatCat4Start2: begin 
@@ -4042,7 +4042,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatCat5Start2: begin 
@@ -4081,7 +4081,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b0;
+				//scenarioLoad = 1'b0;
 		end
 		
 		`sCatCat6Start2: begin 
@@ -4120,7 +4120,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b1;
+				//scenarioLoad = 1'b1;
 		end
 		
 		`sP1Wins1Start2: begin 
@@ -4200,7 +4200,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//Plotting for VGA
 				plot = 1'b0;
 				//Loading the Scenario
-				scenarioLoad = 1'b1;
+				//scenarioLoad = 1'b1;
 		end
 		
 		`sP2Wins1Start2: begin 
