@@ -307,7 +307,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 //STATE ASSIGNMENTS
 //Update state on clock; if reset, goes to state with 5'b00000 which is the first state
-	DFlipFlop #(8) (clk, nextState, currentState, stateReset);
+	DFlipFlop #(8) stateReg(clk, nextState, currentState, stateReset);
 
 	always @(*) begin
 		case(currentState)
@@ -984,7 +984,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
 				//Color Register
-				black = 1'b0; memorySel = 7'd13;
+				black = 1'b0; memorySel = 7'd15;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
@@ -1025,7 +1025,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
 				//Color Register
-				black = 1'b0; memorySel = 7'd14;
+				black = 1'b0; memorySel = 7'd15;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
@@ -3394,7 +3394,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
 				//Color Register
-				black = 1'b0; memorySel = 7'd70;
+				black = 1'b0; memorySel = 7'd72;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
@@ -3630,7 +3630,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
 				//Color Register
-				black = 1'b0; memorySel = 7'd40;
+				black = 1'b0; memorySel = 7'd42;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
@@ -3867,7 +3867,7 @@ winner1 = 1'b0;  winner2 = 1'b0;
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
 				//Color Register
-				black = 1'b0; memorySel = 7'd10;
+				black = 1'b0; memorySel = 7'd12;
 				//Player Updating Registers
 				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
 				//Delaying internal signals
@@ -4168,6 +4168,86 @@ winner1 = 1'b0;  winner2 = 1'b0;
 		end
 		
 		`sP1Wins2: begin
+				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
+				//Counting for screens (160x120)
+			addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
+				//Plotting for VGA
+				plot = 1'b1;
+		end
+		
+		
+		`sP2Wins1Start1: begin 
+				//Inital xy registers
+				xInitReset = 1'b0; xInitSel = 5'b0; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b0; yInitLoad = 1'b1;
+				//x and y vga Coordinate Registers
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				//Color Register
+				black = 1'b0; memorySel = 7'd6;
+				//Player Updating Registers
+				playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
+				//Delaying internal signals
+				delaySignalReset = 1'b1; 
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				//Counting fir sprites (40x40)
+				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//Plotting for VGA
+				plot = 1'b0;
+				//Loading the Scenario
+				scenarioLoad = 1'b1;
+		end
+		
+		`sP2Wins1Start2: begin 
+				//Inital xy registers
+				xInitLoad = 1'b0; yInitLoad = 1'b0;
+				//x and y vga Coordinate Registers
+				xLoad = 1'b1; yLoad = 1'b1;
+				//Delaying internal signals
+				delaySignalReset = 1'b0; 
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b1; 
+		end
+
+		`sP2Wins1: begin
+				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
+				//Plotting for VGA
+				plot = 1'b1;		
+				
+		end
+
+`sP2Wins2Start1: begin 
+				//Inital xy registers
+				xInitReset = 1'b0; xInitSel = 5'b0; xInitLoad = 1'b1; yInitReset = 1'b0; yInitSel = 2'b0; yInitLoad = 1'b1;
+			//x and y vga Coordinate Registers
+				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b0; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b0; xySel = 2'b0;
+				//Color Register
+				black = 1'b0; memorySel = 7'd7;
+				//Player Updating Registers
+			playerReset = 1'b0; winner1 = 1'b0;  winner2 = 1'b0; playerLoad = 1'b0;
+				//Delaying internal signals
+				delaySignalReset = 1'b1; 
+				//Counting for screens (160x120)
+			addressScreenCounterReset = 1'b0; screenCountLoad = 1'b0;
+				//Counting fir sprites (40x40)
+				addressSpriteCounterReset = 1'b0; spriteCountLoad = 1'b0;
+				//Plotting for VGA
+				plot = 1'b0;
+		end
+		
+		`sP2Wins2Start2: begin 
+				//Inital xy registers
+				xInitLoad = 1'b0; yInitLoad = 1'b0;
+				//x and y vga Coordinate Registers
+				xLoad = 1'b1; yLoad = 1'b1;
+				//Delaying internal signals
+				delaySignalReset = 1'b0; 
+				//Counting for screens (160x120)
+				addressScreenCounterReset = 1'b1;
+		end
+		
+		`sP2Wins2: begin
 				xCountUp = 1'b1; xLoad = 1'b1; yCountUp = 1'b1; yLoad = 1'b1; xySel = 2'b01;
 				//Counting for screens (160x120)
 			addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
