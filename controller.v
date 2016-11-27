@@ -16,93 +16,298 @@ wire delay;
 reg delaySignalReset;
 
 //States
-reg [6:0] nextState;
-wire [6:0] currentState;
+reg [7:0] nextState;
+wire [7:0] currentState;
 
 //Reset everything state
-`define s0 7'd0
+`define s0 8'd0
 
 //Title Screen
-`define sTitle1Start1 7'd1
-`define sTitle1Start2 7'd2
-`define sTitle1 7'd3
-`define sTitle2Start1 7'd4
-`define sTitle2Start2 7'd5
-`define sTitle2 7'd6
-`define sTitle3Start1 7'd7
-`define sTitle3Start2 7'd8
-`define sTitle3 7'd9
+`define sTitle1Start1 8'd1
+`define sTitle1Start2 8'd2
+`define sTitle1 8'd3
+`define sTitle2Start1 8'd4
+`define sTitle2Start2 8'd5
+`define sTitle2 8'd6
+`define sTitle3Start1 8'd7
+`define sTitle3Start2 8'd8
+`define sTitle3 8'd9
 
 //Choose Screen
-`define sChoose1Start1 7'd10
-`define sChoose1Start2 7'd11
-`define sChoose1 7'd12
-`define sChoose2Start1 7'd13
-`define sChoose2Start2 7'd14
-`define sChoose2 7'd15
-`define sChoose3Start1 7'd16
-`define sChoose3Start2 7'd17
-`define sChoose3 7'd18
+`define sChoose1Start1 8'd10
+`define sChoose1Start2 8'd11
+`define sChoose1 8'd12
+`define sChoose2Start1 8'd13
+`define sChoose2Start2 8'd14
+`define sChoose2 8'd15
+`define sChoose3Start1 8'd16
+`define sChoose3Start2 8'd17
+`define sChoose3 8'd18
 
 //CatDog Sreens
-`define sCatDog1Start1 7'd19  
-`define sCatDog1Start2 7'd20  
-`define sCatDog1 7'd21
-`define sCatDog2Start1 7'd22  
-`define sCatDog2Start2 7'd23  
-`define sCatDog2 7'd24
-`define sCatDog3Start1 7'd25  
-`define sCatDog3Start2 7'd26  
-`define sCatDog3 7'd27
-`define sCatDog4Start1 7'd28  
-`define sCatDog4Start2 7'd29  
-`define sCatDog4 7'd30
-`define sCatDog5Start1 7'd31  
-`define sCatDog5Start2 7'd32  
-`define sCatDog5 7'd33
-`define sCatDog6Start1 7'd34  
-`define sCatDog6Start2 7'd35  
-`define sCatDog6 7'd36
-`define sCatDog7Start1 7'd37  
-`define sCatDog7Start2 7'd38  
-`define sCatDog7 7'd39
-`define sCatDog8Start1 7'd40  
-`define sCatDog8Start2 7'd41  
-`define sCatDog8 7'd42
-`define sCatDog9Start1 7'd43  
-`define sCatDog9Start2 7'd44  
-`define sCatDog9 7'd45
+`define sCatDog1Start1 8'd19  
+`define sCatDog1Start2 8'd20  
+`define sCatDog1 8'd21
+`define sCatDog2Start1 8'd22  
+`define sCatDog2Start2 8'd23  
+`define sCatDog2 8'd24
+`define sCatDog3Start1 8'd25  
+`define sCatDog3Start2 8'd26  
+`define sCatDog3 8'd27
+`define sCatDog4Start1 8'd28  
+`define sCatDog4Start2 8'd29  
+`define sCatDog4 8'd30
+`define sCatDog5Start1 8'd31  
+`define sCatDog5Start2 8'd32  
+`define sCatDog5 8'd33
+`define sCatDog6Start1 8'd34  
+`define sCatDog6Start2 8'd35  
+`define sCatDog6 8'd36
+`define sCatDog7Start1 8'd37  
+`define sCatDog7Start2 8'd38  
+`define sCatDog7 8'd39
+`define sCatDog8Start1 8'd40  
+`define sCatDog8Start2 8'd41  
+`define sCatDog8 8'd42
+`define sCatDog9Start1 8'd43  
+`define sCatDog9Start2 8'd44  
+`define sCatDog9 8'd45
+
+//CatChicken Sreens
+`define sCatChicken1Start1 8'd46  
+`define sCatChicken1Start2 8'd47  
+`define sCatChicken1 8'd48
+`define sCatChicken2Start1 8'd49  
+`define sCatChicken2Start2 8'd50  
+`define sCatChicken2 8'd51
+`define sCatChicken3Start1 8'd52  
+`define sCatChicken3Start2 8'd53  
+`define sCatChicken3 8'd54
+`define sCatChicken4Start1 8'd55  
+`define sCatChicken4Start2 8'd56  
+`define sCatChicken4 8'd57
+`define sCatChicken5Start1 8'd58  
+`define sCatChicken5Start2 8'd59  
+`define sCatChicken5 8'd60
+`define sCatChicken6Start1 8'd61  
+`define sCatChicken6Start2 8'd62  
+`define sCatChicken6 8'd63
+`define sCatChicken7Start1 8'd64  
+`define sCatChicken7Start2 8'd65  
+`define sCatChicken7 8'd66
+`define sCatChicken8Start1 8'd67  
+`define sCatChicken8Start2 8'd68  
+`define sCatChicken8 8'd69
+`define sCatChicken9Start1 8'd70  
+`define sCatChicken9Start2 8'd71  
+`define sCatChicken9 8'd72
+
+//DogCat Sreens
+`define sDogCat1Start1 8'd73  
+`define sDogCat1Start2 8'd74  
+`define sDogCat1 8'd75
+`define sDogCat2Start1 8'd76  
+`define sDogCat2Start2 8'd77  
+`define sDogCat2 8'd78
+`define sDogCat3Start1 8'd79  
+`define sDogCat3Start2 8'd80  
+`define sDogCat3 8'd81
+`define sDogCat4Start1 8'd82  
+`define sDogCat4Start2 8'd83  
+`define sDogCat4 8'd84
+`define sDogCat5Start1 8'd85  
+`define sDogCat5Start2 8'd86  
+`define sDogCat5 8'd87
+`define sDogCat6Start1 8'd88  
+`define sDogCat6Start2 8'd89  
+`define sDogCat6 8'd90
+`define sDogCat7Start1 8'd91  
+`define sDogCat7Start2 8'd92  
+`define sDogCat7 8'd93
+`define sDogCat8Start1 8'd94  
+`define sDogCat8Start2 8'd95  
+`define sDogCat8 8'd96
+`define sDogCat9Start1 8'd97  
+`define sDogCat9Start2 8'd98  
+`define sDogCat9 8'd99
+
+//DogChicken Sreens
+`define sDogChicken1Start1 8'd100 
+`define sDogChicken1Start2 8'd101 
+`define sDogChicken1 8'd102
+`define sDogChicken2Start1 8'd103 
+`define sDogChicken2Start2 8'd104 
+`define sDogChicken2 8'd105
+`define sDogChicken3Start1 8'd106 
+`define sDogChicken3Start2 8'd107 
+`define sDogChicken3 8'd108
+`define sDogChicken4Start1 8'd109 
+`define sDogChicken4Start2 8'd110 
+`define sDogChicken4 8'd111
+`define sDogChicken5Start1 8'd112 
+`define sDogChicken5Start2 8'd113 
+`define sDogChicken5 8'd114
+`define sDogChicken6Start1 8'd115 
+`define sDogChicken6Start2 8'd116 
+`define sDogChicken6 8'd117
+`define sDogChicken7Start1 8'd118 
+`define sDogChicken7Start2 8'd119 
+`define sDogChicken7 8'd120
+`define sDogChicken8Start1 8'd121 
+`define sDogChicken8Start2 8'd122 
+`define sDogChicken8 8'd123
+`define sDogChicken9Start1 8'd124 
+`define sDogChicken9Start2 8'd125 
+`define sDogChicken9 8'd126
+
+//ChickenCat Sreens
+`define sChickenCat1Start1 8'd127 
+`define sChickenCat1Start2 8'd128 
+`define sChickenCat1 8'd129 
+`define sChickenCat2Start1 8'd130 
+`define sChickenCat2Start2 8'd131 
+`define sChickenCat2 8'd132
+`define sChickenCat3Start1 8'd133 
+`define sChickenCat3Start2 8'd134 
+`define sChickenCat3 8'd135
+`define sChickenCat4Start1 8'd136 
+`define sChickenCat4Start2 8'd137 
+`define sChickenCat4 8'd138
+`define sChickenCat5Start1 8'd139 
+`define sChickenCat5Start2 8'd140 
+`define sChickenCat5 8'd141
+`define sChickenCat6Start1 8'd142 
+`define sChickenCat6Start2 8'd142 
+`define sChickenCat6 8'd143
+`define sChickenCat7Start1 8'd144 
+`define sChickenCat7Start2 8'd145 
+`define sChickenCat7 8'd146
+`define sChickenCat8Start1 8'd147 
+`define sChickenCat8Start2 8'd148 
+`define sChickenCat8 8'd149
+`define sChickenCat9Start1 8'd150 
+`define sChickenCat9Start2 8'd151 
+`define sChickenCat9 8'd152
+
+//ChickenDog Sreens
+`define sChickenDog1Start1 8'd153 
+`define sChickenDog1Start2 8'd154 
+`define sChickenDog1 8'd155
+`define sChickenDog2Start1 8'd156 
+`define sChickenDog2Start2 8'd157 
+`define sChickenDog2 8'd158
+`define sChickenDog3Start1 8'd159 
+`define sChickenDog3Start2 8'd160 
+`define sChickenDog3 8'd161
+`define sChickenDog4Start1 8'd162 
+`define sChickenDog4Start2 8'd163 
+`define sChickenDog4 8'd164
+`define sChickenDog5Start1 8'd165 
+`define sChickenDog5Start2 8'd166 
+`define sChickenDog5 8'd167
+`define sChickenDog6Start1 8'd168 
+`define sChickenDog6Start2 8'd169 
+`define sChickenDog6 8'd170
+`define sChickenDog7Start1 8'd171 
+`define sChickenDog7Start2 8'd172 
+`define sChickenDog7 8'd173
+`define sChickenDog8Start1 8'd174 
+`define sChickenDog8Start2 8'd175 
+`define sChickenDog8 8'd176
+`define sChickenDog9Start1 8'd177 
+`define sChickenDog9Start2 8'd178 
+`define sChickenDog9 8'd179
+
+//CatCat Sreens
+`define sCatCat1Start1 8'd180 
+`define sCatCat1Start2 8'd181 
+`define sCatCat1 8'd182
+`define sCatCat2Start1 8'd183 
+`define sCatCat2Start2 8'd185 
+`define sCatCat2 8'd185
+`define sCatCat3Start1 8'd186 
+`define sCatCat3Start2 8'd187 
+`define sCatCat3 8'd188
+`define sCatCat4Start1 8'd189 
+`define sCatCat4Start2 8'd190 
+`define sCatCat4 8'd191
+`define sCatCat5Start1 8'd192 
+`define sCatCat5Start2 8'd193 
+`define sCatCat5 8'd194
+`define sCatCat6Start1 8'd195 
+`define sCatCat6Start2 8'd196 
+`define sCatCat6 8'd197
+
+//DogDog Sreens
+`define sDogDog1Start1 8'd198 
+`define sDogDog1Start2 8'd199 
+`define sDogDog1 8'd200
+`define sDogDog2Start1 8'd201 
+`define sDogDog2Start2 8'd202 
+`define sDogDog2 8'd203
+`define sDogDog3Start1 8'd204 
+`define sDogDog3Start2 8'd205 
+`define sDogDog3 8'd206
+`define sDogDog4Start1 8'd207 
+`define sDogDog4Start2 8'd208 
+`define sDogDog4 8'd209
+`define sDogDog5Start1 8'd210 
+`define sDogDog5Start2 8'd211 
+`define sDogDog5 8'd212
+`define sDogDog6Start1 8'd213 
+`define sDogDog6Start2 8'd214 
+`define sDogDog6 8'd215
+
+//ChickenChicken Sreens
+`define sChickenChicken1Start1 8'd216 
+`define sChickenChicken1Start2 8'd217 
+`define sChickenChicken1 8'd218
+`define sChickenChicken2Start1 8'd219 
+`define sChickenChicken2Start2 8'd220 
+`define sChickenChicken2 8'd221
+`define sChickenChicken3Start1 8'd222 
+`define sChickenChicken3Start2 8'd223 
+`define sChickenChicken3 8'd224
+`define sChickenChicken4Start1 8'd225 
+`define sChickenChicken4Start2 8'd226 
+`define sChickenChicken4 8'd227
+`define sChickenChicken5Start1 8'd228 
+`define sChickenChicken5Start2 8'd229 
+`define sChickenChicken5 8'd230 
+`define sChickenChicken6Start1 8'd231 
+`define sChickenChicken6Start2 8'd232 
+`define sChickenChicken6 8'd233
 
 //Player 1 Wins 
-`define sP1Win1Start1
-`define sP1Win1Start1
-`define sP1Win1
-`define sP1Win2Start2
-`define sP1Win2Start2
-`define sP1Win2
+`define sP1Wins1Start1 8'd234 
+`define sP1Wins1Start1 8'd235
+`define sP1Wins1 8'd236
+`define sP1Wins2Start2 8'd237
+`define sP1Wins2Start2 8'd238
+`define sP1Wins2 8'd239
 
 //Player 2 Wins 
-`define sP2Win1Start1
-`define sP2Win1Start1
-`define sP2Win1
-`define sP2Win2Start2
-`define sP2Win2Start2
-`define sP2Win2
+`define sP2Wins1Start1 8'd240
+`define sP2Wins1Start1 8'd241
+`define sP2Wins1 8'd242
+`define sP2Wins2Start2 8'd243
+`define sP2Wins2Start2 8'd244
+`define sP2Wins2 8'd245
 
 //Scenario
-`define sScenario 7'd124
+`define sScenario 8'd246
 
 //Black Screens
-`define sBlackScreen1 7'd125 
-`define sBlackScreen2 7'd126  
-`define sBlackScreen 7'd127
+`define sBlackScreen1 8'd247 
+`define sBlackScreen2 8'd248  
+`define sBlackScreen 8'd249
 
 //Delay Signal
 delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay)); //delays signal so it goes at 4Hz
 
 //STATE ASSIGNMENTS
 //Update state on clock; if reset, goes to state with 5'b00000 which is the first state
-	DFlipFlop #(7) (clk, nextState, currentState, stateReset);
+	DFlipFlop #(8) (clk, nextState, currentState, stateReset);
 
 	always @(*) begin
 		case(currentState)
@@ -136,7 +341,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sChoose3: nextState = userChoose? `sScenario : (delay? `sChoose1Start1: `sChoose3); 
 			
 			//Default if it doesnt specify is Cat Cat Scenario
-			`sScenario: nextState = catCat? `sCatCat1Start1: (catDog? `sCatDog1Start1: (catChicken? `sCatChicken1Start1: (chickenCat? `sChickenCat1Start1: (chickenDog? `sChickenDog1Start1: (chickenChicken? `sChickenChicken1Start1: (dogCat? `sDogCat1Start1: (dogDog? `sDogDog1Start1: (dogChicken? `sDogChicken1Start1: `sCatCat1Start1)))))));
+			`sScenario: nextState = catCat? `sCatCat1Start1: (catDog? `sCatDog1Start1: (catChicken? `sCatChicken1Start1: (chickenCat? `sChickenCat1Start1: (chickenDog? `sChickenDog1Start1: (chickenChicken? `sChickenChicken1Start1: (dogCat? `sDogCat1Start1: (dogDog? `sDogDog1Start1: (dogChicken? `sDogChicken1Start1: `sCatCat1Start1))))))));
 			//CatDog Scenario
 			`sCatDog1Start1: nextState = `sCatDog1Start2;
 			`sCatDog1Start2: nextState = `sCatDog1;
@@ -173,7 +378,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sCatDog9Start1: nextState = `sCatDog9Start2;
 			`sCatDog9Start2: nextState = `sCatDog9;
 			`sCatDog9: nextState = delay? (player1Wins? `sP1Wins1Start1 :(player2Wins? `sP2Wins1Start1: `sChoose1Start1)): `sCatDog9;
-
 
 			//CatChicken Scenario
 			`sCatChicken1Start1: nextState = `sCatChicken1Start2;
