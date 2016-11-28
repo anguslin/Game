@@ -191,7 +191,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 			`sChoose3: nextState = userChoose? `sScenario : (delay? `sChoose1Start: `sChoose3); 
 			
 			//Default if it doesnt specify is Cat Cat Scenario
-			`sScenario: nextState = catCat? `sCatCat1Start: (catDog? `sCatDog5Start: (catChicken? `sCatChicken5Start: (chickenCat? `sChickenCat5Start: (chickenDog? `sChickenDog5Start: (chickenChicken? `sChickenChicken1Start: (dogCat? `sDogCat5Start: (dogDog? `sDogDog1Start: (dogChicken? `sDogChicken5Start: `sCatCat1Start))))))));
+			`sScenario: nextState = catCat? `sCatCat1Start: (catDog? `sCatDog1Start: (catChicken? `sCatChicken1Start: (chickenCat? `sChickenCat1Start: (chickenDog? `sChickenDog1Start: (chickenChicken? `sChickenChicken1Start: (dogCat? `sDogCat1Start: (dogDog? `sDogDog1Start: (dogChicken? `sDogChicken1Start: `sCatCat1Start))))))));
 
 			//Cat Dog
 			`sCatDog1Start: nextState = `sCatDog1;
@@ -682,7 +682,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 		end
 
-	`sCatDog3Start: begin 
+		`sCatDog3Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -742,7 +742,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 		end
 
-	`sCatDog5Start: begin 
+		`sCatDog5Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -833,7 +833,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 		end
 
-	`sCatChicken3Start: begin 
+		`sCatChicken3Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -985,7 +985,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 		end
 
-	`sChickenCat3Start: begin 
+		`sChickenCat3Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -1045,7 +1045,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 		end
 
-	`sChickenCat5Start: begin 
+		`sChickenCat5Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -1078,7 +1078,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 //CHICKEN DOG
 
-`sChickenDog1Start: begin 
+		`sChickenDog1Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -1138,7 +1138,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 		end
 
-	`sChickenDog3Start: begin 
+		`sChickenDog3Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -1198,7 +1198,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 		end
 
-	`sChickenDog5Start: begin 
+		`sChickenDog5Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -1383,7 +1383,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 //DOG CHICKEN
 
-`sDogChicken1Start: begin 
+		`sDogChicken1Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -1443,7 +1443,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 		end
 
-	`sDogChicken3Start: begin 
+		`sDogChicken3Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -1503,7 +1503,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 		end
 
-	`sDogChicken5Start: begin 
+		`sDogChicken5Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
@@ -1532,14 +1532,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				//Plotting for VGA
 				plot = 1'b1;
 		end
-
-
-
-
-
-
-
-
 
 //START OF TIES
 
@@ -1603,9 +1595,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
-
 		end
-
 
 		`sChickenChicken3Start: begin 
 				//x and y vga Coordinate Registers
@@ -1791,9 +1781,7 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				addressScreenCounterReset = 1'b0; screenCountLoad = 1'b1;
 				//Plotting for VGA
 				plot = 1'b1;
-
 		end
-
 
 		`sDogDog3Start: begin 
 				//x and y vga Coordinate Registers
@@ -1826,7 +1814,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 		end
 
-
 		`sDogDog4Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
@@ -1858,7 +1845,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 		end
 
-
 		`sDogDog5Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
@@ -1889,7 +1875,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 
 		end
-
 
 		`sDogDog6Start: begin 
 				//x and y vga Coordinate Registers
@@ -1985,7 +1970,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 		end
 
-
 		`sCatCat3Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
@@ -2016,7 +2000,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 
 		end
-
 	
 		`sCatCat4Start: begin 
 				//x and y vga Coordinate Registers
@@ -2049,7 +2032,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 		end
 
-
 		`sCatCat5Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
@@ -2080,7 +2062,6 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 				plot = 1'b1;
 
 		end
-
 
 		`sCatCat6Start: begin 
 				//x and y vga Coordinate Registers
@@ -2114,10 +2095,9 @@ delaySignal delay1(.clk(clk), .delaySignalReset(delaySignalReset), .signal(delay
 
 //START OF FINAL WINNING SCREENS
 
-		
 //PLAYER 1 WINS
 
-`sP1Wins1Start: begin 
+		`sP1Wins1Start: begin 
 				//x and y vga Coordinate Registers
 				xCountUp = 1'b0; xReset = 1'b0; xLoad = 1'b1; yCountUp = 1'b0; yReset = 1'b0; yLoad = 1'b1; xySel = 2'b00;
 				//Color Register
