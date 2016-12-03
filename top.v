@@ -9,7 +9,6 @@ output	[9:0]	VGA_R; 	// VGA Red[9:0]
 output	[9:0]	VGA_G;	// VGA Green[9:0]
 output	[9:0]	VGA_B; 	// VGA Blue[9:0]
 
-//Other user inputs + clock 
 input CLOCK_50;	//50 MHz
 input [9:0] SW;
 input [3:0] KEY;
@@ -41,12 +40,10 @@ assign userResetGame = ~KEY[3];
 assign player1Wins = (player1 == 4'd3)? 1'b1: 1'b0;
 assign player2Wins = (player2 == 4'd3)? 1'b1: 1'b0;
 
-
 `define cat 3'b001
 `define dog 3'b010
 `define chicken 3'b100
 
-// Create an Instance of a VGA controller - there can be only one!
 // Define the number of colours as well as the initial background
 // image file (.MIF) for the controller.
 vga_adapter VGA(.resetn(resetn), .clock(CLOCK_50), .colour(color), .x(x), .y(y), .plot(plot), .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B), .VGA_HS(VGA_HS), .VGA_VS(VGA_VS), .VGA_BLANK(VGA_BLANK_N),.VGA_SYNC(VGA_SYNC_N), .VGA_CLK(VGA_CLK));

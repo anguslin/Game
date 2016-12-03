@@ -1,4 +1,3 @@
-
 //D Flip Flop
 module DFlipFlop(clk, in, out, reset);
 parameter n=1;
